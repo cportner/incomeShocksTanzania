@@ -1,0 +1,278 @@
+\documentclass[letterpaper,12pt]{article}
+
+% Xetex preamble
+\usepackage{fontspec}
+\setromanfont[Ligatures=TeX]{TeX Gyre Pagella}
+\usepackage{unicode-math}
+\setmathfont{TeX Gyre Pagella Math}
+
+\usepackage[longnamesfirst]{natbib}
+%\usepackage[tabhead,nolists,tablesfirst]{endfloat}
+\usepackage[flushleft]{threeparttable}
+\usepackage{booktabs}
+\usepackage{rotating}  
+\usepackage{amsmath}
+\usepackage{caption} 
+\usepackage{dcolumn} 
+\usepackage{setspace}
+%\usepackage{flafter} 
+%\usepackage{longtable}
+%\usepackage[pdftex]{graphicx}
+\usepackage[xetex,colorlinks=true,linkcolor=black,citecolor=black]{hyperref} 
+\usepackage[margin=1.0in]{geometry} 
+\usepackage{multirow}
+
+%opening
+\title{} \author{}
+
+\doublespacing
+
+\begin{document}
+
+\begin{center} \textbf{\large Income Shocks, Contraceptive Use, and
+Timing of Fertility} \end{center}
+
+\begin{center} Response to Referee Comments \end{center}
+
+\noindent Please find attached the revised version of our paper,
+``Income Shocks, Contraceptive Use, and Timing of Fertility.''
+We would like to thank the two referees for the very useful comments and
+suggestions,
+which we believe has improved the paper.
+
+[Additional discussion of overall things we have changed---if any]
+
+We list below our responses to the individual comments and suggestions.
+
+
+\newpage
+
+\section*{Reviewer 1}
+
+% This interesting paper analyzes the relationship between income shocks
+% (as proxied by self-reported crop loss) and marital fertility, using a
+% small Tanzanian panel survey from the early 1990s. A key feature of the
+% paper is that the authors are able to observe use of both traditional
+% and modern birth control techniques. In regression specifications with
+% and without community or woman fixed effects, the authors find that crop
+% loss is associated with decreases in the probability of conceiving, with
+% a corresponding increase in use of traditional birth control techniques
+% but not modern contraceptives.
+
+The paper could benefit from focusing its motivation somewhat more. An
+important point (that the authors do not emphasize enough) is that use
+of modern contraception in the sample is extremely low, so the lack of a
+relationship between shocks and use of modern methods is not surprising.
+The more noteworthy result is that use of traditional methods responds
+to shocks. In this sense, the paper makes an important contribution to
+understanding how populations control fertility before widespread
+adoption of modern contraception. For instance, it is well known that
+marital fertility in Europe declined largely before modern contraception
+became available, but the methods couples used to achieve this reduction
+are not well documented (see, for example, Guinnane JEL 2011). The paper
+would be even more compelling if the authors focused the paper's
+motivation on the questions of whether and how couples modify fertility
+to respond to changing economic conditions before the advent of
+modern contraception. That motivation would also help justify their
+choice of dataset, which otherwise seems somewhat small and out of date
+relative to other available panel datasets from developing countries.
+
+[RESPONSE:]
+
+Specific comments:
+
+\begin{description}
+
+\item The authors interpret their results as postponement, implying they
+represent a change in the timing of fertility but not its lifetime
+cumulation. That is likely to be the correct interpretation, but can
+they really tell? It seems to me that the current fixed effect model
+does not tell us. Perhaps they could include 1-2 lags in the crop shock
+variable to shed some light on it.
+
+[RESPONSE:]
+
+\item The authors argue that the increase in modern contraceptive use is
+intentional, but the evidence for this interpretation is weaker than
+they would like. As they do note, while the survey asks about using
+abstinence specifically to prevent births, there is much scope for
+misreporting, and many women may claim that reductions in coital
+frequency were related to fertility planning even if they were not. As
+their main evidence against this concern, the authors show that crop
+loss has small effects on labor supply. But this finding is only
+relevant for the very specific theory that all unintentional abstinence
+is related to a work-sex tradeoff. Couples may have less sex during hard
+times because they are stressed, for example.
+
+[RESPONSE:]
+
+\item The authors analyze the fertility of women who were married at the
+start of the sample period. As a separate analysis, it would be
+interesting to know whether marriage hazards change with crop loss in
+the parents' home, although perhaps the authors do not have the sample
+size to study this question.
+
+[RESPONSE:]
+
+\item The survey measures crop loss continuously, and the indicator for
+crop loss greater than 200 TZS is the authors' creation. They show in
+the appendix that they obtain similar but less significant results if
+they use the continuous measure (in levels or logs) or an indicator for
+any crop loss. The 200 TZS seems arbitrary and possibly ex post, since
+it leads to the most attractive results of the three sets of results
+provided. It would be useful to more transparently show readers the
+underlying variation and possible non-linearities, perhaps with a binned
+version of the variable.
+
+[RESPONSE:]
+
+\item The authors use causal language throughout the paper, describing
+their results as effects. Of course, crop loss may be far from randomly
+assigned, so this language is not appropriate.
+
+[RESPONSE:]
+
+\item In the regression specifications, the authors express the survey
+wave fixed effects as $D_{i}'\alpha$, where $D_{i}$ is a vector of survey
+wave dummies. The subscript is incorrect, and it would be much more
+natural to just write $\alpha_{t}$.
+
+[RESPONSE:]
+
+\item What other time-varying covariates are available in the survey? It
+would be interesting to consider the extent to which the crop loss
+results are explained by other household-level idiosyncratic variation.
+
+[RESPONSE:]
+
+\item The authors report some nonsensical coefficients and standard
+errors like -0.000 (0.000). All coefficients and standard errors should
+be written to two significant digits.
+
+[RESPONSE:]
+
+\item Table 6 regresses pregnancy on contraceptive use, crop loss, and
+their interaction. As the authors note, this regression is quite
+difficult to interpret, given the endogeneity of contraceptive use. I
+think this table adds little to the paper.
+
+[RESPONSE:]
+
+\item Several appendix tables interact crop loss with initial assets in
+Round 1 of the survey. This exercise is interesting and worthy of doing,
+given that one might expect asset-poor households to have particular
+difficulty in smoothing consumption. But the authors should leave Round
+1 outcomes out of this regression.
+
+[RESPONSE:]
+
+
+\end{description}
+
+% Overall, this is a simple but interesting paper that sheds light on
+% important questions in the economics of fertility decisions before
+% widespread adoption of modern contraception. It will make an incremental
+% but solid contribution to the literature.
+
+
+\newpage
+
+\section*{Reviewer 2}
+
+% This manuscript explores the effects of "unexpected" crop loss on
+% fertility issues. The data come from four survey waves conducted in
+% Tanzania, where there are repeated observations for the same individual.
+% There are three main outcomes: births, pregnancies, and contraceptive
+% use. The main estimation strategy relies on family fixed effects to
+% address fixed differences (in wealth, education, etc.) that could be
+% related to propensity to experience a crop loss. The crucial identifying
+% assumption is that the timing of crop loss for a family is random and
+% not related to other factors that might affect fertility.
+
+The manuscript has a big positive: Fertility issues in developing
+countries likely play an important role in economic growth, especially
+via total completed fertility. Even if the shock in question did not
+affect total completed fertility (i.e. individuals only postpone having
+children), this paper would still be important since timing of births
+matter. For example, being born in a period of low "resources" (food,
+income, parental time) could irreparably harm a child's long-term
+potential. To my knowledge, we know very little about the main
+determinants of birth timing in a developing country context.
+
+I have laid out some comments below in the interest of helping the
+authors improve on a promising manuscript.
+
+
+COMMENTS
+
+\begin{description}
+
+\item Omitted variables
+
+Even with family fixed effects, crop loss is potentially tied with
+omitted variables. Crop loss is subjectively measured, so we'd need to
+rely on the claim of the survey respondent that the loss was for
+"uncontrollable" circumstances. The use of family fixed effects does
+address fixed differences in wealth or education that might be related
+to families at greater risk of crop loss. But, there could still be time
+varying factors. We can't be certain that the crop loss is not the
+result of some disease epidemic (or conflict) that also could affect
+fertility.
+
+Suggestion: The manuscript should be a little more forthcoming about
+this potential problem. I would like to see an exploration into the
+potential mechanisms behind the crop loss. Is it weather?
+
+[RESPONSE:]
+
+
+\item Trend
+
+I am concerned by the fact that crop loss is much higher in the first
+and second waves of the survey (see Table 1 on page 6). So, there's a
+chance that the estimates are driven by some time trend that affects
+family types that are more likely to experience crop losses. (The survey
+wave fixed effects won't deal with this if there are differential trends
+in the type of families who experience crop loss.)
+
+Suggestion: Control for family characteristics (age, proxies for
+education, proxies for wealth) at the first wave interacted with survey
+wave. At the very least, this will help acknowledge the identification
+threat for the reader.
+
+
+[RESPONSE:]
+
+
+\item Spillovers
+
+Neighbors may be affected an individuals crop loss. For one, price of
+food goes up. This could be a positive income shock for families with
+crops, but bad for families working in other areas.
+
+Suggestion: Aggregate crop loss to the community level and use that as
+the treatment variable.
+
+
+[RESPONSE:]
+
+
+\item Births analysis
+
+The births analysis automatically drops first wave of survey due to the
+longer lag in reported crop loss (Table 3). However, I did not see this
+mentioned anywhere.
+
+[RESPONSE:]
+
+
+\end{description}
+
+
+\newpage
+\bibliographystyle{econometrica}
+\bibliography{../paper/incomeShocks-jde-r1}
+\addcontentsline{toc}{section}{References}
+
+
+\end{document}

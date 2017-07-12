@@ -1,0 +1,2126 @@
+% Income Shocks, Contraceptive Use, and Timing of Fertility
+% 2016-08-18 - crop loss.tex
+% Begun.: 05/01/12
+% Edited: 2016-08-18
+
+% Revisions based on Demography referee reports
+
+
+\documentclass[letterpaper,12pt]{article}
+
+\usepackage[title]{appendix}
+\usepackage{fontspec}
+\setromanfont[Ligatures=TeX]{TeX Gyre Pagella}
+\usepackage{unicode-math}
+\setmathfont{TeX Gyre Pagella Math}
+
+\usepackage[margin=1.0in]{geometry}
+\usepackage[figuresleft]{rotating}
+\usepackage[longnamesfirst]{natbib}
+\usepackage{dcolumn}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{amsmath}
+\usepackage[flushleft]{threeparttable}
+\usepackage{setspace}
+\usepackage[justification=centering]{caption}
+\usepackage[font=scriptsize]{subfig}
+\usepackage[xetex,colorlinks=true,linkcolor=black,citecolor=black,urlcolor=black]{hyperref}
+\usepackage{tikz}
+\usetikzlibrary{decorations}
+\usepackage{xfrac}
+
+% \bibpunct{(}{)}{;}{a}{}{,}
+\newcommand{\mco}[1]{\multicolumn{1}{c}{#1}}
+\newcommand{\mct}[1]{\multicolumn{2}{c}{#1}}
+\newcommand{\X}{$\times$ }
+\newcommand{\hs}{\hspace{15pt}}
+
+% Attempt to squeeze more floats in
+\renewcommand\floatpagefraction{.9}
+\renewcommand\topfraction{.9}
+\renewcommand\bottomfraction{.9}
+\renewcommand\textfraction{.1}
+\setcounter{totalnumber}{50}
+\setcounter{topnumber}{50}
+\setcounter{bottomnumber}{50}
+
+
+%------------------------------------------------------------------------
+
+
+\title{Income Shocks, Contraceptive Use,\\ and Timing of Fertility\thanks{%
+We would like to thank 
+Alfredo Burlando,
+Zo\"e McLaren, 
+Erik Plug,
+Lawrence Wu, 
+and seminar participants at 
+Agricultural Economics Society Annual Conference,
+European Society for Population Economics Annual Conference,
+IUSSP International Population Conference,
+Montana State University, 
+NEUDC 2015,
+Norwegian School of Economics, 
+Pacific Conference for Development Economics, 
+the seventh annual PopPov Conference, 
+Population Reference Bureau,
+University of Oregon,
+University of Washington,
+and the 
+Western Economic Association International Conference
+for helpful comments and suggestions.
+Partial support for this research came from a Eunice Kennedy Shriver National
+Institute of Child Health and Human Development research infrastructure grant,
+5R24HD042828, to the Center for Studies in Demography and Ecology at the
+University of Washington.
+}}
+
+\author{Shamma Adeeb Alam\\
+	Department of International Studies\\
+	Dickinson College\\
+	28 N College St\\
+	Carlisle, PA 17013\\
+	\href{mailto:alams@dickinson.edu}{\texttt{alams@dickinson.edu}}\\
+\and
+	Claus C P\"ortner\\
+    Department of Economics\\
+    Albers School of Business and Economics\\
+    Seattle University, P.O. Box 222000\\
+    Seattle, WA 98122\\
+    \href{mailto:cportner@seattleu.edu}{\texttt{cportner@seattleu.edu}}\\
+    \href{http://www.clausportner.com}{\texttt{www.clausportner.com}}\\
+    \& \\
+    Center for Studies in Demography and Ecology \\
+    University of Washington\\ 
+    }
+
+\date{July 2017}
+
+\begin{document}
+
+% Need this for tables copied directly from estout
+\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+
+\setcounter{page}{0}
+\maketitle
+\thispagestyle{empty}
+
+\newpage
+\setcounter{page}{0}
+\thispagestyle{empty}
+
+\doublespacing
+
+
+\begin{abstract} 
+% JDE abstract
+\noindent This paper examines the relationship between income 
+shocks and fertility decisions. 
+Using panel data from Tanzania, we estimate the impact of agricultural shocks 
+on 
+pregnancies, 
+births, 
+and 
+contraception use.
+The likelihood of 
+pregnancies and childbirth are significantly lower for households that experience
+a crop shock.
+Furthermore, women significantly increase their contraception use in response 
+to crop losses. 
+The increase in contraceptive use comes almost entirely from traditional 
+contraceptive methods, such as abstinence, withdrawal, and the rhythm method.
+We argue that these changes in behavior are the result of deliberate decisions of
+the households rather than the shocks' effects on other factors that influence
+fertility, such as women's health status, the absence or migration of a spouse, 
+the dissolution of partnerships, or the number of hours worked. 
+We also show that, although traditional contraceptives have low overall
+efficacy, households with a strong incentive to postpone fertility
+are very effective at using them.
+
+\noindent Keywords: Tanzania; family planning; shocks; timing of fertility
+
+\noindent JEL codes: J1, 01, J2
+\end{abstract}
+
+\newpage
+
+
+\section{Introduction}
+
+How shocks affect household decisions on fertility in developing countries has 
+received little attention in the literature.
+There is evidence that shocks can affect the timing of births, but it is unclear
+whether the cause is households' intentional planning or unintended consequences 
+of the shocks \citep{pitt98b,lindstrom99,Evans2010,Portner2014}.%
+\footnote{
+There is also a related literature on the effects of weather, especially temperature,
+on timing of fertility \citep[see, for example,][]{Barreca2015}.
+%  and TK Josh paper.
+In a different vein, a monthlong blackout in Zanzibar increased 
+births 8 to 10 months later \citep{Burlando2014}.
+There is also a large literature examining how households in developing countries
+cope with shocks in areas such as labor supply, crop choice, and education.
+} 
+Furthermore, standard models of fertility focus mainly on the effects of time
+invariant household and individual characteristics on fertility outcomes, and 
+tend to ignore the dynamic aspects of fertility decisions.%
+\footnote{
+For an early exception see \cite{Newman1984}.
+}
+
+We seek to answer two key questions in this paper.
+First, do income shocks, measured by accidental crop loss in Tanzania, affect timing of 
+fertility?
+Second, do changes in fertility timing, if any, arise from an intentional decision
+to postpone fertility?
+
+There are three reasons why a household may want to delay fertility in the
+event of a shock.
+First, children are costly in the short run.
+Having more children may eventually contribute to the household's production 
+and help it overcome shocks, but the short-term impact on availability 
+of resources is almost certainly negative \citep{Portner2014}.
+Secondly, diverting time away from market work to child care will be even more costly
+if households need to respond to a shock by working more \citep{kochar99};
+although it is also possible that a shock will temporarily lower women's cost 
+of time, making it more attractive to have a birth now.
+Finally, the household may realize that children born following a shock 
+are more likely to be malnourished and have worse health outcomes, and therefore 
+decide to postpone having the next child \citep{Portner2010}.
+
+Observing a decline in pregnancies and birth rates following a shock is, however, 
+not evidence of a conscious decision to change the timing of fertility.
+A shock may lead one or more members of the household to migrate 
+in search of better economic opportunities.
+If either the husband or the wife is gone for extended periods, this 
+will lower the probability of conception.
+Furthermore, a shock may reduce intercourse frequency---either
+from psychological effects or from increased hours of work.
+We would also observe a decline in births if people delay marriage or if there
+is an increase in the dissolution of marriage.
+Finally, severe shocks can lead to starvation and health problems \citep{lindstrom99}.
+Malnourished pregnant mothers are more likely to have stillbirths,%
+\footnote{
+See \cite{Hernandez-Julian2014} for a review of the literature and an 
+analysis of the effect of famine on stillbirths.
+}
+and non-pregnant women may see an increased incidence of secondary sterility
+from a reduction in age of menopause or famine induced amenorrhea. 
+
+Understanding the relation between shocks and fertility decisions is important for
+three reasons.
+First, as many households in developing countries experience a large number of shocks, 
+it is important to understand the factors that help or hinder households' recovery 
+after a shock.
+Second, children born immediately after a shock fare worse than other children do.
+In the short- and medium-term, they have worse health as measured by height-for-age 
+Z-scores \citep{Portner2010}, and
+long-term effects include worse self-reported health, lower schooling, and less
+wealth \citep{Maccini2009}.
+% This could be better explained
+Finally, parents do not directly control fertility and its timing, but rather 
+control type and intensiveness of contraceptive use and the frequency and timing of 
+sexual activity.
+Hence, it helps us understand if, and how, households regulate their fertility.
+This, in turn, can inform policies on availability and targeting
+of family planning services.
+
+Most of the prior literature on the impact of economic and other shocks on fertility has
+used historic data on what are now developed countries.
+Data from Rouen, France, over the period 1681-1787, show that increases in the
+price of wheat led to a dramatic fertility decline for the urban poor, 
+but fertility of the urban wealthy was unaffected \citep{Galloway1987}.
+Similarly, English data from 1542 to 1800 show that mortality shocks led to short-term
+fertility declines, with the largest decline typically occurring  the year following 
+the shock \citep{Bailey1998}.%
+\footnote{
+This data also indicated that an increase in real wage led to an increase in short-term 
+fertility.
+Increases in wage rate and declines in child mortality explain a significant part of the 
+long-term fertility decline in Sweden during the period 1736 to 1946 \citep{Eckstein1999a}.
+In another study on Sweden, increases in the value of women's time relative to men's 
+time---arising from increases in the price of butter---led to a decline in fertility during 
+the  1860-1910 period \citep{Schultz1985}. 
+}
+
+In pre-industrial Sweden, a positive crop shock, positive weather shock, and positive wage 
+shock increased fertility for a five- to ten-year period following the shocks \citep{Eckstein1985}.
+However, the increase in birth rate changes only the timing of births and has no cumulative 
+effect on long-term fertility rate.
+Similarly, the increasing price of rye in Southern Sweden led landless and semi-landless 
+families to reduce their fertility, whereas landed farmers showed no effect 
+\citep{bengtsson06}.
+
+Using present-day data, there is evidence that famine and domestic/regional military
+attacks in Ethiopia led to short-term decreases in the likelihood of conception
+\citep{lindstrom99}.
+Closer to our paper, positive rainfall shocks in Senegal increased 
+fertility \citep{pitt98b}.
+None of these paper can, however, directly address whether the observed changes 
+arise from deliberate control of fertility.
+
+Many studies examine how a variety of factors affect contraception use, such 
+as, 
+schooling, 
+focused information campaigns, and
+participation in savings or credit group 
+\citep{Ainsworth1996,Feyisetan1996,Steele2001,Chen2003}.
+To our knowledge, only one study attempts to show the effect of shocks on 
+contraception use \citep{Hernandez-Correa2010}. 
+Cross-sectional data from Madagascar show that households that experience adverse events 
+are more likely to use contraception.\footnote{%
+Adverse events include economic and environmental aspect, such as: rise in input 
+cost, rise in cost of goods, difficulty finding buyers, difficulty finding inputs, 
+floods, late rains, early rains, droughts, pest problems, etc. 
+} 
+However, households may be able to anticipate many of these events before they 
+occur and adjust their behavior accordingly.
+Combined with possible correlation between the probability of
+experiencing an adverse event and unobserved individual and household
+characteristics, this may bias the estimates, and the cross-sectional
+data allows for neither household nor individual level fixed effects
+estimates.
+
+We use longitudinal data from the Kagera region in Tanzania with information on accidental 
+crop loss, fertility, and contraceptive use to estimate individual level fixed 
+effects models of the effects of income shocks on both timing of fertility and 
+contraceptive use.
+We show that income shocks decrease the likelihood of pregnancies and births.
+At the same time, shocks significantly increase use of contraceptives, 
+especially traditional contraceptives.
+We argue that the postponement of fertility in households experiencing income 
+shocks is the result of the increased contraception use rather than a biological 
+response or separation of spouses.
+
+The paper makes two main contributions to the literature. 
+First, this is the first paper to show that households respond to income shocks 
+through family planning, which, in turn, affects the timing of child bearing. 
+Our study provides evidence that the postponement of fertility occurs through a 
+planned decision process rather than as an unplanned consequence.
+Secondly, the paper contributes to the consumption smoothing literature as households 
+affected by income shock use family planning as a mechanism to smooth their consumption. 
+In the short run, bearing a child means diverting scarce resources away from other
+useful purposes to the birth and maintenance of the child. 
+Farmers can, therefore, partly smooth their consumption by delaying births during 
+times of income shock.
+
+
+
+\section{Data and Estimation Strategy}
+
+We use the Kagera Health and Development Survey (KHDS) conducted by the World Bank 
+and the University of Dar es Salaam in the Kagera region in Tanzania. 
+The survey covers four rounds from 1991 through 1994 and over 800 households, 
+drawn from 51 communities (49 villages) in the six districts of Kagera.%
+\footnote{
+The sample selection was based on a variable probability sampling procedure 
+(a two-stage, randomized stratified procedure) based on expected mortality.
+In the first stage, based on the 1988 Tanzanian census, the census clusters were randomly 
+selected after stratifying them according to mortality rates and agro-climatic zones. 
+Households were then divided into ``high-risk'' and ``low-risk'' groups in the 
+second stage, based on illness and death of households in the 12 months 
+before the enumeration process.
+Finally, households were randomly sampled from the groups.
+For further details on the sample selection, please see World Bank (2004).
+}
+The average interval between each of the survey round was between six and seven months, 
+and interviews of households took place on a rolling basis throughout the year. 
+The Kagera region is in the northwestern corner of Tanzania, west of Lake Victoria, and 
+borders Uganda, Rwanda, and Burundi as shown in Figure \ref{fig:kagera_map}. 
+The population of the area---1.3 million in 1988---is 
+overwhelmingly rural and primarily engaged in agriculture. 
+
+
+\begin{figure}[ht] 
+ \centering
+ \includegraphics[width=0.6\textwidth]{../map/kagera.pdf}
+ \caption{Map of Kagera region}
+  \label{fig:kagera_map}
+\end{figure}
+
+
+The data contain information on individual and household level demographic 
+and socio-economic characteristics. 
+In addition, questions about fertility and birth control were asked of all 
+married women, regardless of age, and unmarried women 14 years and older. 
+We restrict our sample to married or partnered women 18-45 years of age who we 
+observe in all 4 rounds of the survey.
+This ensures that we capture women who are at risk of conception and for whom 
+the available observations cover sufficient time for shocks to have an effect
+on pregnancies and births.
+The downside is that the sample size is reduced.
+We discuss possible non-random attrition below.
+
+\begin{table}
+\centering
+\footnotesize
+\begin{threeparttable}
+\caption{Descriptive statistics for Crop loss and Outcomes}
+\label{tab:desc_stat_croploss}
+\begin{tabular}{l  D{.}{.}{2,3} D{.}{.}{2,3} D{.}{.}{2,3} D{.}{.}{2,3} D{.}{.}{2,3}} \toprule
+                                  & \multicolumn{4}{c}{Wave} & \mco{Average} \\ \cmidrule(lr){2-5}
+                                  &\multicolumn{1}{c}{1} &\multicolumn{1}{c}{2}   &\multicolumn{1}{c}{3} &\multicolumn{1}{c}{4} &   \\ \midrule
+Dummy crop loss (1-7 months) $\geq$ TZS 200            &        0.71&        0.26&        0.02&        0.03&        0.25\\
+                                                       &      (0.45)&      (0.44)&      (0.13)&      (0.18)&      (0.44)\\ 
+\addlinespace 
+Currently pregnant                                     &        0.17&        0.23&        0.15&        0.14&        0.17\\
+                                                       &      (0.37)&      (0.42)&      (0.36)&      (0.35)&      (0.38)\\
+Gave birth since last survey                           &        0.19&        0.16&        0.22&        0.12&        0.17\\
+                                                       &      (0.40)&      (0.37)&      (0.41)&      (0.32)&      (0.38)\\
+\addlinespace 
+Contraceptive use                                      &        0.15&        0.09&        0.09&        0.10&        0.11\\
+                                                       &      (0.36)&      (0.29)&      (0.29)&      (0.30)&      (0.31)\\
+Contraceptive use -- Traditional\tnote{a}              &        0.11&        0.06&        0.07&        0.04&        0.07\\
+                                                       &      (0.32)&      (0.24)&      (0.25)&      (0.21)&      (0.26)\\
+Contraceptive use -- Modern\tnote{b}                   &        0.04&        0.02&        0.02&        0.05&        0.03\\
+                                                       &      (0.20)&      (0.14)&      (0.14)&      (0.22)&      (0.18)\\ 
+\bottomrule
+\end{tabular}
+\begin{tablenotes} 
+\scriptsize
+\item[a] Traditional contraceptives include abstinence and rhythm method.
+\item[b] Modern contraceptives include condom, diaphragm, pill, IUD, injection, female and 
+male sterilization.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+
+
+Table \ref{tab:desc_stat_croploss} shows the main explanatory variable of interest 
+and the 5 outcomes that we examine.
+The main explanatory variable is a dummy for whether the household experienced 
+an accidental loss of crops, which covers any crop lost due to insects, 
+rodents, fire, rotting, or other calamities, greater than TZS 200 since the 
+prior survey round (or prior 1 year for the first round).
+% We create a dummy for accidental crop losses greater than 200 TZS,
+% which is our preferred measure of income shock.
+The TZS 200 cut-off is equivalent to approximately 5th 
+percentile of all household savings.%
+% That period is approximately 6 to 7 months for the last three surveys, but covers 
+% the previous 12 months for the first survey. 
+% [MAY HAVE TO EXPLAIN MORE ABOUT WHAT THIS MEANS FOR OUR ESTIMATES]
+There is substantial variation in the number of households that experience a 
+crop loss between the 4 survey rounds.
+In the 12 months prior to the first survey round just over 70\% of households 
+lost crops, whereas just over 25\% lost crops between the 1st and 2nd survey round.
+That falls even further for the 3rd and 4th rounds, with less than 5\% 
+reporting crop loss of more than TZS 200 for both.
+Our results are robust to defining crop loss as any crop loss, with the 
+coefficients slightly smaller and slightly less statistically 
+significant as expected. 
+% Crop losses between the valuation of 0-200 TZS are not coded as an income shock,
+% because of the small magnitude (equal to  of savings). 
+% and unlikely to affect fertility decisions of households. 
+Furthermore, our results are also qualitatively similar if we use a log of the amount of 
+crop lost or a linear specification of crop loss instead of the dummy variable.
+\footnote{
+Results using these alternative specifications of crop loss are available in the Appendix.
+}
+
+On average across the four survey rounds, 17\% of women report being pregnant 
+at the time of the interviews and 17\% of women report giving birth since the 
+prior survey round.
+In total, just below 70\% of women in the sample report giving birth in
+the covered period (3\sfrac{1}{2} years).
+Similarly, 70\% report that they are currently pregnant at one point during 
+the 4 rounds.
+
+We capture contraceptive use at the time of the survey, and further divide
+contraceptives into traditional and modern types. 
+Traditional contraceptives include abstinence, rhythm, and withdrawal, 
+and modern contraceptives include condom, diaphragm, pill, IUD, injection,
+and female and male sterilization.%
+\footnote{
+The relevant questions are "Some couples use contraception methods to avoid
+pregnancy or to space births. Are you currently using a method of contraception?".
+If the woman answers yes, she is then asked "What contraceptive method are you
+and your partner using at present?"
+}
+A small subset of women report using both modern and traditional contraceptives;
+these women are included in both categories.
+If a woman is currently pregnant, we code her as not using contraceptives.
+We remove sterilized women from the sample, as sterilization is typically a 
+permanent procedure.
+
+Contraceptive prevalence is low; at the time of the first survey round, 15\% 
+of women report using any type of contraceptive---split between 11 percent that use 
+traditional contraceptives and 4\% that use modern contraceptives.
+In subsequent survey rounds, the contraceptive use rate hovers around 10\%, 
+with 4 to 7\% using traditional contraceptives and 2 to 5\% 
+using modern contraceptives.
+
+
+% [Descriptive statistics and discussion here]
+
+\begin{table}
+\centering
+\footnotesize
+\begin{threeparttable}
+\caption{Wave 1 Descriptive Statistics for Women}
+\label{tab:desc_stat_women}
+\begin{tabular}{l  D{.}{.}{3,2} D{.}{.}{3,2} D{.}{.}{3,2} D{.}{.}{3,2}} \toprule
+                            	 & \mco{Mean} 	 & 	\mco{St Dev}	  \\ \midrule
+Age 18-22                                              &        0.23&        0.42\\
+Age 23-27                                              &        0.17&        0.38\\
+Age 28-32                                              &        0.23&        0.42\\
+Age 33-37                                              &        0.21&        0.41\\
+Age 38-45                                              &        0.16&        0.37\\ \addlinespace 
+No education                                           &        0.29&        0.45\\
+1 - 6 years of education                               &        0.26&        0.44\\
+7 plus years of education                              &        0.45&        0.50\\ \addlinespace 
+Assets per capita in wave 1 (10,000 TZS)\tnote{a}      &        7.67&       12.75\\ \addlinespace 
+Number of women                                        &     \mct{247}            \\
+\bottomrule
+\end{tabular}
+\begin{tablenotes} 
+\scriptsize
+\item[a] Assets capture self-reported values of land, livestock, business assets, durable
+goods, and savings.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+
+Table \ref{tab:desc_stat_women} shows descriptive statistics for basic
+demographic and household characteristics at wave 1.
+% This survey suffers from two data quality issues: misreporting of 
+% age and misreporting of education level.
+As the time span of the surveys is too short to confidently identify age effects,
+we use women's age at the time of the first survey round.
+There is substantial measurement error in age and heaping of reported ages 
+around numbers ending in 0 and 5.%
+\footnote{
+Some women report the same age in all survey rounds despite that there are
+21 months between the first and last survey round, whereas other women's reported 
+age goes up by 1 year between each survey round despite that the surveys are only 
+6 to 7 months apart.
+}
+% If her reported age vary more than the length of interval between each survey 
+% round, we use her median reported age rounded down.
+We use respondent's median reported age, rounded down, and 5-year age groups 
+centered around ages ending in 0 and 5 to take account of heaping.
+Only married/partnered women are in the sample, which explains the 
+equal age distribution despite population growth in the area.
+
+A notable characteristic is the high level of reported education for a poor 
+rural area, although there also appears to be errors in 
+reported education levels.%
+\footnote{
+For many women, the reported education level actually decreases in certain survey 
+rounds, or increases by 2 years or more in consecutive survey rounds, which 
+conflicts with the 6 to 7 months survey intervals. 
+Additionally, individuals are supposed to complete primary school by the age of 15,
+so changes in primary schooling levels in our sample is likely from reporting 
+errors. 
+For women who report different primary school education levels, we 
+assign the modal education level if possible, or, if there is no modal 
+observation, the median years of education.
+We use the same approach for household heads' education
+when we use household heads' education as a proxy for wealth.
+}
+We divide education levels into three groups: no education, 
+some primary (1-6 years of education), and primary school 
+or above (7 or more years of education).
+Only 29\% of the women received no education, 26\% received some 
+primary education, and 45\% completed at least primary education.
+The high reported education level is most likely the result of the 1974 
+Universal Primary Education Movement,
+which increased accessibility of primary education and enrollment rates, 
+even though there are reports that the quality of education was very low.
+In addition, the crisis Tanzania experienced in the 1980s further lowered the 
+quality and enrollments declined significantly.%
+\footnote{See \cite{Galabawa2001} and \cite{Wedgwood2005} for detailed discussions 
+of the development of education in Tanzania.
+}
+Hence, it is unclear to what extent reported education levels reflect 
+women's actual human capital.
+
+To capture wealth status of the household, we use total reported assets of the 
+household.
+These include self-reported values of land, livestock, business assets, durable
+goods, and savings.
+We measure assets per capita in 10,000 Tanzanian Shilling (TZS).
+
+Finally, the average level of assets in wave 1 was just shy of TZS 80,000.%
+\footnote{%
+In 1991 the official exchange rate was TZS 200 to the dollar, while it
+was TZS 440 to the dollar in the parallel market.
+}
+There was, however, wide dispersion in asset levels, with the minimum reported 
+wave 1 asset level around TZS 510 and the maximum almost TZS 19,000,000.
+The 25-percentile asset level is around TZS 19,000, median is approximately 
+TZS 35,000, and the 75-percentile asset level is only slightly higher than the 
+mean at TZS 86,000.
+In other words, the asset levels for a majority of households in the area is very low,
+with a few relatively wealthy households.
+
+A potential issue is that some women may be left out of our sample because of
+non-random attrition.
+In Appendix Tables \ref{tab:attrition_desc_stat_croploss} and \ref{tab:attrition_desc_stat_women}
+we show descriptive statistics for women who fulfilled the requirements for being in the 
+sample in wave 1, but were not included in the main sample.
+A total of 207 women were dropped because they were not observed in all four waves 
+and/or failed the criteria in at least a one of the later waves, for example 
+because they divorced or became widows.%
+\footnote{
+Divorce, separation, and widowhood accounted for 28 women, whereas not observed in all
+4 waves for accounted for 188 women. 
+The two numbers do not add to 207 because some women experienced both a change
+in marital status and were not observed in all 4 waves.
+}
+In each period, women who were dropped from the sample were less likely to have been 
+affected by a shock.
+Furthermore, they were less likely to be pregnant and to have given birth, and,
+correspondingly, a larger percentage use contraceptives.
+Compared to our main sample the women dropped were more likely to be at the ends of
+the included age samples, with 6 percentage points more women in the very youngest
+and the very oldest age groups.
+They were also more educated and had a slightly higher level of asset per capita.
+Hence, it appears that we are not dropping women who were more likely to 
+experience shocks and less likely to cope with them, which in turn suggests that 
+non-random attrition is not a substantial problem.
+However, to further investigate whether there is non-random attrition, we 
+estimate the association between shocks and partner migration and between
+shocks and dissolution of marriage as described below.
+
+
+
+\subsection{Estimation Strategy}
+
+An important concern when estimating
+the effects of shocks on fertility and contraception decisions 
+is that there may be unobserved factors that affect both likelihood of 
+shocks and outcomes.
+A household with lower (unobserved) ability may, for example, simultaneously be more 
+likely to experience a shock and less likely to afford or have knowledge about 
+contraceptives.
+This would bias OLS estimates of shocks' effects towards zero.
+To address the problem of unobserved heterogeneity and endogeneity, our
+preferred model is an individual level fixed effect model. 
+This approach allows us to control for all time-invariant mother characteristics when 
+estimating the impact of crop loss on contraceptive use and fertility outcomes.
+The main downside is that fixed effects tend to exacerbate measurement errors.
+
+We begin by estimating OLS and community and individual level fixed effects 
+versions of the following equation:
+\begin{align}
+Y_{i,t} &=  \beta_1 S_{i,t}  +\boldsymbol{D_{i}}'\boldsymbol{\alpha} 
++ \mu_i + \varepsilon_{i,t},   \label{eq:fixed_effects} 
+\end{align}
+where $Y_{i,t}$ is the outcome of interest,  
+$S_{i,t}$ is whether the household experienced a shock in the relevant period,
+$\boldsymbol{D_{i}}$ is a vector of survey wave dummies, 
+and $\mu_i$ is time-invariant individual specific characteristics.
+With the outcomes of interest all dichotomous, the estimated equations 
+are linear probability models. 
+For the outcome variables, currently pregnant and contraceptive use, we use 
+the dummy variable for crop loss that occurred in the period immediately 
+prior to the interview, which is 6 to 7 months long, as our main explanatory 
+variable of interest. 
+When we use birth as the outcome variable, 
+we use the dummy variable for crop loss that occurred in the period between 
+the prior two survey rounds.%
+\footnote{
+In the tables we indicate this difference by referring to the period 
+immediately before the survey as 1-7 months and the period between the
+prior survey and the survey before that as 7-14 months.
+}
+
+To further investigate whether the response to shock vary by household
+characteristics, we also estimate individual level fixed effects versions 
+of the following equation:
+\begin{align}
+Y_{i,t} &=  \beta_1 S_{i,t}  +  \beta_2 S_{i,t} \times X_{i,1} +
+\boldsymbol{D_{i}}'\boldsymbol{\alpha} + \mu_i + \varepsilon_{i,t},   
+\label{eq:fixed_effects} 
+\end{align}
+where $X_{i,1}$ are either assets holdings at the time of the first
+survey or education levels of the respondent or household head.
+
+
+
+\section{Results}
+
+% [BASELINE estimations]
+
+First, we address whether agricultural shocks affect timing of fertility at all.
+Table \ref{tab:birth} shows OLS, community fixed effects, and woman level individual 
+fixed effects estimates of the effect of crop loss on the likelihood of pregnancy 
+and childbirth.
+The three left columns show the effects of crop loss in the 7 months prior to the
+survey on a woman's likelihood of being pregnant at the time of the interview.
+The three right columns show the effects of crop loss on the likelihood of having given 
+birth since the last survey round. 
+For a birth to have occurred in the 7 months prior to the interview, a woman would have
+had to conceive in the period before the prior survey round, and we therefore use shocks
+that occurred 7 to 14 months prior to current round.
+
+
+% health effect explain the difference between births and pregnancy.
+% We would also expect pregnancy to be a little lower because some women may not
+% realize that they are pregnant. 
+% 95\% pregnancy: -.1774091   -.0084771
+% 95\% birth: -.2570566   -.0607087
+
+\begin{table}[htbp]
+\begin{center}
+\begin{threeparttable}
+\caption{The Effects of Crop Loss on Pregnancy and Births}
+\label{tab:birth}
+\begin{tabular}{@{} l D{.}{.}{1.5} D{.}{.}{1.5} D{.}{.}{1.5} D{.}{.}{1.5} D{.}{.}{1.5} D{.}{.}{1.5}  @{}}
+\toprule
+                                                       &\multicolumn{3}{c}{Currently pregnant}&\multicolumn{3}{c}{Birth since last survey}\\ \cmidrule(lr){2-4} \cmidrule(lr){5-7}
+                                                       &                     & \mct{Fixed Effects}                       &                     & \mct{Fixed Effects}                       \\ \cmidrule(lr){3-4} \cmidrule(lr){6-7}
+                                                       & \mco{OLS}           & \mco{Community}     & \mco{Woman}         & \mco{OLS}           & \mco{Community}     & \mco{Woman}         \\ \midrule
+Crop loss - 1-7 months                                 &      -0.053         &      -0.074\sym{*}  &      -0.093\sym{**} &                     &                     &                     \\
+\hs (200 TZS or above)                                 &     (0.038)         &     (0.039)         &     (0.043)         &                     &                     &                     \\
+Crop loss - 7-14 months                                &                     &                     &                     &      -0.103\sym{***}&      -0.115\sym{***}&      -0.159\sym{***}\\
+\hs (200 TZS or above)                                 &                     &                     &                     &     (0.040)         &     (0.042)         &     (0.050)         \\
+Wave dummies                                           &    \mco{Yes}        &    \mco{Yes}        &    \mco{Yes}        &    \mco{Yes}        &    \mco{Yes}        &    \mco{Yes}        \\
+Community fixed effects                                &    \mco{No}         &    \mco{Yes}        &    \mco{No}         &    \mco{No}         &    \mco{Yes}        &    \mco{No}         \\
+Woman fixed effects                                    &    \mco{No}         &    \mco{No}         &    \mco{Yes}        &    \mco{No}         &    \mco{No}         &    \mco{Yes}        \\
+Observations                                           &    \mco{988}        &    \mco{988}        &    \mco{988}        &    \mco{741}        &    \mco{741}        &    \mco{741}        \\
+Number of women                                        &    \mco{247}        &    \mco{247}        &    \mco{247}        &    \mco{247}        &    \mco{247}        &    \mco{247}        \\
+\bottomrule    
+\end{tabular}
+\begin{tablenotes} \footnotesize
+\item \hspace*{-0.5em} \textbf{Note.}
+All models are linear probability models.
+Robust standard errors clustered at household level in parentheses; 
+* significant at 10\%; ** significant at 5\%; *** significant at 1\%.
+Crop loss is a dummy for a per capita crop loss of 200 TZS or above.
+% Assets are per capita and measured in 10,000 TZS.
+\end{tablenotes}
+\end{threeparttable}
+\end{center}
+\end{table}
+
+Two main results stand out.
+First, there are statistically significant and negative effects of crop loss on the
+likelihood of both pregnancies and births.
+Our preferred estimates---woman level fixed effects---show that experiencing 
+crop loss decreases the likelihood of being pregnant by 9 percentage points 
+and the likelihood of a birth by 16 percentage points.
+These effects are substantial; on average across the four survey rounds, approximately 
+17\% of women were pregnant and 17\% had given birth in the preceding period. 
+Second, the absolute values of the community fixed effects point estimates are 
+larger than the OLS estimates for both outcomes and the individual level
+fixed effects estimates are larger than the community fixed effects estimates.%
+\footnote{
+Full results for the OLS and community fixed effects models are in shown in 
+Table \ref{tab:ols_fertility}.
+Table \ref{tab:com_cluster_birth} shows the results with clustering at community level
+to account for potential spacial correlation in shocks.
+Clustering at community level leads to slightly less statistically significance for 
+pregnancies and slightly higher statistically significance for births.
+}
+This suggests that unobservable characteristics, at both community
+and individual level, correlate with a higher likelihood of experiencing 
+a shock and lower likelihood of using contraceptives.
+
+
+
+
+\begin{table}[htbp]
+\begin{center}
+\begin{threeparttable}
+\caption{The Effects of Crop Loss on Contraceptive\\ Use Overall and By Type}
+\label{tab:contraceptive}
+\begin{tabular}{@{} l D{.}{.}{2.6}  D{.}{.}{2.6} D{.}{.}{2.6}  @{}}
+\toprule
+                                                       &                     & \mct{Fixed Effects}                       \\ \cmidrule(lr){3-4} 
+                                                       & \mco{OLS}           & \mco{Community}     & \mco{Woman}         \\ \midrule
+                                                       &\multicolumn{3}{c}{Any contraception}  \\ \cmidrule(lr){2-4}
+Crop loss - 1-7 months (200 TZS or above)              &       0.061\sym{**} &       0.059\sym{**} &       0.070\sym{**} \\
+                                                       &     (0.027)         &     (0.027)         &     (0.033)         \\
+\addlinespace 
+                                                       &\multicolumn{3}{c}{Traditional contraception}  \\ \cmidrule(lr){2-4}
+Crop loss - 1-7 months (200 TZS or above)              &       0.052\sym{**} &       0.048\sym{**} &       0.054\sym{**} \\
+                                                       &     (0.023)         &     (0.022)         &     (0.024)         \\
+\addlinespace 
+                                                       &\multicolumn{3}{c}{Modern contraception}  \\ \cmidrule(lr){2-4}
+Crop loss - 1-7 months (200 TZS or above)              &      -0.001         &       0.004         &       0.003         \\
+                                                       &     (0.014)         &     (0.013)         &     (0.020)         \\
+\addlinespace                                                        
+Wave dummies                                           &    \mco{Yes}        &    \mco{Yes}        &    \mco{Yes}        \\
+Community fixed effects                                &    \mco{No}         &    \mco{Yes}        &    \mco{No}         \\
+Woman fixed effects                                    &    \mco{No}         &    \mco{No}         &    \mco{Yes}        \\
+Observations                                           &    \mco{988}        &    \mco{988}        &    \mco{988}        \\
+Number of women                                        &    \mco{247}        &    \mco{247}        &    \mco{247}        \\
+\bottomrule
+\end{tabular}
+\begin{tablenotes} \footnotesize
+\item \hspace*{-0.5em} \textbf{Note.}
+All models are linear probability models.
+Robust standard errors clustered at household level in parentheses; 
+* significant at 10\%; ** significant at 5\%; *** significant at 1\%.
+Crop loss is a dummy for a per capita crop loss of 200 TZS or above.
+% Assets are per capita and measured in 10,000 TZS.
+\end{tablenotes}
+\end{threeparttable}
+\end{center}
+\end{table}
+
+Our results in Table \ref{tab:birth} are consistent with the prior literature,
+with shocks associated with statistically significant declines in pregnancies 
+and births.
+But, households do not control these two outcomes directly.
+Instead, they have control over some of the proximate determinants of fertility, 
+such as use of contraceptives and coital frequency.
+Our second question is to what extent households are intentionally delaying 
+the conception and birth of their next child. 
+To answer this question, we examine the effects of crop loss in the 7 months
+prior to the survey on contraceptive use at the time of the interview. 
+Table \ref{tab:contraceptive} presents OLS, community fixed effects, and woman 
+level individual fixed effects estimates of  effect of crop loss on overall 
+contraceptive use and use by type.%
+\footnote{
+Full results for the OLS and community fixed effects models are in shown in 
+Table \ref{tab:ols_contraceptive}.
+Table \ref{tab:com_cluster_contraceptive} show results with clustering at
+community level, which leads to little change in the level of
+statistically significance.
+}
+
+The main result is that crop loss leads to a statistically significant 
+increase in the overall contraceptive use.
+Our preferred model shows that crop loss is associated with
+a 7 percentage points increase in contraceptive use.%
+\footnote{
+The difference between the OLS, community, and individual level fixed effects
+estimates are consistent, but less clear-cut, with what we found for pregnancies 
+and births.
+The woman fixed effects estimate is again the largest.
+}
+The effect on overall contraceptive use is substantial considering that the 
+average use rates across the four rounds vary between 9 and 15\%.
+The statistically significant increase in contraceptive use following
+a crop loss indicates that households are reacting to crop 
+losses by increasing contraceptive use.
+
+Splitting contraceptive use into traditional and modern shows that almost
+all of the increase in contraceptive use comes from traditional contraceptives.
+The individual fixed effects specification shows that a
+crop loss leads to a statistically significant increase in
+traditional contraceptive use by 5.4 percentage points, whereas
+the effect on use of modern contraception is close to zero
+and not statistically significant. 
+Given the low levels of use for modern contraceptives in the area
+this result is not surprising.
+
+In sum, crop loss is strongly associated with a decline in
+both the likelihood of being currently pregnant and the likelihood
+of having given birth in the period before the survey round.
+Furthermore, women who experienced a crop loss are substantially
+more likely to use contraceptives, especially traditional methods.
+These results are consistent with the idea that households 
+deliberately postpone births in response to adverse shocks.%
+\footnote{
+To examine whether the effects of crop loss are an artifact of our
+chosen specifications we also tried alternative specifications
+as shown in Appendix Tables \ref{tab:logit}, \ref{tab:ln_croploss}, 
+and \ref{tab:continuous}.
+The results are qualitatively the same, especially for the Logit model
+and for the log of crop loss.
+Furthermore, Appendix Table \ref{tab:agegroups} shows the effects
+of crop losses by age groups.
+The effect of crop losses are concentrated for women younger than 32
+years of age, although as discussed above there appears to be 
+substantial measurement error in self-reported age.
+}
+
+\subsection{Conscious Decision or Unintended Consequence?}
+
+Our main results point to households making a conscious decision
+to postpone fertility in the face of a shock.
+Three questions arise from our results.
+First, 
+why are there differences in the point estimates for
+the effects of crop across the three main outcomes: 
+births, pregnancy, and contraceptive use?
+Second, 
+are we picking up behavior changes brought on by
+crop loss, such as decrease in coital frequency from substantial
+increase in hours worked or poorer health, that is later 
+rationalized or reported as increased use of traditional 
+contraception methods such as abstinence?
+Third, 
+how can the effect on postponement of fertility be so
+strong if traditional contraceptives have low efficacy?
+We attempt to answer these questions in the remainder of the paper.
+
+The first question is why the point estimates for the three main 
+outcomes differ.
+If deliberate timing of fertility was the only explanation, 
+we should observe similar absolute effects of crop loss across all three outcomes.
+But, the point estimate is largest for births, second largest for pregnancy, 
+and smallest for contraceptive use.
+Part of the explanation for this could be simple random variation.
+Indeed, we cannot reject that the absolute values of the point 
+estimates for births and contraceptive use and pregnancy and contraceptive use are
+the same, although we can reject at the 5\% significance level that the
+point estimates for births and pregnancy are the same.%
+\footnote{
+The tests were done using Stata's ``suest'' command, which allows for correlation 
+of errors across the three main fixed effects models,  with clustering at
+household level. 
+}
+
+The pattern of largest point estimate for births, followed by
+pregnancy and contraceptive use also matches what we would 
+expect to arise from measurement error.
+As mentioned above, fixed effect models exacerbate measurement error, 
+which bias the estimated coefficients toward zero.
+Of the three outcomes, births should have the least amount of 
+measurement errors.
+Women know whether they have given birth, 
+although it is possible that some women report a birth that occurred 
+before the prior survey and others fail to report births that 
+occurred between the prior survey and the current one.
+Pregnancy is associated with more measurement error;
+some women may believe themselves to be pregnant when they are
+not and some women may not realize that they are pregnant.
+Contraceptive use likely has the most measurement 
+error---especially in relation to how we measure births and pregnancies.
+The surveys asked only about current use, so some women may
+have used contraceptives intensively since last survey and 
+just recently stopped, or only recently begun.
+Obviously, we cannot verify that measurement error is the explanation.
+It is, however, consistent with crop loss having the same underlying impact on 
+all outcomes, with measurement error biasing the estimated effects most 
+for contraceptives and least for births.
+What also points in this direction is that the OLS point estimates 
+are even less statistically significantly different from each other
+than the fixed effects point estimates.%
+\footnote{
+Of course, the problem with the OLS estimates is that they
+do not adequately control for endogeneity, although we see
+no strong reason why this should be related to differences
+in the degree of measurement error across the three outcomes.
+}
+
+Finally, it is possible that the differences in point estimates 
+could reflect effects of crop loss other than conscious 
+delay of fertility.
+There are two main possible culprits: a decline in health
+or the absence of the husband or the wife.
+Worsening health has two effects.
+First, more women will be unable to conceive, which would make
+the effect of crop loss on pregnancy larger than the effect
+on contraceptive use.
+Second, those women who do conceive will be less likely to carry their 
+pregnancy to term, which would make the effect on births 
+larger than the effect on pregnancy.
+Similarly, the absence of a partner will lower the risk of
+pregnancy and birth for a given level of contraceptive use.
+Table \ref{tab:health} shows the impacts of crop loss on body mass index 
+(BMI) and self-reported illness in the last 4 weeks for the women, 
+outmigration of partner, and risk of marriage dissolution. 
+
+\begin{table}[htbp]
+\begin{center}
+\begin{threeparttable}
+\caption{The Effects of Crop Loss on Women's Health, Absence of Partner, and Marriage Dissolution}
+\label{tab:health}
+\begin{tabular}{@{} l D{.}{.}{2.6} D{.}{.}{2.6}  @{}}
+\toprule
+                                                       & \mct{Respondent} \\
+													   & \mco{BMI}           &  \mco{Illness}  	       \\ \midrule
+Crop loss - 1-7 months (200 TZS or above)              &      -0.014         &       0.023         \\
+                                                       &     (0.016)         &     (0.047)         \\
+Pregnant                                               &       0.083\sym{***}&                     \\
+                                                       &     (0.013)         &                     \\
+Wave dummies                                           &    \mco{Yes}        &    \mco{Yes}        \\
+Woman fixed effects                                    &    \mco{Yes}        &    \mco{Yes}        \\
+Observations                                           &    \mco{988}        &    \mco{988}        \\
+Number of women                                        &    \mco{247}        &    \mco{247}        \\ 
+\addlinespace 
+                                                       &\mco{Absence/migration}&\mco{Dissolution of}\\
+                                                       &\mco{of partner}     &\mco{ of marriage}\\ \midrule
+Crop loss - 1-7 months (200 TZS or above)              &       0.011         &      -0.001         \\
+                                                       &     (0.011)         &     (0.012)         \\
+Wave dummies                                           &    \mco{Yes}        &    \mco{Yes}        \\
+Woman fixed effects                                    &    \mco{Yes}        &    \mco{Yes}       \\
+Observations                                           &    \mco{988}        &  \mco{1,293}        \\
+Number of women                                        &    \mco{247}        &    \mco{578}        \\
+\addlinespace 
+\bottomrule
+\end{tabular}
+\begin{tablenotes} \footnotesize
+\item \hspace*{-0.5em} \textbf{Note.}
+The sample for the dissolution of marriage includes women who are dropped
+from the main sample because they do not show up in all four survey rounds
+or who are dropped before they are not partnered in all four survey rounds.
+Robust standard errors clustered at household level in parentheses; 
+* significant at 10\%; ** significant at 5\%; *** significant at 1\%.
+All values of crop lost and assets are per capita and measure in 1,000 TZS.
+Variables not shown: Age of mother and number of births.
+\end{tablenotes}
+\end{threeparttable}
+\end{center}
+\end{table}
+
+Both health outcomes have the expected signs, but the effects are small
+and not statistically significant.
+Similarly, Table \ref{tab:health} shows that shocks do not lead to a
+significant increase in migration or a significant increase in dissolution of
+marriages.
+The coefficient for migration has the expected positive sign, but the
+effect is too small to explain the reduction in pregnancies and births. 
+In contrast, the coefficient for dissolution of marriage has the
+opposite sign, and the magnitude is near zero. 
+Hence, neither health nor the absence of a partner seem to drive the
+postponement of fertility, suggesting that the effect of crop loss 
+works predominately through the increased use of contraceptives.
+
+
+% - hours worked and abstinence  / also shows that the shocks are "real"
+The second question is whether the amount worked increases so substantially 
+that coital frequency declines and the respondent reports this as abstinence.%
+\footnote{
+We are grateful to Lawrence Wu for suggesting this mechanism.
+}
+We examine this possibility in two ways.
+First, for this explanation to hold the amount worked must increase 
+dramatically.%
+\footnote{
+As we mentioned in the introduction it is possible that crop loss could
+decrease labor supply, especially if households mainly provide labor
+to their own land and there are imperfect labor markets.
+A decrease in labor supply is, however, likely associated with an
+increase in fertility.
+}
+We estimated the effect of both the dummy for crop loss and the log
+of crop lost on hours worked per week for women in our sample.%
+\footnote{
+Appendix Table \ref{tab:hours} shows the results.
+}
+A shock does, indeed, increase the hours worked per week, but the 
+effect is only slightly above 1 hour for the dummy measure of crop loss, 
+and that effect is not statistically significant.
+Using log of crop loss, the effect is statistically significant
+although the effect is still relatively small; 
+a 1\% increase in the size of a crop loss leads to a 0.08 hours
+increase in amount worked per week.
+
+Second, we can disentangle the different types of contraceptives.
+Given the small sample size this is, however, at best suggestive.
+Excluding abstinence, the effects of crop loss on contraceptive use
+are smaller and no longer statistically significant.%
+\footnote{
+Appendix Table \ref{tab:excludeAbs} shows the results.
+}
+With the relatively low use rates of modern contraceptives, this
+is not surprising given that abstinence is clearly the only 100\%
+effective traditional contraceptive.
+In sum, combined with an average work week of just below 44 hours a week,
+it is unlikely that a substantial amount of the reduction in 
+fertility is explained by lower coital frequency brought on by
+high work load.
+
+% Third, 
+% how can the effect on postponement of fertility be so
+% strong if traditional contraceptives are generally considered 
+% to be of low efficacy?
+
+The final question is how the effect on postponement of fertility 
+is so strong when there is almost no use of modern contraceptives.
+In Table \ref{tab:effectiveness}, we examine to what extent shocks cause
+a delay in pregnancy through the increased use of contraceptives by
+estimating the following: 
+the effects of crop loss between the prior survey and the
+survey before that, contraceptive use at the prior survey round, and their
+interaction on whether the respondent is currently pregnant.
+Contraceptive use is clearly endogenous, but this can provide 
+suggestive evidence on whether shocks do delay
+pregnancy through increased use of contraceptives. 
+
+
+\begin{table}[htbp]
+\begin{center}
+\begin{threeparttable}
+\caption{Contraceptive Use and Pregnancy}
+\label{tab:effectiveness}
+\begin{tabular}{@{} l  D{.}{.}{2.6} D{.}{.}{2.6} D{.}{.}{2.6}  @{}}
+\toprule
+                                                       & \multicolumn{3}{c}{Currently Pregnant} \\ \cmidrule(lr){2-4}
+                                                       &\mco{Any}            & \mco{Traditional}   & \mco{Modern}        \\ \midrule
+Contraceptives (7 months)                              &       0.174\sym{**} &       0.161\sym{**} &       0.300\sym{*}  \\
+                                                       &     (0.067)         &     (0.066)         &     (0.167)         \\
+Crop loss (7-14 months) \X Any Contraceptive (7 months)&      -0.253\sym{**} &      -0.254\sym{**} &      -0.314         \\
+                                                       &     (0.110)         &     (0.113)         &     (0.235)         \\
+Crop loss - 7-14 months (200 TZS or above)             &       0.047         &       0.039         &       0.031         \\
+                                                       &     (0.051)         &     (0.052)         &     (0.049)         \\
+\addlinespace 
+Wave dummies                                           &    \mco{Yes}        &    \mco{Yes}        &    \mco{Yes}        \\
+Woman fixed effects                                    &    \mco{Yes}        &    \mco{Yes}        &    \mco{Yes}        \\
+Observations                                           &    \mco{741}        &    \mco{741}        &    \mco{741}        \\
+Number of women                                        &    \mco{247}        &    \mco{247}        &    \mco{247}        \\
+\bottomrule
+\end{tabular}
+\begin{tablenotes} \footnotesize
+\item \hspace*{-0.5em} \textbf{Note.}
+Robust standard errors clustered at household level in parentheses; 
+* significant at 10\%; ** significant at 5\%; *** significant at 1\%.
+% All values of crop lost and assets are per capita and measure in 1,000 TZS.
+% Variables not shown: Age of mother and number of births.
+\end{tablenotes}
+\end{threeparttable}
+\end{center}
+\end{table}
+
+Crop loss, by itself, has a small, not statistically significant,
+and positive association with pregnancy.
+Using contraceptives is associated with large and statistically 
+significant, but \emph{higher} likelihood of pregnancy.
+The interaction term of crop loss and contraceptive use is,
+however, negative, large, and statistically significant. 
+With the caveat that contraceptive use is endogenous, this suggests
+that women using contraceptives following a crop loss are significantly 
+less likely to be pregnant. 
+In order words, once there is a strong enough incentive to avoid
+becoming pregnant, traditional contraceptives have a surprisingly high
+effectiveness rate.%
+\footnote{
+The statistically significant and large positive effect of 
+contraceptive use by itself it likely the result of capturing
+that these women are also the most likely to be sexually active.
+}
+This also suggests that the crop loss is affecting conceptions primarily 
+through contraceptive use, and not through some other channel. 
+
+
+
+\subsection{Robustness of Results}
+
+Finally, we present a number of robustness checks for our results.
+We first turn to household wealth.
+There are three, potentially opposite, effects of wealth.
+First,
+wealthier households should be able to smooth consumption more easily,
+which will mute their fertility and contraceptive response to the shock.
+Second, 
+wealthier households likely have better access to and knowledge
+of contraceptives.
+Third, 
+wealthier households are, on average, healthier, which means that any 
+effects on postponement of fertility and contraceptive use for wealthier
+households is more likely to be the result of intentional decisions 
+rather than worse health resulting from the shock.
+
+As crop loss may affect asset levels, we should ideally use assets owned 
+prior to any observed shocks.
+Unfortunately, we do not have data available on assets prior to the first 
+survey round.
+We therefore use assets owned in the first round, even though 
+shocks that occurred before the first round likely affect these.%
+\footnote{
+Appendix Table \ref{tab:assets} expands the main results above by adding 
+the interaction of crop loss and assets.
+}
+In all cases, the coefficients for the interaction of assets in round 1 and 
+crop loss are small and not statistically significant,
+suggesting that wealth level may not be a determining
+factor regarding the contraceptive use decision following shocks. 
+There are three potential reasons why we do not find an effect of wealth.
+First, the opposite predicted effects of wealth cancel each other out.
+Second, even ``wealthy'' households in this area are  poor and
+there may be too little variation in wealth level to capture any effects.
+Third, there is likely measurement error in the asset levels. 
+There are significant variations in reported household asset levels between 
+periods, and it is possible that part of these variations are a result of 
+reporting errors rather than actual variation in wealth.
+
+We next turn to education.
+Education is of interest for two reasons.
+First, there is a positive correlation between education and wealth and 
+education is unlikely to change over time in response to shocks.%
+\footnote{
+As we discuss above, there is still the potential for substantial
+measurement error, where the level of reported education changes
+from survey round to survey round.
+None of the reported changes appear to be because of people going 
+back to school.
+}
+Second, education, especially for women, might affect the efficacy of 
+traditional contraceptives \citep{Rosenzweig1989}.%
+\footnote{
+Appendix Table \ref{tab:education} presents the effect of crop loss on
+likelihood of pregnancy, birth, and contraceptive use for women
+by the three levels of education discussed above 
+}
+
+For women with 7 or more years of education---which is the largest
+group in the sample---the estimates are consistent with the 
+main results, with statistically significant effects of crop loss 
+across all outcomes, except use of modern contraceptives.
+The reductions in likelihoods of being pregnant or having a birth
+following crop loss are now close to each other at 17 and 19 percentage
+points, and the increase in use of any contraception is 10 percentage
+points.
+For the other two education groups, the effects are mostly insignificant.
+
+Using the household head's education level leads to broadly 
+similar results as for the respondents' education. 
+A crop loss leads to reductions in pregnancy and birth by
+15 and 19 percentage points and an increase of 8 percentage points
+in the use of any contraception.
+For the middle-education group there is a statistically significant
+effect on birth, but the impacts on the other outcomes are close to zero and
+not statistically significant.
+The no-education group shows a large and statistically significant
+effect of contraceptive use following a crop loss, but the
+effects on pregnancy and birth are about half the size and
+not statistically significant.
+
+Taken together, these results make it difficult to draw strong
+conclusions on the impacts of wealth or education on responses to shocks.
+The best-educated households have results that are
+most closely in line with our main results above, but 
+the no-education households also show effects that are
+consistent with the main results.
+If education is a proxy for wealth, we would 
+expect that better-educated households should show less
+of an effect of crop loss, but instead they show the largest.
+In addition, for these households the difference between
+the effects on pregnancy and births and the effects on
+contraceptive use are similar to what we find for the main results.
+Furthermore, if worse health after a crop loss was responsible for the
+effects on birth and pregnancy, we should expect exactly
+the opposite result.
+As we discuss above, a potential problem with relying on 
+reported years of schooling is that Tanzania's education reform and the
+subsequent roll-back led to a lower correlation between years of
+schooling and human capital accumulation than what we see in other
+countries.
+
+% [robustness checks]
+
+% - Something else changes in the village
+It is also possible that households respond to changed circumstances
+in their local area.
+We therefore used the fraction of households that experienced a crop
+loss in the community---over both the last 7 months and the period 
+between the two prior surveys.%
+\footnote{
+This fraction is calculated on the complete sample of households
+rather than the sample of women used here.
+Results are shown in Appendix Table \ref{tab:vill_croploss}.
+}
+The effect on pregnancy remains the same, whereas the effect on
+births is slightly larger, although not statistically significantly so.
+There is no change in the effect on the different measures of
+contraceptive use.
+Furthermore, none of the village level coefficients are statistically 
+significant.
+Another way to look at this is that the spillovers from other
+households' exposure to shocks are not large enough to force 
+not exposed households to change their fertility and contraceptive
+behavior.
+
+% - preemptive behavior (pregnant / contraceptive use predict shocks) 
+
+Finally, households may anticipate shocks and
+change their behavior in response to the expected shocks.
+One way to examine this is to reverse the estimations.
+We therefore estimate whether contraceptive use at the time of the last 
+survey was associated with observing a crop loss between the last survey
+and the current one and similarly for pregnancy at prior survey and 
+birth in the period before the prior survey.%
+\footnote{
+Appendix Table \ref{tab:reverse} shows the results.
+We examine both the dummy for crop loss and the log of crop loss.
+}
+There are no statistically significant direct effects of 
+prior behavior on current crop loss, measured as either a
+dummy or log of amount of crop loss.
+The small effects and lack of statistical significance 
+indicate that crop losses are, indeed, unanticipated 
+shocks.
+
+
+\section{Conclusion}
+
+We estimate the relationship between household income shocks and decisions
+on timing of fertility. 
+To account for potential correlation between unobservable household
+characteristics and both shocks and fertility decisions, we employ a fixed effect model.
+Our estimates show that both the likelihood of pregnancy and birth decrease in
+response to a crop loss and that contraceptive use, especially use of traditional 
+methods like abstinence and rhythm, significantly increases. 
+
+We examine a number of potential explanations for these results.
+Crop loss shocks do not worsen women's health enough to 
+reduce pregnancies and childbirths to the extent that we find.
+Furthermore, with no significant change in the likelihood of migration or 
+dissolution of partnership in response to crop loss, there is no evidence 
+that the reduction is due to physical separation of spouses or partner.
+As expected, the number of hours worked increases for women after a shock, 
+but the effect is unlikely to be large enough to affect fertility 
+through a change in coital frequency.
+
+Based on this, our main conclusion is that households consciously delay 
+fertility through adjustment in contraceptive use to cope 
+with income shocks. 
+This is especially of interest since there is little use of modern
+contraceptives in this setting.
+If traditional contraceptives have low efficacy, a natural question is 
+how the substantial reductions in likelihood of births and pregnancy 
+come about.
+We present suggestive evidence that show that only those households
+with a strong incentive, i.e. those exposed to crop loss, are 
+effective users of traditional contraceptives.%
+\footnote{
+This is in line with the results in \cite{Rosenzweig1989},
+where women with the highest opportunity cost of children
+are also the most effective user of traditional contraceptives,
+although the setting is very different.
+}
+
+
+There are two potential caveats to our results.
+First, the sample size is small and the survey rounds
+could have been further apart, but the longitudinal nature
+of the data means that we can control for unobservable 
+time-invariant individual and household characteristics.
+Second, not surprisingly there appears to be measurement 
+errors.
+Reported age and education levels are not always consistent
+across rounds, which is an indication that we probably also
+have measurement errors in the other variables, although it is
+harder to verify.
+To the extent that these measurement errors are classical 
+measurement errors, this biases our results towards zero,
+making it harder to show an effect of crop loss.%
+\footnote{
+The problems with measurement error, combined with the small
+sample size, may also explain why we do not find clear
+differences in the response to crop loss across education
+and wealth levels.
+}
+
+The data unfortunately do not allow us to establish whether there 
+are long-term impacts on fertility outcomes.
+Results from Guatemala indicate that only shocks that occur 
+toward the end of a woman's reproductive life is likely to have an 
+impact on final fertility \citep{Portner2014}.
+There is, therefore, little reason to believe that temporary shocks,
+like the crop losses studied here, lead to over-all changes in fertility.
+
+Hence, an important unanswered question is what the implications
+are for our understanding of people's ability to control long-term
+fertility when there is limited access to modern contraceptives.
+As we have shown, it is possible for households to, at least temporarily, 
+limit fertility using traditional methods once the incentives are
+strong enough.
+What we do not know is whether the psychic cost of using traditional 
+contraceptives is so high that although households are willing to use 
+them to deal with short-term shocks, they become difficult to use for 
+long-run moderation of fertility.
+That studies of the introduction of modern family planning, using individual
+level data, rarely find reductions in fertility larger than one child
+is an indication that households were already able to limit long-term 
+fertility using traditional contraceptives.%
+\footnote{
+See, for example, \cite{Portner2014a} and the literature surveyed therein.
+}
+
+This does not mean that the ability to postpone birth is unimportant
+or that there is not an important role for modern contraceptives.
+Children born after shocks are likely to fare worse than children born 
+during better times.
+The mother is also likely to fare better if she does not give birth 
+immediately following an economic shock that may impact her ability 
+to recover and care for the new child.
+Our results imply that providing better access to contraceptives 
+during times of economic shocks could improve the ability of households 
+to postpone births.
+In turn, this could lead to better mother and child health outcomes.
+
+
+
+\clearpage
+
+\newpage
+\bibliographystyle{econometrica}
+\bibliography{incomeShocks-jde-r1}
+\addcontentsline{toc}{section}{References}
+
+% \newpage
+
+\clearpage
+
+
+\appendix
+%\renewcommand\thesection{Appendix \Alph{section}:}
+
+\renewcommand\thetable{A-\arabic{table}}
+\renewcommand\thefigure{A-\arabic{figure}}
+\setcounter{table}{0}
+\setcounter{figure}{0}
+
+\section{Appendix}
+
+% Attrition descriptive statistics
+
+
+\begin{table}[htbp]
+\centering
+\footnotesize
+\begin{threeparttable}
+\caption{Descriptive statistics for Crop loss and Outcomes}
+\label{tab:attrition_desc_stat_croploss}
+\begin{tabular}{l  D{.}{.}{2,3} D{.}{.}{2,3} D{.}{.}{2,3} D{.}{.}{2,3} D{.}{.}{2,3}} \toprule
+                                  & \multicolumn{4}{c}{Wave} & \mco{Average} \\ \cmidrule(lr){2-5}
+                                  &\multicolumn{1}{c}{1} &\multicolumn{1}{c}{2}   &\multicolumn{1}{c}{3} &\multicolumn{1}{c}{4} &   \\ \midrule
+Dummy crop loss (1-7 months) $\geq$ TZS 200            &        0.58&        0.22&        0.01&        0.00&        0.34\\
+                                                       &      (0.49)&      (0.42)&      (0.12)&      (0.00)&      (0.48)\\ 
+\addlinespace 
+Currently pregnant                                     &        0.14&        0.10&        0.08&        0.00&        0.11\\
+                                                       &      (0.34)&      (0.30)&      (0.27)&      (0.00)&      (0.31)\\
+Gave birth since last survey                           &        0.19&        0.12&        0.12&        0.07&        0.15\\
+                                                       &      (0.39)&      (0.33)&      (0.33)&      (0.27)&      (0.36)\\
+\addlinespace 
+Contraceptive use                                      &        0.12&        0.17&        0.15&        0.19&        0.14\\
+                                                       &      (0.33)&      (0.37)&      (0.36)&      (0.40)&      (0.35)\\
+Contraceptive use -- Traditional\tnote{a}              &        0.08&        0.10&        0.05&        0.11&        0.08\\
+                                                       &      (0.27)&      (0.30)&      (0.23)&      (0.32)&      (0.28)\\
+Contraceptive use -- Modern\tnote{b}                   &        0.05&        0.07&        0.09&        0.07&        0.06\\
+                                                       &      (0.21)&      (0.26)&      (0.29)&      (0.27)&      (0.25)\\ 
+\bottomrule
+\end{tabular}
+\begin{tablenotes} 
+\scriptsize
+\item[a] Traditional contraceptives include abstinence and rhythm method.
+\item[b] Modern contraceptives include condom, diaphragm, pill, IUD, injection, female and 
+male sterilization.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+
+\begin{table}[htbp]
+\centering
+\footnotesize
+\begin{threeparttable}
+\caption{Wave 1 Descriptive Statistics for Women}
+\label{tab:attrition_desc_stat_women}
+\begin{tabular}{l  D{.}{.}{3,2} D{.}{.}{3,2} D{.}{.}{3,2} D{.}{.}{3,2}} \toprule
+                            	 & \mco{Mean} 	 & 	\mco{St Dev}	  \\ \midrule
+Age 18-22                                              &        0.29&        0.45\\
+Age 23-27                                              &        0.17&        0.38\\
+Age 28-32                                              &        0.18&        0.38\\
+Age 33-37                                              &        0.14&        0.35\\
+Age 38-45                                              &        0.22&        0.41\\ 
+\addlinespace 
+No education                                           &        0.23&        0.42\\
+1 - 6 years of education                               &        0.24&        0.43\\
+7 plus years of education                              &        0.53&        0.50\\ 
+\addlinespace 
+Assets per capita in wave 1 (10,000 TZS)\tnote{a}      &        9.24&       21.44\\
+\addlinespace 
+Number of women                                        &     \mct{207}           \\
+\bottomrule
+\end{tabular}
+\begin{tablenotes} 
+\scriptsize
+\item[a] Assets capture self-reported values of land, livestock, business assets, durable
+goods, and savings.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+
+
+% OLS estimates
+
+\begin{table}[htbp]
+\begin{center}
+\begin{small}
+\begin{threeparttable}
+\caption{Full OLS and Community Fixed Effects Results for Fertility Outcomes}
+\label{tab:ols_fertility}
+\begin{tabular}{@{} l D{.}{.}{2.6} D{.}{.}{2.6}  D{.}{.}{2.6} D{.}{.}{2.6} @{}}
+\toprule
+                                                       &\multicolumn{2}{c}{Currently pregnant}&\multicolumn{2}{c}{Birth since last survey}\\ \cmidrule(lr){2-3} \cmidrule(lr){4-5}
+                                                       &                     & \mco{Community}     &                     & \mco{Community}      \\ 
+                                                       & \mco{OLS}           & \mco{Fixed Effects} & \mco{OLS}           & \mco{Fixed Effects}  \\ 
+\midrule
+Crop loss - 1-7 months (200 TZS or above)              &      -0.053         &      -0.074\sym{*}  &                     &                     \\
+                                                       &     (0.038)         &     (0.039)         &                     &                     \\
+Crop loss - 7-14 months (200 TZS or above)             &                     &                     &      -0.103\sym{***}&      -0.115\sym{***}\\
+                                                       &                     &                     &     (0.040)         &     (0.042)         \\
+Assets per capita in wave 1 (10,000 TZS)               &      -0.001         &      -0.002\sym{**} &       0.000         &       0.001         \\
+                                                       &     (0.001)         &     (0.001)         &     (0.001)         &     (0.001)         \\
+1 - 6 years of education                               &      -0.011         &      -0.005         &       0.006         &       0.006         \\
+                                                       &     (0.027)         &     (0.027)         &     (0.029)         &     (0.032)         \\
+7 plus years of education                              &      -0.016         &       0.002         &       0.026         &       0.042         \\
+                                                       &     (0.028)         &     (0.029)         &     (0.029)         &     (0.029)         \\
+Age 23-27                                              &       0.017         &       0.022         &      -0.036         &      -0.027         \\
+                                                       &     (0.033)         &     (0.036)         &     (0.033)         &     (0.032)         \\
+Age 28-32                                              &      -0.037         &      -0.033         &      -0.060\sym{*}  &      -0.059\sym{*}  \\
+                                                       &     (0.031)         &     (0.034)         &     (0.034)         &     (0.034)         \\
+Age 33-37                                              &      -0.079\sym{**} &      -0.068\sym{**} &      -0.055         &      -0.057         \\
+                                                       &     (0.032)         &     (0.034)         &     (0.035)         &     (0.036)         \\
+Age 38-45                                              &      -0.174\sym{***}&      -0.156\sym{***}&      -0.184\sym{***}&      -0.194\sym{***}\\
+                                                       &     (0.034)         &     (0.036)         &     (0.032)         &     (0.035)         \\
+Constant                                               &       0.270\sym{***}&       0.293\sym{***}&       0.278\sym{***}&       0.237\sym{**} \\
+                                                       &     (0.048)         &     (0.091)         &     (0.048)         &     (0.103)         \\
+\addlinespace 
+Wave dummies                                           &    \mco{Yes}        &    \mco{Yes}        &    \mco{Yes}        &    \mco{Yes}        \\
+Community fixed effects                                &    \mco{No}         &    \mco{Yes}        &    \mco{No}         &    \mco{Yes}        \\
+Woman fixed effects                                    &    \mco{No }        &    \mco{No }        &    \mco{No }        &    \mco{No }        \\
+Observations                                           &    \mco{988}        &    \mco{741}        &    \mco{988}        &    \mco{988}        \\
+Number of women                                        &    \mco{247}        &    \mco{247}        &    \mco{247}        &    \mco{247}        \\
+\bottomrule
+\end{tabular}
+\begin{tablenotes} \footnotesize
+\item \hspace*{-0.5em} \textbf{Note.}
+Robust standard errors clustered at household level in parentheses; 
+* significant at 10\%; ** significant at 5\%; *** significant at 1\%.
+Crop loss is a dummy for a per capita crop loss of 200 TZS or above.
+Assets are per capita and measured in 10,000 TZS.
+\end{tablenotes}
+\end{threeparttable}
+\end{small}
+\end{center}
+\end{table}
+
+
+\begin{table}[htbp]
+\begin{center}
+\begin{footnotesize}
+\begin{threeparttable}
+\caption{Full OLS and Community Fixed Effects Results for Contraceptive Use}
+\label{tab:ols_contraceptive}
+\begin{tabular}{@{} l D{.}{.}{2.6} D{.}{.}{2.6}  D{.}{.}{2.6} D{.}{.}{2.6} D{.}{.}{2.6} D{.}{.}{2.6} D{.}{.}{2.6}  @{}}
+\toprule
+                                                       &                    \mct{Any}              &  \mct{Traditional}                        & \mct{Modern}        \\  \cmidrule(lr){2-3} \cmidrule(lr){4-5} \cmidrule(lr){6-7}
+                                                       &                     & \mco{Community}     &                     & \mco{Community}     &                     & \mco{Community}      \\ 
+                                                       & \mco{OLS}           & \mco{Fixed Effects} & \mco{OLS}           & \mco{Fixed Effects} & \mco{OLS}           & \mco{Fixed Effects}  \\ 
+                                                       
+\midrule
+Crop loss - 1-7 months                                 &       0.061\sym{**} &       0.059\sym{**} &       0.052\sym{**} &       0.048\sym{**} &      -0.001         &       0.004         \\
+\hs (200 TZS or above)                                 &     (0.027)         &     (0.027)         &     (0.023)         &     (0.022)         &     (0.014)         &     (0.013)         \\
+Assets per capita in wave 1                            &       0.001         &       0.001         &       0.001         &       0.001         &       0.001         &       0.000         \\
+\hs (10,000 TZS)                                       &     (0.001)         &     (0.001)         &     (0.001)         &     (0.001)         &     (0.001)         &     (0.001)         \\
+1 - 6 years of education                               &       0.025         &      -0.015         &       0.012         &      -0.020         &       0.020         &       0.003         \\
+                                                       &     (0.022)         &     (0.023)         &     (0.019)         &     (0.020)         &     (0.013)         &     (0.015)         \\
+7 plus years of education                              &       0.123\sym{***}&       0.095\sym{***}&       0.076\sym{**} &       0.056\sym{*}  &       0.058\sym{***}&       0.035\sym{**} \\
+                                                       &     (0.035)         &     (0.036)         &     (0.030)         &     (0.030)         &     (0.019)         &     (0.016)         \\
+Age 23-27                                              &       0.013         &       0.016         &       0.005         &       0.024         &       0.021         &      -0.000         \\
+                                                       &     (0.037)         &     (0.038)         &     (0.024)         &     (0.028)         &     (0.030)         &     (0.023)         \\
+Age 28-32                                              &       0.074\sym{*}  &       0.060         &       0.059\sym{*}  &       0.066\sym{*}  &       0.032         &      -0.012         \\
+                                                       &     (0.039)         &     (0.044)         &     (0.033)         &     (0.039)         &     (0.021)         &     (0.019)         \\
+Age 33-37                                              &       0.072\sym{*}  &       0.075\sym{*}  &       0.061\sym{*}  &       0.084\sym{**} &       0.048\sym{*}  &       0.018         \\
+                                                       &     (0.040)         &     (0.043)         &     (0.035)         &     (0.036)         &     (0.029)         &     (0.023)         \\
+Age 38-45                                              &       0.045         &       0.044         &       0.033         &       0.028         &       0.024         &       0.010         \\
+                                                       &     (0.047)         &     (0.061)         &     (0.038)         &     (0.047)         &     (0.021)         &     (0.022)         \\
+Constant                                               &      -0.005         &      -0.014         &       0.007         &      -0.002         &      -0.021         &      -0.017         \\
+                                                       &     (0.040)         &     (0.065)         &     (0.035)         &     (0.056)         &     (0.018)         &     (0.024)         \\
+\addlinespace 
+Wave dummies                                           &    \mco{Yes}        &    \mco{Yes}        &    \mco{Yes}        &    \mco{Yes}        &    \mco{Yes}        &    \mco{Yes}        \\
+Community dummies                                      &    \mco{No}         &    \mco{Yes}        &    \mco{No}         &    \mco{Yes}        &    \mco{No}         &    \mco{Yes}        \\
+Woman fixed effects                                    &    \mco{No }        &    \mco{No }        &    \mco{No }        &    \mco{No }        &    \mco{No }        &    \mco{No }        \\
+Observations                                           &    \mco{988}        &    \mco{988}        &    \mco{988}        &    \mco{988}        &    \mco{988}        &    \mco{988}        \\
+Number of women                                        &    \mco{247}        &    \mco{247}        &    \mco{247}        &    \mco{247}        &    \mco{247}        &    \mco{247}        \\
+\bottomrule
+\end{tabular}
+\begin{tablenotes} \tiny
+\item \hspace*{-0.5em} \textbf{Note.}
+Robust standard errors clustered at household level in parentheses; 
+* significant at 10\%; ** significant at 5\%; *** significant at 1\%.
+Crop loss is a dummy for a per capita crop loss of 200 TZS or above.
+Assets are per capita and measured in 10,000 TZS.
+\end{tablenotes}
+\end{threeparttable}
+\end{footnotesize}
+\end{center}
+\end{table}
+
+% Community level clustering for two main tables
+
+
+\begin{table}[htbp]
+\begin{center}
+\begin{threeparttable}
+\caption{The Effects of Crop Loss on Pregnancy and Births}
+\label{tab:com_cluster_birth}
+\begin{tabular}{@{} l D{.}{.}{1.5} D{.}{.}{1.5} D{.}{.}{1.5} D{.}{.}{1.5} D{.}{.}{1.5} D{.}{.}{1.5}  @{}}
+\toprule
+                                                       &\multicolumn{3}{c}{Currently pregnant}&\multicolumn{3}{c}{Birth since last survey}\\ \cmidrule(lr){2-4} \cmidrule(lr){5-7}
+                                                       &                     & \mct{Fixed Effects}                       &                     & \mct{Fixed Effects}                       \\ \cmidrule(lr){3-4} \cmidrule(lr){6-7}
+                                                       & \mco{OLS}           & \mco{Community}     & \mco{Woman}         & \mco{OLS}           & \mco{Community}     & \mco{Woman}         \\ \midrule
+Crop loss - 1-7 months                                 &      -0.053         &      -0.074         &      -0.093\sym{*}  &                     &                     &                     \\
+\hs (200 TZS or above)                                 &     (0.041)         &     (0.045)         &     (0.049)         &                     &                     &                     \\
+Crop loss - 7-14 months                                &                     &                     &                     &      -0.103\sym{***}&      -0.115\sym{***}&      -0.159\sym{***}\\
+\hs (200 TZS or above)                                 &                     &                     &                     &     (0.036)         &     (0.039)         &     (0.046)         \\
+Wave dummies                                           &    \mco{Yes}        &    \mco{Yes}        &    \mco{Yes}        &    \mco{Yes}        &    \mco{Yes}        &    \mco{Yes}        \\
+Community fixed effects                                &    \mco{No}         &    \mco{Yes}        &    \mco{No}         &    \mco{No}         &    \mco{Yes}        &    \mco{No}         \\
+Woman fixed effects                                    &    \mco{No}         &    \mco{No}         &    \mco{Yes}        &    \mco{No}         &    \mco{No}         &    \mco{Yes}        \\
+Observations                                           &    \mco{988}        &    \mco{988}        &    \mco{988}        &    \mco{741}        &    \mco{741}        &    \mco{741}        \\
+Number of women                                        &    \mco{247}        &    \mco{247}        &    \mco{247}        &    \mco{247}        &    \mco{247}        &    \mco{247}        \\
+\bottomrule    
+\end{tabular}
+\begin{tablenotes} \footnotesize
+\item \hspace*{-0.5em} \textbf{Note.}
+All models are linear probability models.
+Robust standard errors clustered at community level in parentheses; 
+* significant at 10\%; ** significant at 5\%; *** significant at 1\%.
+Crop loss is a dummy for a per capita crop loss of 200 TZS or above.
+% Assets are per capita and measured in 10,000 TZS.
+\end{tablenotes}
+\end{threeparttable}
+\end{center}
+\end{table}
+
+
+
+\begin{table}[htbp]
+\begin{center}
+\begin{threeparttable}
+\caption{The Effects of Crop Loss on Contraceptive\\ Use Overall and By Type}
+\label{tab:com_cluster_contraceptive}
+\begin{tabular}{@{} l D{.}{.}{2.6}  D{.}{.}{2.6} D{.}{.}{2.6}  @{}}
+\toprule
+                                                       &                     & \mct{Fixed Effects}                       \\ \cmidrule(lr){3-4} 
+                                                       & \mco{OLS}           & \mco{Community}     & \mco{Woman}         \\ \midrule
+                                                       &\multicolumn{3}{c}{Any contraception}  \\ \cmidrule(lr){2-4}
+Crop loss - 1-7 months (200 TZS or above)              &       0.061\sym{***}&       0.059\sym{**} &       0.070\sym{**} \\
+                                                       &     (0.022)         &     (0.024)         &     (0.032)         \\
+\addlinespace 
+                                                       &\multicolumn{3}{c}{Traditional contraception}  \\ \cmidrule(lr){2-4}
+Crop loss - 1-7 months (200 TZS or above)              &       0.052\sym{**} &       0.048\sym{**} &       0.054\sym{**} \\
+                                                       &     (0.021)         &     (0.022)         &     (0.025)         \\
+\addlinespace 
+                                                       &\multicolumn{3}{c}{Modern contraception}  \\ \cmidrule(lr){2-4}
+Crop loss - 1-7 months (200 TZS or above)              &      -0.001         &       0.004         &       0.003         \\
+                                                       &     (0.013)         &     (0.013)         &     (0.021)         \\
+\addlinespace                                                        
+Wave dummies                                           &    \mco{Yes}        &    \mco{Yes}        &    \mco{Yes}        \\
+Community fixed effects                                &    \mco{No}         &    \mco{Yes}        &    \mco{No}         \\
+Woman fixed effects                                    &    \mco{No}         &    \mco{No}         &    \mco{Yes}        \\
+Observations                                           &    \mco{988}        &    \mco{988}        &    \mco{988}        \\
+Number of women                                        &    \mco{247}        &    \mco{247}        &    \mco{247}        \\
+\bottomrule
+\end{tabular}
+\begin{tablenotes} \footnotesize
+\item \hspace*{-0.5em} \textbf{Note.}
+All models are linear probability models.
+Robust standard errors clustered at community level in parentheses; 
+* significant at 10\%; ** significant at 5\%; *** significant at 1\%.
+Crop loss is a dummy for a per capita crop loss of 200 TZS or above.
+% Assets are per capita and measured in 10,000 TZS.
+\end{tablenotes}
+\end{threeparttable}
+\end{center}
+\end{table}
+
+
+
+
+% Logit versions of main dummy set-up
+
+\begin{table}[htbp]
+\begin{center}
+\begin{small}
+\begin{threeparttable}
+\caption{The Effects of Crop Loss -- Logit Fixed Effects Estimates}
+\label{tab:logit}
+\begin{tabular}{@{} l D{.}{.}{2.6} D{.}{.}{2.6}  D{.}{.}{2.6} D{.}{.}{2.6} D{.}{.}{2.6}  @{}}
+\toprule
+                                                       & \mco{}              &\mco{}               &\multicolumn{3}{c}{Contraceptive Use}\\ \cmidrule(lr){4-6}
+                                                       & \mco{Pregnant}      &\mco{Birth}          &\mco{Any}            &\mco{Traditional}    & \mco{Modern}        \\ \midrule
+ & \multicolumn{5}{l}{Without interaction with assets} \\
+Crop loss - 1-7 months                                 &      -0.607\sym{**} &                     &       0.804\sym{**} &       0.764\sym{*}  &       0.299         \\
+                                                       &     (0.274)         &                     &     (0.390)         &     (0.444)         &     (0.691)         \\
+Crop loss - 7-14 months                                &                     &      -0.946\sym{***}&                     &                     &                     \\
+                                                       &                     &     (0.294)         &                     &                     &                     \\
+\addlinespace 
+ & \multicolumn{5}{l}{With interaction with assets} \\
+Crop loss - 1-7 months                                 &      -0.570\sym{*}  &                     &       1.107\sym{**} &       0.934\sym{*}  &       1.379         \\
+                                                       &     (0.335)         &                     &     (0.449)         &     (0.500)         &     (0.945)         \\
+Crop loss - 1-7 months                                 &      -0.006         &                     &      -0.027         &      -0.013         &      -0.070         \\
+\hs \X initial assets (10,000 TZS)                                                       &     (0.032)         &                     &     (0.021)         &     (0.019)         &     (0.045)         \\
+Crop loss - 7-14 months                                &                     &      -0.952\sym{***}&                     &                     &                     \\
+                                                       &                     &     (0.337)         &                     &                     &                     \\
+Crop loss - 7-14 months                                &                     &       0.001         &                     &                     &                     \\
+\hs \X initial assets (10,000 TZS)                     &                     &     (0.020)         &                     &                     &                     \\
+\addlinespace 
+Wave dummies                                           &    \mco{Yes}        &    \mco{Yes}        &    \mco{Yes}        &    \mco{Yes}        &    \mco{Yes}        \\
+Woman fixed effects                                    &    \mco{Yes}        &    \mco{Yes}        &    \mco{Yes}        &    \mco{Yes}        &    \mco{Yes}        \\
+Observations                                           &    \mco{560}        &    \mco{360}        &    \mco{300}        &    \mco{228}        &     \mco{88}        \\
+Number of women                                        &    \mco{140}        &    \mco{120}        &     \mco{75}        &     \mco{57}        &     \mco{22}        \\
+\bottomrule
+\end{tabular}
+\begin{tablenotes} \footnotesize
+\item \hspace*{-0.5em} \textbf{Note.}
+Robust standard errors clustered at household level in parentheses; 
+* significant at 10\%; ** significant at 5\%; *** significant at 1\%.
+Crop loss is a dummy for a per capita crop loss of 200 TZS or above.
+Assets are per capita and measured in 10,000 TZS.
+\end{tablenotes}
+\end{threeparttable}
+\end{small}
+\end{center}
+\end{table}
+
+
+
+% Log of crop loss
+
+\begin{table}[htbp]
+\begin{center}
+\begin{small}
+\begin{threeparttable}
+\caption{The Effects of Log Crop Loss}
+\label{tab:ln_croploss}
+\begin{tabular}{@{} l D{.}{.}{2.6} D{.}{.}{2.6}  D{.}{.}{2.6} D{.}{.}{2.6} D{.}{.}{2.6}  @{}}
+\toprule
+                                                       & \mco{}              &\mco{}               &\multicolumn{3}{c}{Contraceptive Use}\\ \cmidrule(lr){4-6}
+                                                       & \mco{Pregnant}      &\mco{Birth}          &\mco{Any}            &\mco{Traditional}    & \mco{Modern}        \\ \midrule
+ & \multicolumn{5}{c}{Without interaction with assets} \\
+Log crop loss - 1-7 months                             &      -0.102\sym{*}  &                     &       0.322\sym{***}&       0.333\sym{***}&      -0.013         \\
+                                                       &     (0.060)         &                     &     (0.062)         &     (0.060)         &     (0.025)         \\
+Log crop loss - 7-14 months                            &                     &      -0.119\sym{*}  &                     &                     &                     \\
+                                                       &                     &     (0.061)         &                     &                     &                     \\
+\addlinespace 
+ & \multicolumn{5}{c}{With interaction with assets} \\
+Log crop loss - 1-7 months                             &      -0.135\sym{*}  &                     &       0.360\sym{***}&       0.353\sym{***}&       0.012         \\
+                                                       &     (0.070)         &                     &     (0.086)         &     (0.083)         &     (0.023)         \\
+Log crop loss - 1-7 months                             &       0.002\sym{*}  &                     &      -0.002         &      -0.001         &      -0.002         \\
+\hs \X initial assets (10,000 TZS)                     &     (0.001)         &                     &     (0.005)         &     (0.004)         &     (0.001)         \\
+Log crop loss - 7-14 months                            &                     &      -0.149\sym{**} &                     &                     &                     \\
+                                                       &                     &     (0.075)         &                     &                     &                     \\
+Log crop loss - 7-14 months                            &                     &       0.002         &                     &                     &                     \\
+\hs \X initial assets (10,000 TZS)                     &                     &     (0.002)         &                     &                     &                     \\
+\addlinespace 
+ & \multicolumn{5}{c}{With interaction with log assets} \\
+Log crop loss - 1-7 months                             &      -0.401         &                     &       1.684\sym{***}&       1.518\sym{**} &       0.283\sym{*}  \\
+                                                       &     (0.278)         &                     &     (0.601)         &     (0.597)         &     (0.145)         \\
+Log crop loss - 1-7 months                             &       0.027         &                     &      -0.122\sym{**} &      -0.106\sym{*}  &      -0.027\sym{*}  \\
+\hs \X log initial assets (10,000 TZS)                 &     (0.025)         &                     &     (0.056)         &     (0.056)         &     (0.014)         \\
+Log crop loss - 7-14 months                            &                     &      -0.469         &                     &                     &                     \\
+                                                       &                     &     (0.309)         &                     &                     &                     \\
+Log crop loss - 7-14 months                            &                     &       0.031         &                     &                     &                     \\
+\hs \X log initial assets (10,000 TZS)                 &                     &     (0.026)         &                     &                     &                     \\
+\addlinespace 
+Wave dummies                                           &    \mco{Yes}        &    \mco{Yes}        &    \mco{Yes}        &    \mco{Yes}        &    \mco{Yes}        \\
+Woman fixed effects                                    &    \mco{Yes}        &    \mco{Yes}        &    \mco{Yes}        &    \mco{Yes}        &    \mco{Yes}        \\
+Observations                                           &    \mco{988}        &    \mco{741}        &    \mco{988}        &    \mco{988}        &    \mco{988}        \\
+Number of women                                        &    \mco{247}        &    \mco{247}        &    \mco{247}        &    \mco{247}        &    \mco{247}        \\
+\bottomrule
+\end{tabular}
+\begin{tablenotes} \footnotesize
+\item \hspace*{-0.5em} \textbf{Note.}
+Robust standard errors clustered at household level in parentheses; 
+* significant at 10\%; ** significant at 5\%; *** significant at 1\%.
+Crop loss is log per capita crop loss plus 1.
+Assets are assets per capita in round 1 of the survey and are measured in 10,000 TZS.
+Log of assets are taken off assets per capita in TZS.
+\end{tablenotes}
+\end{threeparttable}
+\end{small}
+\end{center}
+\end{table}
+
+
+
+% Linear crop loss
+
+
+\begin{table}[htbp]
+\begin{center}
+\begin{small}
+\begin{threeparttable}
+\caption{The Effects of Crop Loss Using Continuous Measure}
+\label{tab:continuous}
+\begin{tabular}{@{} l D{.}{.}{2.6} D{.}{.}{2.6}  D{.}{.}{2.6} D{.}{.}{2.6} D{.}{.}{2.6}  @{}}
+\toprule
+                                                       & \mco{}              &\mco{}               &\multicolumn{3}{c}{Contraceptive Use}\\ \cmidrule(lr){4-6}
+                                                       & \mco{Pregnant}      &\mco{Birth}          &\mco{Any}            &\mco{Traditional}    & \mco{Modern}        \\ \midrule
+ & \multicolumn{5}{c}{Without interaction with assets} \\
+Crop loss - 1-7 months (10,000 TZS)                    &      -0.022         &                     &       0.102\sym{***}&       0.114\sym{***}&      -0.013         \\
+                                                       &     (0.018)         &                     &     (0.030)         &     (0.023)         &     (0.008)         \\
+Crop loss - 7-14 months (10,000 TZS)                   &                     &      -0.023         &                     &                     &                     \\
+                                                       &                     &     (0.017)         &                     &                     &                     \\
+\addlinespace 
+ & \multicolumn{5}{c}{With interaction with assets} \\
+Crop loss - 1-7 months (10,000 TZS)                    &      -0.041\sym{*}  &                     &       0.124\sym{***}&       0.127\sym{***}&      -0.003         \\
+                                                       &     (0.024)         &                     &     (0.038)         &     (0.033)         &     (0.008)         \\
+Crop loss - 1-7 months                                 &       0.001         &                     &      -0.001         &      -0.001         &      -0.001         \\
+\hs \X initial assets (10,000 TZS)                     &     (0.001)         &                     &     (0.002)         &     (0.002)         &     (0.000)         \\
+Crop loss - 7-14 months (10,000 TZS)                   &                     &      -0.039         &                     &                     &                     \\
+                                                       &                     &     (0.025)         &                     &                     &                     \\
+Crop loss - 7-14 months                                &                     &       0.001         &                     &                     &                     \\
+\hs \X initial assets (10,000 TZS)                     &                     &     (0.001)         &                     &                     &                     \\
+\addlinespace 
+Wave dummies                                           &    \mco{Yes}        &    \mco{Yes}        &    \mco{Yes}        &    \mco{Yes}        &    \mco{Yes}        \\
+Woman fixed effects                                    &    \mco{Yes}        &    \mco{Yes}        &    \mco{Yes}        &    \mco{Yes}        &    \mco{Yes}        \\
+Observations                                           &    \mco{988}        &    \mco{741}        &    \mco{988}        &    \mco{988}        &    \mco{988}        \\
+Number of women                                        &    \mco{247}        &    \mco{247}        &    \mco{247}        &    \mco{247}        &    \mco{247}        \\
+\bottomrule
+\end{tabular}
+\begin{tablenotes} \footnotesize
+\item \hspace*{-0.5em} \textbf{Note.}
+Robust standard errors clustered at household level in parentheses; 
+* significant at 10\%; ** significant at 5\%; *** significant at 1\%.
+Crop loss is a per capita crop loss and measured in 10,000 TZS.
+Assets are assets per capita in round 1 of the survey and are measured in 10,000 TZS.
+\end{tablenotes}
+\end{threeparttable}
+\end{small}
+\end{center}
+\end{table}
+
+
+
+% Age groups and crop loss effects
+
+\begin{table}[htbp]
+\begin{center}
+\begin{small}
+\begin{threeparttable}
+\caption{The Effects of Crop Loss by Age}
+\label{tab:agegroups}
+\begin{tabular}{@{} l D{.}{.}{2.6} D{.}{.}{2.6}  D{.}{.}{2.6} D{.}{.}{2.6} D{.}{.}{2.6}  @{}}
+\toprule
+                                                       & \mco{}              &\mco{}               &\multicolumn{3}{c}{Contraceptive Use}\\ \cmidrule(lr){4-6}
+                                                       & \mco{Pregnant}      &\mco{Birth}          &\mco{Any}            &\mco{Traditional}    & \mco{Modern}        \\ \midrule
+Crop loss - 1-7 months \X age 18-22                    &      -0.160\sym{**} &                     &       0.096\sym{*}  &       0.048         &      -0.003         \\
+                                                       &     (0.075)         &                     &     (0.052)         &     (0.044)         &     (0.016)         \\
+Crop loss - 1-7 months \X age 23-27                    &      -0.170\sym{**} &                     &       0.004         &      -0.017         &       0.009         \\
+                                                       &     (0.072)         &                     &     (0.066)         &     (0.063)         &     (0.019)         \\
+Crop loss - 1-7 months \X age 28-32                    &      -0.153\sym{**} &                     &       0.149\sym{**} &       0.126\sym{**} &       0.029         \\
+                                                       &     (0.065)         &                     &     (0.058)         &     (0.055)         &     (0.031)         \\
+Crop loss - 1-7 months \X age 33-37                    &       0.031         &                     &       0.048         &       0.038         &       0.001         \\
+                                                       &     (0.072)         &                     &     (0.070)         &     (0.055)         &     (0.044)         \\
+Crop loss - 1-7 months \X age 38-45                    &      -0.021         &                     &       0.020         &       0.050         &      -0.034\sym{*}  \\
+                                                       &     (0.043)         &                     &     (0.054)         &     (0.048)         &     (0.020)         \\
+Crop loss - 7-14 months \X age 18-22                   &                     &      -0.235\sym{***}&                     &                     &                     \\
+                                                       &                     &     (0.087)         &                     &                     &                     \\
+Crop loss - 7-14 months \X age 23-27                   &                     &      -0.129         &                     &                     &                     \\
+                                                       &                     &     (0.094)         &                     &                     &                     \\
+Crop loss - 7-14 months \X age 28-32                   &                     &      -0.225\sym{***}&                     &                     &                     \\
+                                                       &                     &     (0.073)         &                     &                     &                     \\
+Crop loss - 7-14 months \X age 33-37                   &                     &      -0.127         &                     &                     &                     \\
+                                                       &                     &     (0.082)         &                     &                     &                     \\
+Crop loss - 7-14 months \X age 38-45                   &                     &      -0.042         &                     &                     &                     \\
+                                                       &                     &     (0.050)         &                     &                     &                     \\
+\addlinespace 
+Wave dummies                                           &    \mco{Yes}        &    \mco{Yes}        &    \mco{Yes}        &    \mco{Yes}        &    \mco{Yes}        \\
+Woman fixed effects                                    &    \mco{Yes}        &    \mco{Yes}        &    \mco{Yes}        &    \mco{Yes}        &    \mco{Yes}        \\
+Observations                                           &    \mco{988}        &    \mco{741}        &    \mco{988}        &    \mco{988}        &    \mco{988}        \\
+Number of women                                        &    \mco{247}        &    \mco{247}        &    \mco{247}        &    \mco{247}        &    \mco{247}        \\
+\bottomrule
+\end{tabular}
+\begin{tablenotes} \footnotesize
+\item \hspace*{-0.5em} \textbf{Note.}
+Robust standard errors clustered at household level in parentheses; 
+* significant at 10\%; ** significant at 5\%; *** significant at 1\%.
+Crop loss is a dummy for a per capita crop loss of 200 TZS or above.
+Age groups is based on age at the first round of the survey as described in the text.
+\end{tablenotes}
+\end{threeparttable}
+\end{small}
+\end{center}
+\end{table}
+
+
+
+
+% Hours worked and crop loss
+
+\begin{table}[htbp]
+\begin{center}
+\begin{small}
+\begin{threeparttable}
+\caption{Crop loss and Hours Worked per Week for Women}
+\label{tab:hours}
+\begin{tabular}{@{} l D{.}{.}{2.6}  D{.}{.}{2.6} D{.}{.}{2.6} D{.}{.}{2.6} D{.}{.}{2.6}   @{}}
+\toprule
+                                                       &\multicolumn{5}{c}{Hours worked by woman} \\ \midrule
+Crop loss - 1-7 months                                 &       1.391         &       1.097         &                     &                     &                     \\
+\hs (200 TZS or above)                                 &     (2.319)         &     (2.543)         &                     &                     &                     \\
+Crop loss - 1-7 months                                 &                     &       0.037         &                     &                     &                     \\
+\hs  \X initial assets (10,000 TZS)                    &                     &     (0.103)         &                     &                     &                     \\
+\addlinespace 
+Log crop loss - 1-7 months                             &                     &                     &       8.013\sym{**} &      10.073\sym{**} &      15.213         \\
+                                                       &                     &                     &     (4.041)         &     (4.526)         &    (25.934)         \\
+Log crop loss - 1-7 months                             &                     &                     &                     &      -0.132         &                     \\
+\hs \X initial assets (10,000 TZS)                     &                     &                     &                     &     (0.113)         &                     \\
+Log crop loss - 1-7 months                             &                     &                     &                     &                     &      -0.647         \\
+\hs \X log initial assets                              &                     &                     &                     &                     &     (2.371)         \\
+\addlinespace 
+Wave dummies                                           &    \mco{Yes}        &    \mco{Yes}        &    \mco{Yes}        &    \mco{Yes}        &    \mco{Yes}        \\
+Woman fixed effects                                    &    \mco{Yes}        &    \mco{Yes}        &    \mco{Yes}        &    \mco{Yes}        &    \mco{Yes}        \\
+Observations                                           &    \mco{982}        &    \mco{982}        &    \mco{982}        &    \mco{982}        &    \mco{982}        \\
+Number of women                                        &    \mco{247}        &    \mco{247}        &    \mco{247}        &    \mco{247}        &    \mco{247}        \\
+\bottomrule
+\end{tabular}
+\begin{tablenotes} \footnotesize
+\item \hspace*{-0.5em} \textbf{Note.}
+Robust standard errors clustered at household level in parentheses; 
+* significant at 10\%; ** significant at 5\%; *** significant at 1\%.
+Crop loss is a dummy for a per capita crop loss of 200 TZS or above.
+Assets are per capita and measured in 10,000 TZS.
+Log crop loss is log per capita crop loss plus 1.
+Log of assets are taken off assets per capita in TZS.
+\end{tablenotes}
+\end{threeparttable}
+\end{small}
+\end{center}
+\end{table}
+
+
+
+
+
+% Excluding abstinence
+
+\begin{table}[htbp]
+\begin{center}
+\begin{small}
+\begin{threeparttable}
+\caption{Crop loss and Abstinence as Contraceptives}
+\label{tab:excludeAbs}
+\begin{tabular}{@{} l D{.}{.}{2.6} D{.}{.}{2.6}  D{.}{.}{2.6} D{.}{.}{2.6} D{.}{.}{2.6} D{.}{.}{2.6}   @{}}
+\toprule
+                                                       & \multicolumn{4}{c}{Contraceptive Use}\\ \cmidrule(lr){2-5}
+                                                       & \mct{Any, except abstinence}              & \mct{Rhythm and withdrawal}               & \mct{Only abstinence}                     \\ \midrule
+Crop loss - 1-7 months                                 &       0.036         &       0.039         &       0.018         &       0.002         &       0.021         &       0.025         \\
+\hs (200 TZS or above)                                 &     (0.030)         &     (0.031)         &     (0.021)         &     (0.026)         &     (0.019)         &     (0.027)         \\
+Crop loss - 1-7 months                                 &                     &      -0.000         &                     &       0.002         &                     &      -0.000         \\
+\hs  \X initial assets (10,000 TZS)                    &                     &     (0.003)         &                     &     (0.002)         &                     &     (0.003)         \\
+\addlinespace 
+Wave dummies                                           &    \mco{Yes}        &    \mco{Yes}        &    \mco{Yes}        &    \mco{Yes}        &    \mco{Yes}        &    \mco{Yes}        \\
+Woman fixed effects                                    &    \mco{Yes}        &    \mco{Yes}        &    \mco{Yes}        &    \mco{Yes}        &    \mco{Yes}        &    \mco{Yes}        \\
+Observations                                           &    \mco{988}        &    \mco{988}        &    \mco{988}        &    \mco{988}        &    \mco{988}        &    \mco{988}        \\
+Number of women                                        &    \mco{247}        &    \mco{247}        &    \mco{247}        &    \mco{247}        &    \mco{247}        &    \mco{247}        \\
+\bottomrule
+\end{tabular}
+\begin{tablenotes} \footnotesize
+\item \hspace*{-0.5em} \textbf{Note.}
+Robust standard errors clustered at household level in parentheses; 
+* significant at 10\%; ** significant at 5\%; *** significant at 1\%.
+Crop loss is a dummy for a per capita crop loss of 200 TZS or above.
+Assets are per capita and measured in 10,000 TZS.
+\end{tablenotes}
+\end{threeparttable}
+\end{small}
+\end{center}
+\end{table}
+
+
+\begin{table}[htbp]
+\begin{center}
+\begin{small}
+\begin{threeparttable}
+\caption{The Effects of Crop Loss on Contraceptives Use by Assets}
+\label{tab:assets}
+\begin{tabular}{@{} l D{.}{.}{1.5} D{.}{.}{1.5}  D{.}{.}{1.5} D{.}{.}{1.5} D{.}{.}{1.5}  @{}}
+\toprule
+                                                       & \mco{}              &\mco{}               &\multicolumn{3}{c}{Contraceptive Use}\\ \cmidrule(lr){4-6}
+                                                       & \mco{Pregnant}      &\mco{Childbirth}     &\mco{Any}            &\mco{Traditional}    & \mco{Modern}        \\ \midrule
+Crop loss - 1-7 months (200 TZS or above)              &      -0.095\sym{**} &                     &       0.093\sym{**} &       0.065\sym{**} &       0.021         \\
+                                                       &     (0.045)         &                     &     (0.037)         &     (0.032)         &     (0.015)         \\
+Crop loss - 1-7 months                                 &       0.000         &                     &      -0.003         &      -0.001         &      -0.002         \\
+\hs \X initial assets (10,000 TZS)                     &     (0.001)         &                     &     (0.003)         &     (0.003)         &     (0.002)         \\
+Crop loss - 7-14 months (200 TZS or above)             &                     &      -0.164\sym{***}&                     &                     &                     \\
+                                                       &                     &     (0.053)         &                     &                     &                     \\
+Crop loss - 7-14 months                                &                     &       0.001         &                     &                     &                     \\
+\hs \X initial assets (10,000 TZS)                     &                     &     (0.002)         &                     &                     &                     \\
+\addlinespace 
+Wave dummies                                           &    \mco{Yes}        &    \mco{Yes}        &    \mco{Yes}        &    \mco{Yes}        &    \mco{Yes}        \\
+Woman fixed effects                                    &    \mco{Yes}        &    \mco{Yes}        &    \mco{Yes}        &    \mco{Yes}        &    \mco{Yes}        \\
+Observations                                           &    \mco{988}        &    \mco{741}        &    \mco{988}        &    \mco{988}        &    \mco{988}        \\
+Number of women                                        &    \mco{247}        &    \mco{247}        &    \mco{247}        &    \mco{247}        &    \mco{247}        \\
+\bottomrule
+\end{tabular}
+\begin{tablenotes} \footnotesize
+\item \hspace*{-0.5em} \textbf{Note.}
+Robust standard errors clustered at household level in parentheses; 
+* significant at 10\%; ** significant at 5\%; *** significant at 1\%.
+Crop loss is a dummy for a per capita crop loss of 200 TZS or above.
+Assets are per capita and measured in 10,000 TZS.
+\end{tablenotes}
+\end{threeparttable}
+\end{small}
+\end{center}
+\end{table}
+
+\begin{table}[htbp]
+\begin{center}
+\begin{small}
+\begin{threeparttable}
+\caption{The Effects of Crop Loss on Contraceptives Use by Education Level}
+\label{tab:education}
+\begin{tabular}{@{} l D{.}{.}{1.5} D{.}{.}{1.5}  D{.}{.}{1.5} D{.}{.}{1.5} D{.}{.}{1.5}  @{}}
+\toprule
+                                                       & \mco{}              &\mco{}               &\multicolumn{3}{c}{Contraceptive Use}\\ \cmidrule(lr){4-6}
+                                                       & \mco{Pregnant}      &\mco{Birth}          &\mco{Any}            &\mco{Traditional}    & \mco{Modern}        \\ \midrule
+                                                       & \multicolumn{5}{c}{Respondent's education level} \\
+Crop loss \X no education                              &      -0.069         &                     &       0.080         &       0.041         &       0.032         \\
+                                                       &     (0.062)         &                     &     (0.051)         &     (0.041)         &     (0.029)         \\
+Crop loss \X 1-6 years of education                    &      -0.006         &                     &       0.019         &       0.036         &      -0.033         \\
+                                                       &     (0.063)         &                     &     (0.051)         &     (0.040)         &     (0.031)         \\
+Crop loss \X 7 plus years of education                 &      -0.167\sym{***}&                     &       0.098\sym{**} &       0.073\sym{*}  &       0.009         \\
+                                                       &     (0.050)         &                     &     (0.043)         &     (0.039)         &     (0.018)         \\
+Crop loss (7-14 months)                                &                     &      -0.165\sym{**} &                     &                     &                     \\
+\hs \X no education                                    &                     &     (0.064)         &                     &                     &                     \\
+Crop loss (7-14 months)                                &                     &      -0.115         &                     &                     &                     \\
+\hs \X 1-6 years of education                          &                     &     (0.072)         &                     &                     &                     \\
+Crop loss (7-14 months)                                &                     &      -0.185\sym{***}&                     &                     &                     \\
+\hs \X 7 plus years of education                       &                     &     (0.062)         &                     &                     &                     \\
+% \addlinespace 
+% Observations                                           &    \mco{988}        &    \mco{741}        &    \mco{988}        &    \mco{988}        &    \mco{988}        \\
+% Number of women                                        &    \mco{247}        &    \mco{247}        &    \mco{247}        &    \mco{247}        &    \mco{247}        \\
+\addlinespace 
+                                                       & \multicolumn{5}{c}{Head's education level} \\
+Crop loss \X no education                              &      -0.071         &                     &       0.168\sym{**} &       0.149\sym{**} &       0.017         \\
+                                                       &     (0.074)         &                     &     (0.080)         &     (0.069)         &     (0.040)         \\
+Crop loss \X 1-6 years of education                    &      -0.024         &                     &       0.017         &       0.006         &      -0.015         \\
+                                                       &     (0.061)         &                     &     (0.049)         &     (0.039)         &     (0.030)         \\
+Crop loss \X 7 plus years of education                 &      -0.147\sym{***}&                     &       0.083\sym{**} &       0.062\sym{*}  &       0.013         \\
+                                                       &     (0.048)         &                     &     (0.040)         &     (0.036)         &     (0.017)         \\
+Crop loss (7-14 months)                                &                     &      -0.083         &                     &                     &                     \\
+\hs \X no education                                    &                     &     (0.095)         &                     &                     &                     \\
+Crop loss (7-14 months)                                &                     &      -0.137\sym{**} &                     &                     &                     \\
+\hs \X 1-6 years of education                          &                     &     (0.066)         &                     &                     &                     \\
+Crop loss (7-14 months)                                &                     &      -0.194\sym{***}&                     &                     &                     \\
+\hs \X 7 plus years of education                       &                     &     (0.057)         &                     &                     &                     \\
+% \addlinespace 
+% Observations                                           &    \mco{964}        &    \mco{723}        &    \mco{964}        &    \mco{964}        &    \mco{964}        \\
+% Number of women                                        &    \mco{241}        &    \mco{241}        &    \mco{241}        &    \mco{241}        &    \mco{241}        \\
+% \addlinespace 
+%                                                        & \multicolumn{5}{c}{Maximum education level in household} \\
+% Crop loss \X no education                              &      -0.396\sym{***}&                     &       0.503         &       0.494         &       0.005         \\
+%                                                        &     (0.026)         &                     &     (0.371)         &     (0.372)         &     (0.012)         \\
+% Crop loss \X 1-6 years of education                    &      -0.016         &                     &       0.067         &       0.032         &       0.011         \\
+%                                                        &     (0.065)         &                     &     (0.069)         &     (0.053)         &     (0.045)         \\
+% Crop loss \X 7 plus years of education                 &      -0.114\sym{**} &                     &       0.064\sym{**} &       0.054\sym{**} &       0.000         \\
+%                                                        &     (0.046)         &                     &     (0.032)         &     (0.026)         &     (0.014)         \\
+% Crop loss (7-14 months)                                &                     &      -0.322\sym{*}  &                     &                     &                     \\
+% \hs \X no education                                    &                     &     (0.176)         &                     &                     &                     \\
+% Crop loss (7-14 months)                                &                     &      -0.118\sym{*}  &                     &                     &                     \\
+% \hs \X 1-6 years of education                          &                     &     (0.071)         &                     &                     &                     \\
+% Crop loss (7-14 months)                                &                     &      -0.170\sym{***}&                     &                     &                     \\
+% \hs \X 7 plus years of education                       &                     &     (0.054)         &                     &                     &                     \\
+\addlinespace 
+Wave dummies                                           &    \mco{Yes}        &    \mco{Yes}        &    \mco{Yes}        &    \mco{Yes}        &    \mco{Yes}        \\
+Woman fixed effects                                    &    \mco{Yes}        &    \mco{Yes}        &    \mco{Yes}        &    \mco{Yes}        &    \mco{Yes}        \\
+Observations                                           &    \mco{988}        &    \mco{741}        &    \mco{988}        &    \mco{988}        &    \mco{988}        \\
+Number of women                                        &    \mco{247}        &    \mco{247}        &    \mco{247}        &    \mco{247}        &    \mco{247}        \\
+\bottomrule
+\end{tabular}
+\begin{tablenotes} \footnotesize
+\item \hspace*{-0.5em} \textbf{Note.}
+Robust standard errors clustered at household level in parentheses; 
+* significant at 10\%; ** significant at 5\%; *** significant at 1\%.
+Crop loss is a dummy for a per capita crop loss of 200 TZS or above.
+Assets are per capita and measured in 10,000 TZS.
+\end{tablenotes}
+\end{threeparttable}
+\end{small}
+\end{center}
+\end{table}
+
+
+% Village crop loss 
+
+\begin{table}[htbp]
+\begin{center}
+\begin{small}
+\begin{threeparttable}
+\caption{The Effects of Individual and Village Crop Loss}
+\label{tab:vill_croploss}
+\begin{tabular}{@{} l D{.}{.}{1.5} D{.}{.}{1.5}  D{.}{.}{1.5} D{.}{.}{1.5} D{.}{.}{1.5}  @{}}
+\toprule
+                                                       & \mco{}              &\mco{}               &\multicolumn{3}{c}{Contraceptive Use}\\ \cmidrule(lr){4-6}
+                                                       & \mco{Pregnant}      &\mco{Birth}          &\mco{Any}            &\mco{Traditional}    & \mco{Modern}        \\ \midrule
+Crop loss - 1-7 months (200 TZS or above)              &      -0.105\sym{**} &                     &       0.071\sym{**} &       0.047\sym{**} &       0.006         \\
+                                                       &     (0.049)         &                     &     (0.032)         &     (0.023)         &     (0.021)         \\
+Fraction with crop loss in village                     &       0.059         &                     &      -0.003         &       0.030         &      -0.013         \\
+                                                       &     (0.108)         &                     &     (0.070)         &     (0.056)         &     (0.039)         \\
+Crop loss - 7-14 months (200 TZS or above)             &                     &      -0.152\sym{***}&                     &                     &                     \\
+                                                       &                     &     (0.058)         &                     &                     &                     \\
+Lagged fraction with crop loss in village              &                     &      -0.033         &                     &                     &                     \\
+                                                       &                     &     (0.120)         &                     &                     &                     \\
+\addlinespace 
+Wave dummies                                           &    \mco{Yes}        &    \mco{Yes}        &    \mco{Yes}        &    \mco{Yes}        &    \mco{Yes}        \\
+Woman fixed effects                                    &    \mco{Yes}        &    \mco{Yes}        &    \mco{Yes}        &    \mco{Yes}        &    \mco{Yes}        \\
+Observations                                           &    \mco{988}        &    \mco{741}        &    \mco{988}        &    \mco{988}        &    \mco{988}        \\
+Number of women                                        &    \mco{247}        &    \mco{247}        &    \mco{247}        &    \mco{247}        &    \mco{247}        \\
+\bottomrule
+\end{tabular}
+\begin{tablenotes} \footnotesize
+\item \hspace*{-0.5em} \textbf{Note.}
+Robust standard errors clustered at household level in parentheses; 
+* significant at 10\%; ** significant at 5\%; *** significant at 1\%.
+Crop loss is a dummy for a per capita crop loss of 200 TZS or above.
+Assets are per capita and measured in 10,000 TZS.
+\end{tablenotes}
+\end{threeparttable}
+\end{small}
+\end{center}
+\end{table}
+
+% Reverse regressions - predictive or pseudo
+
+\begin{table}[htbp]
+\begin{center}
+\begin{small}
+\begin{threeparttable}
+\caption{The Association between Prior Fertility and Contraceptive Use and Current Crop Loss}
+\label{tab:reverse}
+\begin{tabular}{@{} l D{.}{.}{2.6}  D{.}{.}{2.6} D{.}{.}{2.6} D{.}{.}{2.6} @{}}
+\toprule
+                                                       &\multicolumn{2}{c}{Crop loss - Dummy }& \multicolumn{2}{c}{} \\
+                                                       &\multicolumn{2}{c}{200 TZS or above}       & \multicolumn{2}{c}{Log crop loss} \\ \midrule
+                                                       & \multicolumn{4}{c}{Prior contraceptive use} \\
+Used contraceptives prior survey                       &      -0.044         &      -0.034         &      -0.014         &      -0.013         \\
+                                                       &     (0.049)         &     (0.054)         &     (0.012)         &     (0.012)         \\
+Used contraceptives prior survey \X initial assets     &                     &      -0.001         &                     &      -0.000         \\
+                                                       &                     &     (0.002)         &                     &     (0.000)         \\
+\addlinespace 
+                                                       & \multicolumn{4}{c}{Prior pregnancy} \\
+Was pregnant prior survey                              &       0.017         &      -0.004         &       0.006         &       0.005         \\
+                                                       &     (0.033)         &     (0.037)         &     (0.008)         &     (0.008)         \\
+Pregnant prior survey \X initial assets                &                     &       0.003         &                     &       0.000         \\
+                                                       &                     &     (0.002)         &                     &     (0.000)         \\
+\addlinespace 
+                                                       & \multicolumn{4}{c}{Prior birth} \\
+Gave birth 7-14 months ago                             &      -0.034         &      -0.010         &      -0.002         &       0.003         \\
+                                                       &     (0.029)         &     (0.031)         &     (0.007)         &     (0.008)         \\
+Birth prior survey \X initial assets                   &                     &      -0.003\sym{**} &                     &      -0.001\sym{***}\\
+                                                       &                     &     (0.001)         &                     &     (0.000)         \\
+\addlinespace 
+Wave dummies                                           &    \mco{Yes}        &    \mco{Yes}        &    \mco{Yes}        &    \mco{Yes}        \\
+Woman fixed effects                                    &    \mco{Yes}        &    \mco{Yes}        &    \mco{Yes}        &    \mco{Yes}        \\
+Observations                                           &    \mco{741}        &    \mco{741}        &    \mco{741}        &    \mco{741}        \\
+Number of women                                        &    \mco{247}        &    \mco{247}        &    \mco{247}        &    \mco{247}        \\
+\bottomrule
+\end{tabular}
+\begin{tablenotes} \footnotesize
+\item \hspace*{-0.5em} \textbf{Note.}
+Each panel a separate regression. 
+Two left columns are linear probability models and two right columns 
+are linear models.
+Robust standard errors clustered at household level in parentheses; 
+* significant at 10\%; ** significant at 5\%; *** significant at 1\%.
+Crop loss is a dummy for a per capita crop loss of 200 TZS or above.
+Assets are per capita and measured in 10,000 TZS.
+Log crop loss is log per capita crop loss plus 1.
+Log of assets are taken off assets per capita in TZS.
+\end{tablenotes}
+\end{threeparttable}
+\end{small}
+\end{center}
+\end{table}
+
+
+
+\end{document}
+

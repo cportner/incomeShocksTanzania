@@ -7,12 +7,12 @@ from editor and referees.
 
 You need the following directories for the code to run:
 
-- rawData: original data files.
+- rawData: original data files
 - code: data cleaning, variables, and analysis
 - data: derived data files and results
 - figures: generated figures and other figures for paper
 - tables: generated tables
-- map: map of Kagera region
+- staticPDF: map of Kagera region
 
 In addition, the following directories has writing in them:
 

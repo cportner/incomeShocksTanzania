@@ -50,7 +50,7 @@ response: $(RES)/$(RESFILE).pdf
 # pattern in dependencies. This works because another file depends on a list of all
 # the household data files.
 
-$(DAT)/base.dta: $(DAT)/household_wave1.dta $(DAT)/household_wave2.dta \
+$(DAT)/base.dta: $(COD)/crBase.do $(DAT)/household_wave1.dta $(DAT)/household_wave2.dta \
  $(DAT)/household_wave3.dta $(DAT)/household_wave4.dta \
  $(DAT)/individual_wave1.dta $(DAT)/individual_wave2.dta \
  $(DAT)/individual_wave3.dta $(DAT)/individual_wave4.dta

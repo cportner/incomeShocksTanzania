@@ -21,7 +21,8 @@ MAP  = ./staticPDF
 ### LaTeX part
 
 # need to add analysis dependencies to end of next line
-$(TEX)/$(TEXFILE).pdf: $(TEX)/$(TEXFILE).tex $(TEX)/$(TEXFILE).bib $(MAP)/kagera.pdf $(DAT)/base.dta
+$(TEX)/$(TEXFILE).pdf: $(TEX)/$(TEXFILE).tex $(TEX)/$(TEXFILE).bib \
+ $(MAP)/kagera.pdf $(DAT)/base.dta
 	cd $(TEX); xelatex $(TEXFILE)
 	cd $(TEX); bibtex $(TEXFILE)
 	cd $(TEX); xelatex $(TEXFILE)
@@ -53,7 +54,8 @@ response: $(RES)/$(RESFILE).pdf
 $(DAT)/base.dta: $(COD)/crBase.do $(DAT)/household_wave1.dta $(DAT)/household_wave2.dta \
  $(DAT)/household_wave3.dta $(DAT)/household_wave4.dta \
  $(DAT)/individual_wave1.dta $(DAT)/individual_wave2.dta \
- $(DAT)/individual_wave3.dta $(DAT)/individual_wave4.dta
+ $(DAT)/individual_wave3.dta $(DAT)/individual_wave4.dta \
+ $(RAW)/OtherKageraData/inc___hh.dta
 	cd $(COD); stata-se -b -q crBase.do    
 
 $(DAT)/individual_wave%.dta: $(COD)/crIndividual_waves.do $(RAW)/HOUSEHOLD/WAVE%/S11A_OTH.DTA \

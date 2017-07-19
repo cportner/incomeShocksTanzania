@@ -56,7 +56,7 @@ $(DAT)/base.dta: $(DAT)/household_wave1.dta $(DAT)/household_wave2.dta \
  $(DAT)/individual_wave3.dta $(DAT)/individual_wave4.dta
 	cd $(COD); stata-se -b -q crBase.do    
 
-$(DAT)/individual_wave%.dta: $(COD)/crHousehold_waves.do $(RAW)/HOUSEHOLD/WAVE%/S11A_OTH.DTA \
+$(DAT)/individual_wave%.dta: $(COD)/crIndividual_waves.do $(RAW)/HOUSEHOLD/WAVE%/S11A_OTH.DTA \
  $(RAW)/HOUSEHOLD/WAVE%/S1___IND.DTA $(RAW)/HOUSEHOLD/WAVE%/S5___IND.DTA \
  $(RAW)/HOUSEHOLD/WAVE%/S6___IND.DTA $(RAW)/HOUSEHOLD/WAVE%/S9___IND.DTA \
  $(RAW)/HOUSEHOLD/WAVE%/S10__IND.DTA 

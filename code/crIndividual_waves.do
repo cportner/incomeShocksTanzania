@@ -30,6 +30,7 @@ foreach wave of numlist 1/4 {
     *Merging individual health and creating illness variable
     merge 1:1 cluster hh id passage using ///
         "`rawDir'/HOUSEHOLD/WAVE`wave'/S6___IND.DTA", keepusing(ill illtime illunit ill6mo illdays daysout)
+    drop if _merge == 2 // Illness data, but no matching demographic data
     drop _merge
     recode illdays (. = 0)
     gen    illdays_dummy = illdays > 1 // Creating illness dummy variable

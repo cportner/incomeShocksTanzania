@@ -191,40 +191,4 @@ foreach wave of numlist 1/4 {
 }
 
 
-exit
-
-***********************************************************************************************************************
-* Creating files appended over all 4 waves, so that they can be merged with the final base file
-***********************************************************************************************************************
-
-*Using the total household income data appended for all 4 rounds of the survey by the surveyors
-use "`workdir'\Wave 4\CONSTRUCTED_FILES\LSMS_DIS\Tanzania Kagera\Public\khdsaggr\inc___hh.dta", clear
-gen incagrm=incagr/7   //Dividing total agricultural income by number of months
-gen inchh1m= inchh1/7  //Dividing total household income by number of months
-sort cluster hh passage
-keep cluster hh passage incagr inchh1
-save "`results'\Income.dta", replace
-
-
-
-*Appending education level for all spouses so that it can be merged with the base file for women*
-use "`workdir'\Wave 1\WAVE1_HHDTA\LSMS_DIS\Tanzania Kagera\Public\khdsdata\HOUSEHOLD\WAVE1\S5___IND.DTA", clear 
-append using "`workdir'\Wave 2\WAVE2_HHDTA\LSMS_DIS\Tanzania Kagera\Public\khdsdata\HOUSEHOLD\WAVE2\S5___IND.DTA"
-append using "`workdir'\Wave 3\WAVE3_HHDTA\LSMS_DIS\Tanzania Kagera\Public\khdsdata\HOUSEHOLD\WAVE3\S5___IND.DTA" 
-append using "`workdir'\Wave 4\WAVE4_HHDTA\LSMS_DIS\Tanzania Kagera\Public\khdsdata\HOUSEHOLD\WAVE4\S5___IND.DTA"
-keep cluster hh id passage grade
-rename grade sp_grade    // Differentiating partner's education
-rename id spouseid       // Differentiating partner's id 
-save "`results'\male_grade.DTA", replace
-
-
-*********************************************************************************************************************
-*Identifying household members that are no longer part of the household (moved)
-*********************************************************************************************************************
-use "`workdir'\Wave 1\WAVE1_HHDTA\LSMS_DIS\Tanzania Kagera\Public\khdsdata\HOUSEHOLD\WAVE1\S1___IND.DTA", clear
-append using "D:\Documents\Research\Kagera Data\Wave 2\WAVE2_HHDTA\LSMS_DIS\Tanzania Kagera\Public\khdsdata\HOUSEHOLD\WAVE2\S1___IND.DTA" "D:\Documents\Research\Kagera Data\Wave 3\WAVE3_HHDTA\LSMS_DIS\Tanzania Kagera\Public\khdsdata\HOUSEHOLD\WAVE3\s1___ind.dta" "D:\Documents\Research\Kagera Data\Wave 4\WAVE4_HHDTA\LSMS_DIS\Tanzania Kagera\Public\khdsdata\HOUSEHOLD\WAVE4\S1___IND.DTA"
-keep cluster hh id passage LivnHere hhmbr // keeping only the variables that identify that a person is still in the household
-sort cluster hh id passage
-save "`results'\Moved.dta", replace
-
 

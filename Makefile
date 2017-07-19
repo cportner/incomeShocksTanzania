@@ -23,7 +23,9 @@ MAP  = ./staticPDF
 # need to add analysis dependencies to end of next line
 $(TEX)/$(TEXFILE).pdf: $(TEX)/$(TEXFILE).tex $(TEX)/$(TEXFILE).bib $(MAP)/kagera.pdf \
  $(DAT)/household_wave1.dta $(DAT)/household_wave2.dta \
- $(DAT)/household_wave3.dta $(DAT)/household_wave4.dta
+ $(DAT)/household_wave3.dta $(DAT)/household_wave4.dta \
+ $(DAT)/individual_wave1.dta $(DAT)/individual_wave2.dta \
+ $(DAT)/individual_wave3.dta $(DAT)/individual_wave4.dta 
 	cd $(TEX); xelatex $(TEXFILE)
 	cd $(TEX); bibtex $(TEXFILE)
 	cd $(TEX); xelatex $(TEXFILE)
@@ -58,8 +60,13 @@ $(DAT)/household_wave%.dta: $(COD)/crHousehold_waves.do $(RAW)/HOUSEHOLD/WAVE%/S
  $(RAW)/HOUSEHOLD/WAVE%/S15A_DUR.DTA $(RAW)/HOUSEHOLD/WAVE%/S16A_DUR.DTA \
  $(RAW)/HOUSEHOLD/WAVE%/S19C_IND.DTA $(RAW)/HOUSEHOLD/WAVE%/S1___IND.DTA 
 	cd $(COD); stata-se -b -q crHousehold_waves.do    
-    
 
+$(DAT)/individual_wave%.dta: $(COD)/crHousehold_waves.do $(RAW)/HOUSEHOLD/WAVE%/S11A_OTH.DTA \
+ $(RAW)/HOUSEHOLD/WAVE%/S1___IND.DTA $(RAW)/HOUSEHOLD/WAVE%/S5___IND.DTA \
+ $(RAW)/HOUSEHOLD/WAVE%/S6___IND.DTA $(RAW)/HOUSEHOLD/WAVE%/S9___IND.DTA \
+ $(RAW)/HOUSEHOLD/WAVE%/S10__IND.DTA 
+	cd $(COD); stata-se -b -q crIndividual_waves.do    
+    
 
 # Descriptive statistics
 	

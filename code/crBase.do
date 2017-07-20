@@ -36,9 +36,10 @@ preserve
     foreach wave of numlist 2/4 {
         append using "`rawDir'/HOUSEHOLD/WAVE`wave'/S5___IND.DTA"
     }
-    keep cluster hh id passage schl grade
+    keep cluster hh id passage schl grade grd
     rename schl  sp_schl     // Partner ever attended school
     rename grade sp_grade    // Partner's education
+    rename grd   sp_grd      // Partner's education
     rename id spouseid       // Partner's id 
     sort cluster hh spouseid passage
     save "`tempEdu'"
@@ -63,7 +64,7 @@ preserve
     save "`tempPoly'"
 restore
 merge 1:1 cluster hh id passage using "`tempPoly'", update replace
-drop _merge
+drop _merge nvals
 
 // Identifying which household members are no longer in the household
 
@@ -73,7 +74,7 @@ preserve
     foreach wave of numlist 2/4 {
         append using "`rawDir'/HOUSEHOLD/WAVE`wave'/S1___IND.DTA" 
     }
-    keep cluster hh id passage LivnHere hhmbr // keeping only the variables that identify that a person is still in the household
+    keep cluster hh id passage LivnHere hhmbr  // keeping only the variables that identify that a person is still in the household
     sort cluster hh id passage
     save "`tempMoved'"
 restore
@@ -91,6 +92,7 @@ restore
 merge m:1 cluster hh passage using "`tempIncome'"
 drop _merge
 
+drop if hhmbr == 2            // Not a household member
 drop if ageyr == . | sex == . // No reason to keep those around - not recorded for people who left the survey
 
 
@@ -107,14 +109,19 @@ order id_hh id_person, after(id)
 tab passage, gen(pass)
 
 // Education (both respondent's and partner's)
+// "grd" is already coded from Karega survey, but seems to miss some no school obs
+gen educ_years = grd
+replace educ_years = 0 if schl == 2 // never attended school
 
 
 //////////////////////////////
 // Variable labels          //
 //////////////////////////////
 
-lab var id_hh     "Unique household identifier"
-lab var id_person "Unique individual identifier"
+lab var id_hh      "Unique household identifier"
+lab var id_person  "Unique individual identifier"
+
+lab var educ_years "Education completed in years"
 
 
 

@@ -1,6 +1,6 @@
 // Create base data file
 // crBase.do
-// Edited: 2017-07-19
+// Edited: 2017-07-20
 
 vers 13.1
 clear
@@ -36,9 +36,10 @@ preserve
     foreach wave of numlist 2/4 {
         append using "`rawDir'/HOUSEHOLD/WAVE`wave'/S5___IND.DTA"
     }
-    keep cluster hh id passage grade
-    rename grade sp_grade    // Differentiating partner's education
-    rename id spouseid       // Differentiating partner's id 
+    keep cluster hh id passage schl grade
+    rename schl  sp_schl     // Partner ever attended school
+    rename grade sp_grade    // Partner's education
+    rename id spouseid       // Partner's id 
     sort cluster hh spouseid passage
     save "`tempEdu'"
 restore
@@ -90,15 +91,31 @@ restore
 merge m:1 cluster hh passage using "`tempIncome'"
 drop _merge
 
+drop if ageyr == . | sex == . // No reason to keep those around - not recorded for people who left the survey
+
 
 ///////////////////////////////////
 // Defining/redefining variables //
 ///////////////////////////////////
 
+// Unique person and household identifiers
+gen id_person = cluster*10000 + hh*100 + id
+gen id_hh     = cluster*100 + hh
+order id_hh id_person, after(id)
+
+// Period dummies
+tab passage, gen(pass)
+
+// Education (both respondent's and partner's)
+
 
 //////////////////////////////
 // Variable labels          //
 //////////////////////////////
+
+lab var id_hh     "Unique household identifier"
+lab var id_person "Unique individual identifier"
+
 
 
 

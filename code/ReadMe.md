@@ -49,8 +49,13 @@ There are three main files for creating the base data set used for the analysis:
   business assets, buildings, durable goods, and total saving.
   Most of these see minimal processing, except for converting farm areas from hectare
   to acre.
-- crIndividual_waves.do
-- crBase.do
+- crIndividual_waves.do: For each of the four waves get basic demographic data, education
+  and literacy, health variables, fertility and contraceptive use, and anthropometric
+  information.
+- crBase.do: Combine all household and individual files. Add partner education and 
+  polygyny information, information on leaving the household, and total income 
+  calculated by the survey. 
+  
 
 These files must be run in order.
 This will happen automatically if you use the Makefile described in the main ReadMe.md.

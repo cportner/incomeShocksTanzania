@@ -18,12 +18,12 @@ foreach wave of numlist 1/4 {
 
     * Basic demographic data
     use "`rawDir'/HOUSEHOLD/WAVE`wave'/S1___IND.DTA" 
-    keep cluster hh id wave passage sex rel ageyr agemo marstat spousehh spouseid
+    keep cluster hh id wave passage sex rel ageyr marstat spousehh spouseid
 
 
     *Merging individual education 
     merge 1:1 cluster hh id passage using ///
-        "`rawDir'/HOUSEHOLD/WAVE`wave'/S5___IND.DTA", keepusing(read write math grade grd)
+        "`rawDir'/HOUSEHOLD/WAVE`wave'/S5___IND.DTA", keepusing(read write math schl grade grd)
     drop _merge
 
 

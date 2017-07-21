@@ -41,6 +41,7 @@ preserve
     rename grade sp_grade    // Partner's education
     rename grd   sp_grd      // Partner's education
     rename id spouseid       // Partner's id 
+    // "grd" is already coded from Karega survey, but seems to miss some no school obs
     gen sp_educ_years = sp_grd
     replace sp_educ_years = 0 if sp_schl == 2 ///
         | sp_grade == "ADULTED" | sp_grade == "*******"  // never attended formal school
@@ -55,6 +56,7 @@ drop if _merge == 2 // Otherwise there would be duplicates
 drop _merge
 
 // Polygyny dummy - needs to be done in two steps
+// This works because only those who report that their spouse live in household show an id for the spouse
 bysort cluster hh spouseid passage: gen nvals = _N // number of wives claiming same husband
 gen polygyny = nvals > 1 & spouseid != .
 // also need to update the dummy for males since they can only claim one wife
@@ -113,11 +115,16 @@ order id_hh id_person, after(id)
 // Period dummies
 tab passage, gen(pass)
 
-// Education (both respondent's and partner's)
+// Fix age
+
+// Education (respondent's - partner's come from above)
 // "grd" is already coded from Karega survey, but seems to miss some no school obs
 gen educ_years = grd
 replace educ_years = 0 if schl == 2 ///
     | grade == "ADULTED" | grade == "*******"  // never attended formal school
+
+
+// Contraception use
 
 
 //////////////////////////////

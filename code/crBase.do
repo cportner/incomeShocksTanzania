@@ -97,11 +97,12 @@ restore
 merge m:1 cluster hh passage using "`tempIncome'"
 drop _merge
 
-drop if ageyr < 7             // Too young
+drop if ageyr < 7             // Way too young (move substantial restriction later)
 drop if hhmbr == 2            // Not a household member
+drop if LivnHere == 2         // Prior household member but not in household this wave
 drop if ageyr == . | sex == . // No reason to keep those around - not recorded for people who left the survey
 
-
+drop hhmbr LivnHere
 
 ///////////////////////////////////
 // Defining/redefining variables //

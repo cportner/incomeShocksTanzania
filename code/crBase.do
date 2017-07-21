@@ -41,6 +41,9 @@ preserve
     rename grade sp_grade    // Partner's education
     rename grd   sp_grd      // Partner's education
     rename id spouseid       // Partner's id 
+    gen sp_educ_years = sp_grd
+    replace sp_educ_years = 0 if sp_schl == 2 ///
+        | sp_grade == "ADULTED" | sp_grade == "*******"  // never attended formal school
     sort cluster hh spouseid passage
     save "`tempEdu'"
 restore
@@ -92,8 +95,10 @@ restore
 merge m:1 cluster hh passage using "`tempIncome'"
 drop _merge
 
+drop if ageyr < 7             // Too young
 drop if hhmbr == 2            // Not a household member
 drop if ageyr == . | sex == . // No reason to keep those around - not recorded for people who left the survey
+
 
 
 ///////////////////////////////////
@@ -111,17 +116,19 @@ tab passage, gen(pass)
 // Education (both respondent's and partner's)
 // "grd" is already coded from Karega survey, but seems to miss some no school obs
 gen educ_years = grd
-replace educ_years = 0 if schl == 2 // never attended school
+replace educ_years = 0 if schl == 2 ///
+    | grade == "ADULTED" | grade == "*******"  // never attended formal school
 
 
 //////////////////////////////
 // Variable labels          //
 //////////////////////////////
 
-lab var id_hh      "Unique household identifier"
-lab var id_person  "Unique individual identifier"
+lab var id_hh         "Unique household identifier"
+lab var id_person     "Unique individual identifier"
 
-lab var educ_years "Education completed in years"
+lab var educ_years    "Education completed in years"
+lab var sp_educ_years "Spouse's education in years"
 
 
 

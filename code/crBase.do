@@ -117,6 +117,36 @@ order id_hh id_person, after(id)
 tab passage, gen(pass)
 
 // Fix age
+// use _n instead of wave because some respondents enter our age range later than wave 1.
+// this is important if we want to increase number of observations by allowing those
+// who are not observed in all waves.
+// We just need to get the initial age correct and use that instead of getting every age
+// correct and rely on the small changes over time (not enough variation anyway)
+// Age difference for 4 survey waves will be between 1 and 2 years. It should not be
+// more and it cannot be zero.
+// If max and min ages are 1 or 2 years apart for 4 waves then fine, use smallest as 
+// initial age.
+// For less than 4 waves use corresponding lower difference
+bysort id_person: egen medianage = median(ageyr)
+bysort id_person: egen agemin = min(ageyr)
+bysort id_person: egen agemax = max(ageyr)
+bysort id_person: gen numwaves = _N
+gen firstage = agemin if (numwaves == 4 | numwaves == 3) ///
+    & (agemax - agemin == 2 | agemax - agemin == 1)
+replace firstage = agemin if numwaves == 2 & (agemax - agemin == 1 | agemax == agemin)
+replace firstage = agemin if numwaves == 1
+gen age_problem = firstage == .
+replace firstage = int(medianage) if age_problem
+// checking how many have age problems
+preserve
+    // hist ageyr if wave == 1 & numwaves == 4, discrete
+    bysort id_person: keep if _n == 1
+    tab age_problem
+restore
+// create age group 
+egen agegroup = cut(firstage), at(12,23,28,33,38,50) // last group from 38 to 45 because relatively few in 43-45 age
+drop numwaves agemin agemax medianage
+
 
 // Education (respondent's - partner's come from above)
 // "grd" is already coded from Karega survey, but seems to miss some no school obs
@@ -137,8 +167,14 @@ replace educ_years = 0 if schl == 2 ///
 lab var id_hh         "Unique household identifier"
 lab var id_person     "Unique individual identifier"
 
+lab var polygyny      "Polygyny (imputed)"
+
 lab var educ_years    "Education completed in years"
 lab var sp_educ_years "Spouse's education in years"
+
+lab var firstage      "Age in first wave (possibly imputed)"
+lab var age_problem   "Inconsistency in reported ages"
+lab var agegroup      "Age groups based on firstage"
 
 
 

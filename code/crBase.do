@@ -120,6 +120,8 @@ tab passage, gen(pass)
 
 // Education (respondent's - partner's come from above)
 // "grd" is already coded from Karega survey, but seems to miss some no school obs
+// General information on Tanzania's education system: https://www.classbase.com/countries/Tanzania/Education-System
+// Also see page 30 of Interviewer's Manual
 gen educ_years = grd
 replace educ_years = 0 if schl == 2 ///
     | grade == "ADULTED" | grade == "*******"  // never attended formal school

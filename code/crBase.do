@@ -209,7 +209,13 @@ lab var id_person     "Unique individual identifier"
 lab var polygyny      "Polygyny (imputed)"
 
 lab var educ_years    "Education completed in years"
+lab var educ017       "Education grouped (none, some primary, primary or above)"
+lab var educ07        "Education grouped (none or some primary, primary or above)"
+lab var educ_problem  "Education reported not identical across waves"
 lab var sp_educ_years "Spouse's education in years"
+lab var sp_educ017    "Spouse's education grouped (none, some primary, primary or above)"
+lab var sp_educ07     "Spouse's education grouped (none or some primary, primary or above)"
+lab var sp_educ_problem  "Spouse's education reported not identical across waves"
 
 lab var firstage      "Age in first wave (possibly imputed)"
 lab var age_problem   "Inconsistency in reported ages"

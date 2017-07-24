@@ -45,6 +45,20 @@ preserve
     gen sp_educ_years = sp_grd
     replace sp_educ_years = 0 if sp_schl == 2 ///
         | sp_grade == "ADULTED" | sp_grade == "*******"  // never attended formal school
+
+    // Correcting education
+    // create dummy for all education values the not same for individual
+    bysort cluster hh spouseid: egen sp_educ = mode(sp_educ_years)
+    gen educ_temp = sp_educ != sp_educ_years
+    bysort cluster hh spouseid: egen sp_educ_problem = max(educ_temp)
+
+    // Education grouping variable based on median
+    bysort cluster hh spouseid: egen educ_years_median=median(sp_educ_years)
+    egen sp_educ017 = cut(educ_years_median) , at(0,1,7,25) // none, some primary, grad primary or above
+    egen sp_educ07 = cut(educ_years_median) , at(0,7,25) // none and some primary, grad primary or above
+
+    drop sp_educ educ_years_median educ_temp
+
     sort cluster hh spouseid passage
     save "`tempEdu'"
 restore
@@ -116,6 +130,7 @@ order id_hh id_person, after(id)
 // Period dummies
 tab passage, gen(pass)
 
+
 // Fix age
 // use _n instead of wave because some respondents enter our age range later than wave 1.
 // this is important if we want to increase number of observations by allowing those
@@ -149,12 +164,36 @@ drop numwaves agemin agemax medianage
 
 
 // Education (respondent's - partner's come from above)
+
 // "grd" is already coded from Karega survey, but seems to miss some no school obs
 // General information on Tanzania's education system: https://www.classbase.com/countries/Tanzania/Education-System
 // Also see page 30 of Interviewer's Manual
 gen educ_years = grd
 replace educ_years = 0 if schl == 2 ///
     | grade == "ADULTED" | grade == "*******"  // never attended formal school
+
+// Correcting education
+// create dummy for all education values the not same for individual
+bysort id_person: egen educ = mode(educ_years)
+gen educ_temp = educ != educ_years
+bysort id_person: egen educ_problem = max(educ_temp)
+// how many change enough to create problems for our definition of education?
+bysort id_person: egen educmin = min(educ_years)
+bysort id_person: egen educmax = max(educ_years)
+gen educ_wide_vary = (educmax >= 7 & educmin < 7) | (educmax > 0 & educmax < 7 & educmin == 0)
+// checking how many have education problems
+preserve
+    bysort id_person: keep if _n == 1
+    tab educ_problem
+    tab educ_wide_vary
+restore
+
+// Education grouping variable based on median
+bysort id_person: egen educ_years_median=median(educ_years)
+egen educ017 = cut(educ_years_median) , at(0,1,7,25) // none, some primary, grad primary or above
+egen educ07 = cut(educ_years_median) , at(0,7,25) // none and some primary, grad primary or above
+
+drop educ_wide_vary educ_years_median educ educmin educmax educ_temp
 
 
 // Contraception use

@@ -204,11 +204,14 @@ gen contra_any = contruse
 recode contra_any (2 = 0) 
 // Traditional contraceptive use
 gen contra_trad = (method1 >= 1 & method1 <= 3 & method1 ~= .) ///
-    | (method2 >= 1 & method2 <= 3 & method2 ~= .) if contra_any != .
+    | (method2 >= 1 & method2 <= 3 & method2 ~= .) ///
+    if (method1 != . | method2 !=.)
 // Modern contraceptive use
 gen contra_modern = (method1 >= 4 & method1 ~= .) ///
-    | (method2 >= 4 & method2 ~= .) if contra_any != .
+    | (method2 >= 4 & method2 ~= .) ///
+    if (method1 != . | method2 !=.)
 replace contra_trad = 1 if contra_any & !(contra_trad | contra_modern)
+replace contra_any  = 1 if contra_any == . & contra_trad != . & contra_modern != .
 
 // No point using contraceptives while already pregnant
 replace contra_any    = 0 if pregnant==1  

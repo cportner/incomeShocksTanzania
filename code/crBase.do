@@ -198,10 +198,54 @@ drop educ_wide_vary educ_years_median educ educmin educmax educ_temp
 
 // Contraception use
 
+sort id_person wave
+// Variable for any type of contraceptive - 2 previously represented No
+gen contra_any = contruse   
+recode contra_any (2 = 0) 
+// Traditional contraceptive use
+gen contra_trad = (method1 >= 1 & method1 <= 3 & method1 ~= .) ///
+    | (method2 >= 1 & method2 <= 3 & method2 ~= .) if contra_any != .
+// Modern contraceptive use
+gen contra_modern = (method1 >= 4 & method1 ~= .) ///
+    | (method2 >= 4 & method2 ~= .) if contra_any != .
+replace contra_trad = 1 if contra_any & !(contra_trad | contra_modern)
 
-//////////////////////////////
-// Variable labels          //
-//////////////////////////////
+// No point using contraceptives while already pregnant
+replace contra_any    = 0 if pregnant==1  
+replace contra_trad   = 0 if pregnant==1 
+replace contra_modern = 0 if pregnant==1 
+
+// No point using contraceptives if male or female sterilization
+// Code contraceptive use as missing if sterilization now or before
+forvalues wave = 1/4 {
+    forvalues prior = `wave'(-1)1 {
+        foreach var of varlist contra_any contra_trad contra_modern {
+            bysort id_person (wave): replace `var' = .  ///
+                if wave == `wave' ///
+                & (method1[`prior'] == 11 | method1[`prior'] == 12 ///
+                | method2[`prior'] == 11 | method2[`prior'] == 12)
+        }
+    }
+}
+
+gen ster = method1 == 11 | method1 == 12 | method2 == 11 | method2 == 12
+bysort id_person: egen any_sterilization = max(ster)
+drop ster
+sort id_person wave
+
+// lag values for contraceptive
+bysort id_person (wave): gen lagcontra_any    = contra_any[_n-1]
+bysort id_person (wave): gen lagcontra_trad   = contra_trad[_n-1]
+bysort id_person (wave): gen lagcontra_modern = contra_modern[_n-1]
+
+
+
+// Births and pregnancies
+
+
+////////////////////////////////////////
+// Variable and value labels          //
+////////////////////////////////////////
 
 lab var id_hh         "Unique household identifier"
 lab var id_person     "Unique individual identifier"
@@ -221,7 +265,18 @@ lab var firstage      "Age in first wave (possibly imputed)"
 lab var age_problem   "Inconsistency in reported ages"
 lab var agegroup      "Age groups based on firstage"
 
+lab var contra_any    "Contraceptive use"
+lab var contra_trad   "Contraceptive use - Traditional"
+lab var contra_modern "Contraceptive use - Modern"
+lab var any_sterilization "Male or female sterilization in any wave"
+lab var lagcontra_any    "Contraceptive use in prior wave"
+lab var lagcontra_trad   "Contraceptive use in prior wave - Traditional"
+lab var lagcontra_modern "Contraceptive use in prior wave - Modern"
 
+lab def new_yesno     0 "No" 1 "yes"
+lab val contra_any contra_trad contra_modern any_sterilization ///
+        educ_problem sp_educ_problem age_problem ///
+        new_yesno    
 
 
 //////////////////////////////

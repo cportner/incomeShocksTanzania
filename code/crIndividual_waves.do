@@ -1,6 +1,6 @@
 // Create base data file
 // crIndividual_waves.do
-// Edited: 2017-07-18
+// Edited: 2017-07-25
 
 vers 13.1
 clear
@@ -39,7 +39,8 @@ foreach wave of numlist 1/4 {
 
     *Merging fertility and contraceptive data by individual
     merge 1:1 cluster hh id passage using ///
-        "`rawDir'/HOUSEHOLD/WAVE`wave'/S9___IND.DTA", keepusing(birthtot wmngt50 pregnant mospreg contruse method1 method2)
+        "`rawDir'/HOUSEHOLD/WAVE`wave'/S9___IND.DTA", ///
+        keepusing(everpreg everbrth birthtot wmngt50 pregnant mospreg contruse method1 method2)
     drop if _merge==2  // Fertility data, but no matching demographic data
     drop _merge
 

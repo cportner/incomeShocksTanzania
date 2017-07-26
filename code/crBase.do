@@ -1,6 +1,6 @@
 // Create base data file
 // crBase.do
-// Edited: 2017-07-20
+// Edited: 2017-07-26
 
 vers 13.1
 clear
@@ -127,8 +127,10 @@ gen id_person = cluster*10000 + hh*100 + id
 gen id_hh     = cluster*100 + hh
 order id_hh id_person, after(id)
 
-// Period dummies
+
+// Period dummies and wave count
 tab passage, gen(pass)
+bysort id_person (wave): gen num_waves = _N
 
 
 // Fix age
@@ -242,8 +244,62 @@ bysort id_person (wave): gen lagcontra_trad   = contra_trad[_n-1]
 bysort id_person (wave): gen lagcontra_modern = contra_modern[_n-1]
 
 
-
 // Births and pregnancies
+
+// First time surveyed respondent asked for all prior births.
+// If answer no to ever pregnant/ever birth number of children is missing
+// In subsequent surveys asked only about last 6 months for continuing women
+// and all births for new women.
+// In both cases the variable is birthtot.
+// Unfortunately, it looks like some wave numbers are recorded so
+// that some women who only show up in one wave is coded as having a higher
+// wave number but total number of birth is recorded.
+// That presumably happens when somebody joins a household that have already
+// been surveyed and therefore is not coded as wave 1.
+// The fix is to create a person/wave variable and check if that works better
+// If a person skips waves, it is not entirely clear what happens.
+// Some appear to have been asked for new births, whereas others were clearly
+// asked about total number of birth over their life.
+
+bysort id_person (wave): gen person_wave = _n
+bysort id_person (wave): gen noncon = (wave - wave[_n-1] > 1 & wave - wave[_n-1] < 4 )
+bysort id_person: egen nonconsecutive = max(noncon)
+drop noncon
+
+replace birthtot = 0 if (everpreg == 2 | everbrth == 2) & birthtot == .
+// New births between surveys - first survey equal to missing
+gen birth = birthtot if person_wave != 1 & !nonconsecutive
+bysort id_person (person_wave): gen numbirth = birthtot if _n == 1 & !nonconsecutive
+forvalues wave = 2 / 4 {
+    bysort id_person (person_wave): replace numbirth = numbirth[_n-1] + birth ///
+    if !nonconsecutive & person_wave == `wave'
+}
+// Dealing with non-consecutive respondents - count births only if consecutive survey
+// This still leaves a number of cases where birth and/or numbirth are missing
+// because it is not clear whether the survey captured new births or total births
+// or where the next reported number is too high to be new births but lower than
+// the originally reported number of children
+bysort id_person (wave): replace birth = birthtot ///
+    if (wave[_n] == wave[_n-1] + 1) & nonconsecutive
+bysort id_person (wave): replace numbirth = birthtot ///
+    if _n == 1 & nonconsecutive
+bysort id_person (wave): replace numbirth = birthtot ///
+    if nonconsecutive & (wave[_n] > wave[_n-1] + 1) ///
+    & birthtot[_n] >= birthtot[_n-1]
+bysort id_person (wave): replace numbirth = numbirth[_n-1] + birthtot ///
+    if (wave[_n] >= wave[_n-1] + 1) & nonconsecutive ///
+    & birthtot[_n] <= birthtot[_n-1] & birthtot[_n] < 2
+bysort id_person (wave): replace numbirth = numbirth[_n-1] + birth ///
+    if (wave[_n] == wave[_n-1] + 1) & nonconsecutive ///
+    & numbirth[_n-1] != .
+
+// Lagged births
+bysort id_person (wave): gen birth_lag  = birth[_n-1] // Gave birth 7-14 months ago
+bysort id_person (wave): gen birth_lag2 = birth[_n-2] // gave birth 14-21 months ago
+
+// Number of children prior surveys
+bysort id_person (wave): gen numbirth_lag  = numbirth[_n-1]
+bysort id_person (wave): gen numbirth_lag2 = numbirth_lag[_n-1]
 
 
 ////////////////////////////////////////
@@ -275,6 +331,14 @@ lab var any_sterilization "Male or female sterilization in any wave"
 lab var lagcontra_any    "Contraceptive use in prior wave"
 lab var lagcontra_trad   "Contraceptive use in prior wave - Traditional"
 lab var lagcontra_modern "Contraceptive use in prior wave - Modern"
+
+label var birth         "Gave birth since last survey (1-7 months)"
+label var birth_lag     "Gave birth 7-14 months ago"
+label var birth_lag2    "Gave birth 14-21 months ago"
+label var numbirth      "Number of children ever born - current survey"
+label var numbirth_lag  "Number of children ever born - prior survey" 
+label var numbirth_lag2 "Number of children ever born - 2 surveys ago" 
+
 
 lab def new_yesno     0 "No" 1 "yes"
 lab val contra_any contra_trad contra_modern any_sterilization ///

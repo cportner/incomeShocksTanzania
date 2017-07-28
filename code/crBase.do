@@ -319,7 +319,6 @@ loc strdiv "10,000" // for labels
 // creating asset variable
 recode shamvalu feqslamt lvsvalue bassvalu durvalue totsavng farmarea (. = 0)
 gen assets=shamvalu + feqslamt + lvsvalue + bassvalu + durvalue + totsavng   
-
 // Per capita asset measures in `strdiv' TZS
 gen assets_pc      = (assets/hhmem) / `divide' // per capita assets
 by id_person (wave): gen assets_pc_lag   = assets_pc[_n-1]
@@ -330,13 +329,19 @@ by id_person (wave): gen assets_pc_wave1 = assets_pc[1]
 by id_person (wave): gen landvalue_pc_wave1 = (shamvalu[1] / hhmem[1]) / `divide' 
 by id_person (wave): gen landarea_wave1  = farmarea[1]
 
-// drop if assets_pc > 7000000 / `divide' // remove a set of clear outliers
 
 // Crop loss variables
+
 // Crop lost per capita in `strdiv' TZS
 gen croplostamount_pc     = (crlstamt / hhmem) / `divide'
 by id_person (wave): gen croplostamount_pc_lag  = croplostamount_pc[_n-1]
 by id_person (wave): gen croplostamount_pc_lag2 = croplostamount_pc[_n-2]
+
+
+// Other health and demographic variables
+gen female = sex == 2
+gen heightm=height/100 //Creating height in meters
+gen BMI=weight/heightm^2
 
 
 ////////////////////////////////////////
@@ -371,32 +376,41 @@ lab var lagcontra_any    "Contraceptive use in prior wave"
 lab var lagcontra_trad   "Contraceptive use in prior wave - Traditional"
 lab var lagcontra_modern "Contraceptive use in prior wave - Modern"
 
-label var birth         "Gave birth since last survey (1-7 months)"
-label var birth_lag     "Gave birth 7-14 months ago"
-label var birth_lag2    "Gave birth 14-21 months ago"
-label var numbirth      "Number of children ever born - current survey"
-label var numbirth_lag  "Number of children ever born - prior survey" 
-label var numbirth_lag2 "Number of children ever born - 2 surveys ago" 
-label var nonconsecutive "Not surveyed only in consecutive waves"
+lab var birth         "Gave birth since last survey (1-7 months)"
+lab var birth_lag     "Gave birth 7-14 months ago"
+lab var birth_lag2    "Gave birth 14-21 months ago"
+lab var numbirth      "Number of children ever born - current survey"
+lab var numbirth_lag  "Number of children ever born - prior survey" 
+lab var numbirth_lag2 "Number of children ever born - 2 surveys ago" 
+lab var nonconsecutive "Not surveyed only in consecutive waves"
 
-label var assets              "Assets (TZS)"
-label var assets_pc           "Assets per capita (`strdiv' TZS)"
-label var assets_pc_lag       "Assets per capita prior survey (`strdiv' TZS)"
-label var assets_pc_lag2      "Assets per capita two surveys ago (`strdiv' TZS)"
-label var assets_pc_wave1     "Assets per capita in wave 1 (`strdiv' TZS)"
-label var landvalue_pc_wave1  "Land value per capita in wave 1 (`strdiv' TZS)"
-label var landarea_wave1      "Land area in wave 1"
+lab var assets              "Assets (TZS)"
+lab var assets_pc           "Assets per capita (`strdiv' TZS)"
+lab var assets_pc_lag       "Assets per capita prior survey (`strdiv' TZS)"
+lab var assets_pc_lag2      "Assets per capita two surveys ago (`strdiv' TZS)"
+lab var assets_pc_wave1     "Assets per capita in wave 1 (`strdiv' TZS)"
+lab var landvalue_pc_wave1  "Land value per capita in wave 1 (`strdiv' TZS)"
+lab var landarea_wave1      "Land area in wave 1"
 
-label var croplostamount_pc      "Crop lost per capita - last 7 months (`strdiv' TZS)"
-label var croplostamount_pc_lag  "Crop lost per capita - 7-14 months (`strdiv' TZS)"
-label var croplostamount_pc_lag2 "Crop lost per capita - 14-21 months (`strdiv' TZS)"
+lab var croplostamount_pc      "Crop lost per capita - last 7 months (`strdiv' TZS)"
+lab var croplostamount_pc_lag  "Crop lost per capita - 7-14 months (`strdiv' TZS)"
+lab var croplostamount_pc_lag2 "Crop lost per capita - 14-21 months (`strdiv' TZS)"
+
+lab var female        "Female"
+lab var heightm       "Height in metres"
+lab var BMI           "BMI"
+
 
 lab def newyesno     0 "No" 1 "yes"
 lab val contra_any contra_trad contra_modern any_sterilization ///
         nonconsecutive pregnant ///
-        illdays_dummy ///
+        illdays_dummy female ///
         educ_problem sp_educ_problem age_problem ///
         newyesno    
+
+// Drop variables and observations
+
+// drop if assets_pc > 7000000 / `divide' // remove a set of clear outliers
 
 
 //////////////////////////////

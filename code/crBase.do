@@ -332,6 +332,12 @@ by id_person (wave): gen landarea_wave1  = farmarea[1]
 
 // drop if assets_pc > 7000000 / `divide' // remove a set of clear outliers
 
+// Crop loss variables
+// Crop lost per capita in `strdiv' TZS
+gen croplostamount_pc     = (crlstamt / hhmem) / `divide'
+by id_person (wave): gen croplostamount_pc_lag  = croplostamount_pc[_n-1]
+by id_person (wave): gen croplostamount_pc_lag2 = croplostamount_pc[_n-2]
+
 
 ////////////////////////////////////////
 // Variable and value labels          //
@@ -378,6 +384,10 @@ label var assets_pc_lag2      "Assets per capita two surveys ago (`strdiv' TZS)"
 label var assets_pc_wave1     "Assets per capita in wave 1 (`strdiv' TZS)"
 label var landvalue_pc_wave1  "Land value per capita in wave 1 (`strdiv' TZS)"
 label var landarea_wave1      "Land area in wave 1"
+
+label var croplostamount_pc      "Crop lost per capita - last 7 months (`strdiv' TZS)"
+label var croplostamount_pc_lag  "Crop lost per capita - 7-14 months (`strdiv' TZS)"
+label var croplostamount_pc_lag2 "Crop lost per capita - 14-21 months (`strdiv' TZS)"
 
 lab def new_yesno     0 "No" 1 "yes"
 lab val contra_any contra_trad contra_modern any_sterilization ///

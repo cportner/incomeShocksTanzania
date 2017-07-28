@@ -1,6 +1,5 @@
 // Create base data file
 // crBase.do
-// Edited: 2017-07-27
 
 vers 13.1
 clear
@@ -318,17 +317,20 @@ loc divide = 10000 // how much shocks and assets are divided by
 loc strdiv "10,000" // for labels
 
 // creating asset variable
-recode shamvalu feqslamt lvsvalue bassvalu durvalue totsavng (. = 0)
+recode shamvalu feqslamt lvsvalue bassvalu durvalue totsavng farmarea (. = 0)
 gen assets=shamvalu + feqslamt + lvsvalue + bassvalu + durvalue + totsavng   
 
 // Per capita asset measures in `strdiv' TZS
 gen assets_pc      = (assets/hhmem) / `divide' // per capita assets
-by id_person: gen assets_pc_lag  = assets_pc[_n-1]
-by id_person: gen assets_pc_lag2 = assets_pc[_n-2]
+by id_person (wave): gen assets_pc_lag   = assets_pc[_n-1]
+by id_person (wave): gen assets_pc_lag2  = assets_pc[_n-2]
+// This is first wave observed; there can be differences across individuals if enter
+// at different times
+by id_person (wave): gen assets_pc_wave1 = assets_pc[1] 
+by id_person (wave): gen landvalue_pc_wave1 = (shamvalu[1] / hhmem[1]) / `divide' 
+by id_person (wave): gen landarea_wave1  = farmarea[1]
 
-exit
-
-drop if assets_pc > 7000000 / `divide' // remove a set of clear outliers
+// drop if assets_pc > 7000000 / `divide' // remove a set of clear outliers
 
 
 ////////////////////////////////////////
@@ -373,7 +375,9 @@ label var nonconsecutive "Not surveyed only in consecutive waves"
 label var assets_pc           "Assets per capita (`strdiv' TZS)"
 label var assets_pc_lag       "Assets per capita prior survey (`strdiv' TZS)"
 label var assets_pc_lag2      "Assets per capita two surveys ago (`strdiv' TZS)"
-
+label var assets_pc_wave1     "Assets per capita in wave 1 (`strdiv' TZS)"
+label var landvalue_pc_wave1  "Land value per capita in wave 1 (`strdiv' TZS)"
+label var landarea_wave1      "Land area in wave 1"
 
 lab def new_yesno     0 "No" 1 "yes"
 lab val contra_any contra_trad contra_modern any_sterilization ///

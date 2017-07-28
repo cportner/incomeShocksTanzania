@@ -1,6 +1,6 @@
 // Create base data file
 // crBase.do
-// Edited: 2017-07-26
+// Edited: 2017-07-27
 
 vers 13.1
 clear
@@ -22,11 +22,18 @@ foreach wave of numlist 2/4 {
 sort cluster hh passage
 
 // Merge in household level information
+preserve
+    tempfile tempHH
+    use `dataDir'/household_wave1, clear
+    foreach wave of numlist 2/4 {
+        append using `dataDir'/household_wave`wave'
+    }
+    sort cluster hh passage
+    save "`tempHH'"
+restore
+merge m:1 cluster hh passage using "`tempHH'"
+drop _merge
 
-foreach wave of numlist 1/4 {
-    merge m:1 cluster hh passage using `dataDir'/household_wave`wave'
-    drop _merge
-}
 
 // Merging in partner education and generate polygyny dummy
 
@@ -301,6 +308,28 @@ bysort id_person (wave): gen birth_lag2 = birth[_n-2] // gave birth 14-21 months
 bysort id_person (wave): gen numbirth_lag  = numbirth[_n-1]
 bysort id_person (wave): gen numbirth_lag2 = numbirth_lag[_n-1]
 
+// Pregnancy
+recode pregnant (2 = 0)
+
+
+// Assets variables
+
+loc divide = 10000 // how much shocks and assets are divided by
+loc strdiv "10,000" // for labels
+
+// creating asset variable
+recode shamvalu feqslamt lvsvalue bassvalu durvalue totsavng (. = 0)
+gen assets=shamvalu + feqslamt + lvsvalue + bassvalu + durvalue + totsavng   
+
+// Per capita asset measures in `strdiv' TZS
+gen assets_pc      = (assets/hhmem) / `divide' // per capita assets
+by id_person: gen assets_pc_lag  = assets_pc[_n-1]
+by id_person: gen assets_pc_lag2 = assets_pc[_n-2]
+
+exit
+
+drop if assets_pc > 7000000 / `divide' // remove a set of clear outliers
+
 
 ////////////////////////////////////////
 // Variable and value labels          //
@@ -308,6 +337,7 @@ bysort id_person (wave): gen numbirth_lag2 = numbirth_lag[_n-1]
 
 lab var id_hh         "Unique household identifier"
 lab var id_person     "Unique individual identifier"
+lab var person_wave   "Round individual surveyed"
 
 lab var polygyny      "Polygyny (imputed)"
 
@@ -338,10 +368,16 @@ label var birth_lag2    "Gave birth 14-21 months ago"
 label var numbirth      "Number of children ever born - current survey"
 label var numbirth_lag  "Number of children ever born - prior survey" 
 label var numbirth_lag2 "Number of children ever born - 2 surveys ago" 
+label var nonconsecutive "Not surveyed only in consecutive waves"
+
+label var assets_pc           "Assets per capita (`strdiv' TZS)"
+label var assets_pc_lag       "Assets per capita prior survey (`strdiv' TZS)"
+label var assets_pc_lag2      "Assets per capita two surveys ago (`strdiv' TZS)"
 
 
 lab def new_yesno     0 "No" 1 "yes"
 lab val contra_any contra_trad contra_modern any_sterilization ///
+        nonconsecutive pregnant ///
         educ_problem sp_educ_problem age_problem ///
         new_yesno    
 

@@ -346,6 +346,7 @@ by id_person (wave): gen croplostamount_pc_lag2 = croplostamount_pc[_n-2]
 lab var id_hh         "Unique household identifier"
 lab var id_person     "Unique individual identifier"
 lab var person_wave   "Round individual surveyed"
+lab var num_waves     "Number of waves person surveyed"
 
 lab var polygyny      "Polygyny (imputed)"
 
@@ -378,6 +379,7 @@ label var numbirth_lag  "Number of children ever born - prior survey"
 label var numbirth_lag2 "Number of children ever born - 2 surveys ago" 
 label var nonconsecutive "Not surveyed only in consecutive waves"
 
+label var assets              "Assets (TZS)"
 label var assets_pc           "Assets per capita (`strdiv' TZS)"
 label var assets_pc_lag       "Assets per capita prior survey (`strdiv' TZS)"
 label var assets_pc_lag2      "Assets per capita two surveys ago (`strdiv' TZS)"
@@ -389,11 +391,12 @@ label var croplostamount_pc      "Crop lost per capita - last 7 months (`strdiv'
 label var croplostamount_pc_lag  "Crop lost per capita - 7-14 months (`strdiv' TZS)"
 label var croplostamount_pc_lag2 "Crop lost per capita - 14-21 months (`strdiv' TZS)"
 
-lab def new_yesno     0 "No" 1 "yes"
+lab def newyesno     0 "No" 1 "yes"
 lab val contra_any contra_trad contra_modern any_sterilization ///
         nonconsecutive pregnant ///
+        illdays_dummy ///
         educ_problem sp_educ_problem age_problem ///
-        new_yesno    
+        newyesno    
 
 
 //////////////////////////////

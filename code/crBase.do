@@ -409,9 +409,13 @@ lab val contra_any contra_trad contra_modern any_sterilization ///
         newyesno    
 
 // Drop variables and observations
+// Should remove all relevant observation for individual/household
+// not just the wave
 
-// drop if assets_pc > 7000000 / `divide' // remove a set of clear outliers
-
+gen high_asset = assets_pc > 7000000 / `divide'
+by id_person (wave): egen too_high = max(high_asset)
+drop if too_high
+drop high_asset too_high
 
 //////////////////////////////
 // Save base data set       //

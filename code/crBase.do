@@ -209,7 +209,9 @@ drop educ_wide_vary educ_years_median educ educmin educmax educ_temp
 sort id_person wave
 // Variable for any type of contraceptive - 2 previously represented No
 gen contra_any = contruse   
-recode contra_any (2 = 0) 
+recode contra_any (2 = 0)
+// Some not asked for contraception use if never pregnant
+replace contra_any = 0 if everpreg == 2 & contra_any == . & marstat < 3
 // Traditional contraceptive use
 gen contra_trad = (method1 >= 1 & method1 <= 3 & method1 ~= .) ///
     | (method2 >= 1 & method2 <= 3 & method2 ~= .) ///
@@ -220,6 +222,8 @@ gen contra_modern = (method1 >= 4 & method1 ~= .) ///
     if (method1 != . | method2 !=.)
 replace contra_trad = 1 if contra_any & !(contra_trad | contra_modern)
 replace contra_any  = 1 if contra_any == . & contra_trad != . & contra_modern != .
+replace contra_trad   = 0 if contra_any == 0 & contra_trad   == .
+replace contra_modern = 0 if contra_any == 0 & contra_modern == .
 
 // No point using contraceptives while already pregnant
 replace contra_any    = 0 if pregnant==1  
@@ -309,6 +313,8 @@ bysort id_person (wave): gen numbirth_lag2 = numbirth_lag[_n-1]
 
 // Pregnancy
 recode pregnant (2 = 0)
+replace pregnant = 0 ///
+    if pregnant == . & everpreg == 2 & marstat < 3 & ageyr < 50 
 
 
 // Assets variables

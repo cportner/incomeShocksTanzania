@@ -22,7 +22,7 @@ MAP  = ./staticPDF
 
 # need to add analysis dependencies to end of next line
 $(TEX)/$(TEXFILE).pdf: $(TEX)/$(TEXFILE).tex $(TEX)/$(TEXFILE).bib \
- $(MAP)/kagera.pdf $(DAT)/base.dta
+ $(MAP)/kagera.pdf $(TAB)/desstat1.tex
 	cd $(TEX); xelatex $(TEXFILE)
 	cd $(TEX); bibtex $(TEXFILE)
 	cd $(TEX); xelatex $(TEXFILE)
@@ -44,6 +44,10 @@ response: $(RES)/$(RESFILE).pdf
 
 
 ### Stata part         			                                ###
+
+# Descriptive statistics
+$(TAB)/desstat1.tex: $(COD)/anDescStat.do $(DAT)/base.dta
+	cd $(COD); stata-se -b -q anDescStat.do    
 
 # Create base data set(s)
 # Need "end" file as outcome, here the base data sets for each survey
@@ -71,9 +75,6 @@ $(DAT)/household_wave%.dta: $(COD)/crHousehold_waves.do $(RAW)/HOUSEHOLD/WAVE%/S
  $(RAW)/HOUSEHOLD/WAVE%/S19C_IND.DTA $(RAW)/HOUSEHOLD/WAVE%/S1___IND.DTA 
 	cd $(COD); stata-se -b -q crHousehold_waves.do    
 
-    
-
-# Descriptive statistics
 	
 # Analysis files	
 

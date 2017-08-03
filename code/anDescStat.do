@@ -27,7 +27,7 @@ file write stats "\footnotesize" _n
 file write stats "\begin{threeparttable}" _n
 file write stats "\caption{Wave 1 Descriptive Statistics for Women}" _n
 file write stats "\label{tab:desc_stat_women}" _n
-file write stats "\begin{tabular}{l  D{.}{.}{3,2} D{.}{.}{3,2} D{.}{.}{3,2} D{.}{.}{3,2}} \toprule" _n
+file write stats "\begin{tabular}{l  D{.}{.}{2,3} D{.}{.}{2,3} } \toprule" _n
 file write stats "                                                    	 &   \mco{Mean}        &  \mco{St Dev}    \\ \midrule" _n
 file close stats
 

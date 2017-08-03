@@ -28,8 +28,7 @@ file write stats "\begin{threeparttable}" _n
 file write stats "\caption{Wave 1 Descriptive Statistics for Women}" _n
 file write stats "\label{tab:desc_stat_women}" _n
 file write stats "\begin{tabular}{l  D{.}{.}{3,2} D{.}{.}{3,2} D{.}{.}{3,2} D{.}{.}{3,2}} \toprule" _n
-file write stats "                                                    	 & \mco{Mean} 	       & 	\mco{St Dev}	  \\ \midrule" _n
-
+file write stats "                                                    	 &   \mco{Mean}        &  \mco{St Dev}    \\ \midrule" _n
 file close stats
 
 
@@ -50,21 +49,35 @@ file open  stats using `tables'/desstat1.tex, write append
 file write stats "\addlinespace" _n
 file close stats
 
-xi , noomit: estpost  sum assets_pc_wave1 i.educ017 if wave == 1 
-
+xi , noomit: estpost  sum i.educ017 if wave == 1 
 esttab using `tables'/desstat1.tex , ///
     main(mean %9.3fc) aux(sd %9.3fc) ///
     varlabels( ///
         _Ieduc017_0  "No education" ///
         _Ieduc017_1  "1 - 6 years of education" ///
         _Ieduc017_7  "7 plus years of education" ///
+    ) ///  
+    fragment nomtitles nonumber noobs append nolines ///
+    nogap varwidth(55) label wide noparentheses
+
+
+file open  stats using `tables'/desstat1.tex, write append
+file write stats "\addlinespace" _n
+file close stats
+
+xi , noomit: estpost  sum assets_pc_wave1  if wave == 1 
+ereturn list
+esttab using `tables'/desstat1.tex , ///
+    main(mean %9.3fc) aux(sd %9.3fc) ///
+    varlabels( ///
         assets_pc_wave1 "Assets per capita in wave 1 (10,000 TZS)\tnote{a}" ///
     ) ///  
     fragment nomtitles nonumber noobs append nolines ///
     nogap varwidth(55) label wide noparentheses
- 
-file open stats using `tables'/desstat1.tex, write append
- 
+
+file open  stats using `tables'/desstat1.tex, write append
+file write stats "\addlinespace" _n
+file write stats "Number of women" _col(56) "&                \mct{`e(N)'}         \\" _n
 file write stats "\bottomrule" _n
 file write stats "\end{tabular}" _n
 file write stats "\begin{tablenotes}" _n

@@ -13,9 +13,9 @@ use `data'/base
 // data manipulation
 do womenCommon 
 
-////////////////////////////
-// Descriptive statistics //
-////////////////////////////
+//////////////////////////////////////
+// Descriptive statistics for women //
+//////////////////////////////////////
 
 
 // LaTeX intro part for table
@@ -90,22 +90,94 @@ file write stats "\end{table}" _n
 
 file close stats
 
-exit    
+//////////////////////////////////////
+// Descriptive statistics for women //
+//////////////////////////////////////
 
-sum assets_pc_wave1 if wave == 1, detail
+
+// LaTeX intro part for table
+file open stats using `tables'/desstat2.tex, write replace
+file write stats "\begin{table}" _n
+file write stats "\centering" _n
+file write stats "\footnotesize" _n
+file write stats "\begin{threeparttable}" _n
+file write stats "\caption{Descriptive statistics for Crop loss and Outcomes}" _n
+file write stats "\label{tab:desc_stat_croploss}" _n
+file write stats "\begin{tabular}{l  D{.}{.}{2,3} D{.}{.}{2,3} D{.}{.}{2,3} D{.}{.}{2,3} D{.}{.}{2,3}} \toprule" _n
+file write stats "                                  & \multicolumn{4}{c}{Wave} & \mco{Average} \\ \cmidrule(lr){2-5}" _n
+file write stats "                                  &\multicolumn{1}{c}{1} &\multicolumn{1}{c}{2}   &\multicolumn{1}{c}{3} &\multicolumn{1}{c}{4} &   \\ \midrule" _n
+file close stats
 
 eststo clear
+estpost tabstat croplostdummy  , ///
+    by(wave) statistics(mean sd)  columns(statistics)
 
-estpost tabstat croplostdummy contra_any contra_trad contra_modern pregnant birth , ///
-    by(wave) statistics(mean sd) columns(statistics) listwise
+// This is needed because estpost and esttab will not print correctly if only
+// a single variable is used.
+matrix A = e(mean)
+matrix B = e(sd)
 
+file open  stats using `tables'/desstat2.tex, write append
+file write stats "Dummy crop loss (1-7 months) $\geq$ TZS 200 " 
+file write stats _col(56)
+foreach x of numlist 1/5 {
+    file write stats "&   " %7.2f (A[1,`x'])  "  "
+}
+file write stats "//" _n    
+file write stats _col(56)
+foreach x of numlist 1/5 {
+    file write stats "&     (" %4.2f (B[1,`x'])  ") "
+}
+file write stats "//" _n    
+file write stats "\addlinespace" _n
+file close stats
+
+
+eststo clear
+estpost tabstat pregnant birth , ///
+    by(wave) statistics(mean sd) columns(statistics) 
 
 esttab using `tables'/desstat2.tex , ///
-    main(mean 2) aux(sd 2) nostar unstack ///
+    cells(mean(fmt(2)) sd(par fmt(2))) nostar unstack ///
     varlabels( ///
         pregnant "Currently pregnant" ///
+        birth    "Gave birth since last survey" ///
     ) ///
-    nogap nolines varwidth(55) label ///
-    noobs nonote nomtitle nonumber replace
+    collabels(none) mlabels(none) eqlabels(none) ///
+    fragment nomtitles nonumber noobs append nolines ///
+    nogap varwidth(55) label nodepvars 
+
+file open  stats using `tables'/desstat2.tex, write append
+file write stats "\addlinespace" _n
+file close stats
+
+
+eststo clear
+estpost tabstat  contra_any contra_trad contra_modern  , ///
+    by(wave) statistics(mean sd) columns(statistics) 
+
+esttab using `tables'/desstat2.tex , ///
+    cells(mean(fmt(2)) sd(par fmt(2))) nostar unstack ///
+    varlabels( ///
+        contra_trad   "Contraceptive use --- Traditional\tnote{a}" ///
+        contra_modern "Contraceptive use --- Modern\tnote{b}" ///
+    ) ///
+    collabels(none) mlabels(none) eqlabels(none) ///
+    fragment nomtitles nonumber noobs append nolines ///
+    nogap varwidth(55) label nodepvars 
+
+
+file open  stats using `tables'/desstat2.tex, write append
+file write stats "\bottomrule" _n
+file write stats "\end{tabular}" _n
+file write stats "\begin{tablenotes} " _n
+file write stats "\scriptsize" _n
+file write stats "\item[a] Traditional contraceptives include abstinence and rhythm method." _n
+file write stats "\item[b] Modern contraceptives include condom, diaphragm, pill, IUD, injection, female and " _n
+file write stats "male sterilization." _n
+file write stats "\end{tablenotes}" _n
+file write stats "\end{threeparttable}" _n
+file write stats "\end{table}" _n
+file close stats
 
     

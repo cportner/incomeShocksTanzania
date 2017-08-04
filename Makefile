@@ -22,7 +22,7 @@ MAP  = ./staticPDF
 
 # need to add analysis dependencies to end of next line
 $(TEX)/$(TEXFILE).pdf: $(TEX)/$(TEXFILE).tex $(TEX)/$(TEXFILE).bib \
- $(MAP)/kagera.pdf $(TAB)/desstat1.tex
+ $(MAP)/kagera.pdf $(TAB)/desstat1.tex $(TAB)/desstat2.tex
 	cd $(TEX); xelatex $(TEXFILE)
 	cd $(TEX); bibtex $(TEXFILE)
 	cd $(TEX); xelatex $(TEXFILE)
@@ -46,7 +46,7 @@ response: $(RES)/$(RESFILE).pdf
 ### Stata part         			                                ###
 
 # Descriptive statistics
-$(TAB)/desstat1.tex: $(COD)/anDescStat.do $(DAT)/base.dta
+$(TAB)/desstat1.tex $(TAB)/desstat2.tex: $(COD)/anDescStat.do $(DAT)/base.dta
 	cd $(COD); stata-se -b -q anDescStat.do    
 
 # Create base data set(s)

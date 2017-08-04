@@ -123,12 +123,12 @@ file write stats _col(56)
 foreach x of numlist 1/5 {
     file write stats "&   " %7.2f (A[1,`x'])  "  "
 }
-file write stats "//" _n    
+file write stats "\\" _n    
 file write stats _col(56)
 foreach x of numlist 1/5 {
     file write stats "&     (" %4.2f (B[1,`x'])  ") "
 }
-file write stats "//" _n    
+file write stats "\\" _n    
 file write stats "\addlinespace" _n
 file close stats
 

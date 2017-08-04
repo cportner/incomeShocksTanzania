@@ -3,6 +3,7 @@
 
 vers 13.1
 clear
+file close _all // makes working on code easier
 
 //  short file paths - assuming work directory is "code"
 loc data   "../data"
@@ -64,12 +65,35 @@ estadd local fixed "Yes" , replace
 // In main text tables
 
 // Pregnancy and birth table
-esttab  lpm_pr_0 lpm_pr_1 d_pr_1  lpm_br_0 lpm_br_1  d_br_1  using `tables'/main_w1_pregnant_birth.tex, replace ///
+
+file open table using `tables'/main_pregnant_birth.tex, write replace
+file write table "\begin{table}[htbp]" _n
+file write table "\begin{center}" _n
+file write table "\begin{threeparttable}" _n
+file write table "\caption{The Effects of Crop Loss on Pregnancy and Births}" _n
+file write table "\label{tab:birth}" _n
+file write table "\begin{tabular}{@{} l D{.}{.}{1.5} D{.}{.}{1.5} D{.}{.}{1.5} D{.}{.}{1.5} D{.}{.}{1.5} D{.}{.}{1.5}  @{}}" _n
+file write table "\toprule" _n
+file write table "                             &\multicolumn{3}{c}{Currently pregnant}&\multicolumn{3}{c}{Birth since last survey}\\ \cmidrule(lr){2-4} \cmidrule(lr){5-7}" _n
+file write table "                             &                     & \mct{Fixed Effects}                       &                     & \mct{Fixed Effects}                       \\ \cmidrule(lr){3-4} \cmidrule(lr){6-7}" _n
+file write table "                             & \mco{OLS}           & \mco{Community}     & \mco{Woman}         & \mco{OLS}           & \mco{Community}     & \mco{Woman}         \\ \midrule" _n
+file write table "Crop loss - 1-7 months" _col(30)
+foreach res in lpm_pr_0 lpm_pr_1 d_pr_1   {
+    est restore `res'
+    file write table "&  " %6.3f (_b[croplostdummy])
+}
+file close table
+exit
+
+esttab  lpm_pr_0 lpm_pr_1 d_pr_1  lpm_br_0 lpm_br_1  d_br_1  using `tables'/main_pregnant_birth.tex, append ///
     indicate("Wave dummies = pass2 pass3 pass4" "Community dummies = *cluster*") ///
     s(fixed N N_g, fmt(0) label("Woman fixed effects" "Observations" "Number of women"))  ///
 	nogap nolines varwidth(55) label ///
 	se(3) b(3) star(* 0.10 ** 0.05 *** 0.01) sfmt(0) ///
     drop(_cons assets_pc_wave1 *educ017* *agegroup*)	
+    
+exit    
+    
 
 // Contraceptive use table
 esttab lpm_ca_0 lpm_ca_1 d_ca_1  using `tables'/main_w1_contraceptives.tex, replace ///

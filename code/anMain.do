@@ -78,12 +78,41 @@ file write table "                             &\multicolumn{3}{c}{Currently pre
 file write table "                             &                     & \mct{Fixed Effects}                       &                     & \mct{Fixed Effects}                       \\ \cmidrule(lr){3-4} \cmidrule(lr){6-7}" _n
 file write table "                             & \mco{OLS}           & \mco{Community}     & \mco{Woman}         & \mco{OLS}           & \mco{Community}     & \mco{Woman}         \\ \midrule" _n
 file write table "Crop loss - 1-7 months" _col(30)
-foreach res in lpm_pr_0 lpm_pr_1 d_pr_1   {
+foreach res in lpm_pr_0    {
     est restore `res'
+    qui reg
+    matrix rtable = r(table)
+    matrix list rtable
     file write table "&  " %6.3f (_b[croplostdummy])
+    // significance stars
+//     loc t = A["pvalue","croplostdummy"]
 }
 file close table
 exit
+
+ matrix A = rtable["pvalue", "croplostdummy"]
+
+. matrix list A
+
+symmetric A[1,1]
+        croplostdu~y
+pvalue      .1116369
+
+. local test = rtable["pvalue", "croplostdummy"]
+matrix operators that return matrices not allowed in this context
+r(509);
+
+. local test = rtable[4,1]
+
+. dis `test'
+.1116369
+
+. local test = A[1,1]
+
+. dis `test'
+.1116369
+
+
 
 esttab  lpm_pr_0 lpm_pr_1 d_pr_1  lpm_br_0 lpm_br_1  d_br_1  using `tables'/main_pregnant_birth.tex, append ///
     indicate("Wave dummies = pass2 pass3 pass4" "Community dummies = *cluster*") ///

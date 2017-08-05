@@ -77,49 +77,111 @@ file write table "\toprule" _n
 file write table "                             &\multicolumn{3}{c}{Currently pregnant}&\multicolumn{3}{c}{Birth since last survey}\\ \cmidrule(lr){2-4} \cmidrule(lr){5-7}" _n
 file write table "                             &                     & \mct{Fixed Effects}                       &                     & \mct{Fixed Effects}                       \\ \cmidrule(lr){3-4} \cmidrule(lr){6-7}" _n
 file write table "                             & \mco{OLS}           & \mco{Community}     & \mco{Woman}         & \mco{OLS}           & \mco{Community}     & \mco{Woman}         \\ \midrule" _n
-file write table "Crop loss - 1-7 months" _col(30)
-foreach res in lpm_pr_0    {
+// Pregnancy
+file write table "Crop loss --- 1-7 months" _col(30)
+foreach res in lpm_pr_0  lpm_pr_1 d_pr_1  {
     est restore `res'
-    qui reg
+    qui `e(cmd)' // Stata does not provide access to r(table) unless results displayed again
     matrix rtable = r(table)
-    matrix list rtable
-    file write table "&  " %6.3f (_b[croplostdummy])
+    file write table "&      " %6.3f (_b[croplostdummy])
     // significance stars
-//     loc t = A["pvalue","croplostdummy"]
+    matrix P = rtable["pvalue","croplostdummy"]
+    loc p = P[1,1] // This is just stupid, but Stata does not allow extraction to local using column/row names
+    if `p' < 0.01 {
+        file write table "^{***}   "
+    }
+    else if `p' < 0.05 & `p' >= 0.01 {
+        file write table "^{**}    "
+    }
+    else if `p' < 0.10 & `p' >= 0.05 {
+        file write table "^{*}     "
+    }
+    else {
+        file write table "         "
+    }
 }
+file write table "&                     &                     &                     \\ " _n
+file write table "\hs (200 TZS or above)" _col(30)
+foreach res in lpm_pr_0  lpm_pr_1 d_pr_1  {
+    est restore `res'
+    qui `e(cmd)' 
+    matrix rtable = r(table)
+    file write table "&      (" %5.3f (_se[croplostdummy]) ")        "
+}
+file write table "&                     &                     &                     \\ " _n
+// Births 
+file write table "Crop loss --- 7-14 months" _col(30)
+file write table "&                     &                     &                     " 
+foreach res in lpm_br_0 lpm_br_1  d_br_1  {
+    est restore `res'
+    qui `e(cmd)' 
+    matrix rtable = r(table)
+    file write table "&      " %6.3f (_b[croplostdummy_lag])
+    // significance stars
+    matrix P = rtable["pvalue","croplostdummy_lag"]
+    loc p = P[1,1] // This is just stupid, but Stata does not allow extraction to local using column/row names
+    if `p' < 0.01 {
+        file write table "^{***}   "
+    }
+    else if `p' < 0.05 & `p' >= 0.01 {
+        file write table "^{**}    "
+    }
+    else if `p' < 0.10 & `p' >= 0.05 {
+        file write table "^{*}     "
+    }
+    else {
+        file write table "         "
+    }
+}
+file write table "\\ " _n
+file write table "\hs (200 TZS or above)" _col(30)
+file write table "&                     &                     &                     " 
+foreach res in lpm_br_0 lpm_br_1  d_br_1  {
+    est restore `res'
+    qui `e(cmd)' 
+    matrix rtable = r(table)
+    file write table "&      (" %5.3f (_se[croplostdummy_lag]) ")        "
+}
+file write table "\\ " _n
+// Dummy / fixed effects indicators
+file write table "Wave dummies                 &    \mco{Yes}        &    \mco{Yes}        &    \mco{Yes}        &    \mco{Yes}        &    \mco{Yes}        &    \mco{Yes}        \\" _n
+file write table "Community fixed effects      &    \mco{No}         &    \mco{Yes}        &    \mco{No}         &    \mco{No}         &    \mco{Yes}        &    \mco{No}         \\" _n
+file write table "Woman fixed effects          &    \mco{No}         &    \mco{No}         &    \mco{Yes}        &    \mco{No}         &    \mco{No}         &    \mco{Yes}        \\" _n
+// Observations / number of women
+file write table "Observations" _col(30)
+foreach res in lpm_pr_0 lpm_pr_1 d_pr_1 lpm_br_0 lpm_br_1  d_br_1  {
+    est restore `res'
+    file write table "&    \mco{`e(N)'}        "
+}
+file write table "\\ " _n
+file write table "Number of women" _col(30)
+foreach res in lpm_pr_0 lpm_pr_1 d_pr_1 lpm_br_0 lpm_br_1  d_br_1  {
+    est restore `res'
+    if "`e(depvar)'" == "pregnant" {
+        loc numWomen = `e(N)' /  4
+    }
+    else {
+        loc numWomen = `e(N)' / 3 
+    }
+    file write table "&    \mco{`numWomen'}        "
+}
+file write table "\\ " _n
+file write table "\bottomrule" _n
+file write table "\end{tabular}" _n
+file write table "\begin{tablenotes} \footnotesize" _n
+file write table "\item \hspace*{-0.5em} \textbf{Note.}" _n
+file write table "All models are linear probability models." _n
+file write table "Robust standard errors clustered at household level in parentheses; " _n
+file write table "* significant at 10\%; ** significant at 5\%; *** significant at 1\%." _n
+file write table "Crop loss is a dummy for a per capita crop loss of 200 TZS or above." _n
+file write table "% Assets are per capita and measured in 10,000 TZS." _n
+file write table "\end{tablenotes}" _n
+file write table "\end{threeparttable}" _n
+file write table "\end{center}" _n
+file write table "\end{table}" _n
 file close table
-exit
-
- matrix A = rtable["pvalue", "croplostdummy"]
-
-. matrix list A
-
-symmetric A[1,1]
-        croplostdu~y
-pvalue      .1116369
-
-. local test = rtable["pvalue", "croplostdummy"]
-matrix operators that return matrices not allowed in this context
-r(509);
-
-. local test = rtable[4,1]
-
-. dis `test'
-.1116369
-
-. local test = A[1,1]
-
-. dis `test'
-.1116369
 
 
-
-esttab  lpm_pr_0 lpm_pr_1 d_pr_1  lpm_br_0 lpm_br_1  d_br_1  using `tables'/main_pregnant_birth.tex, append ///
-    indicate("Wave dummies = pass2 pass3 pass4" "Community dummies = *cluster*") ///
-    s(fixed N N_g, fmt(0) label("Woman fixed effects" "Observations" "Number of women"))  ///
-	nogap nolines varwidth(55) label ///
-	se(3) b(3) star(* 0.10 ** 0.05 *** 0.01) sfmt(0) ///
-    drop(_cons assets_pc_wave1 *educ017* *agegroup*)	
     
 exit    
     

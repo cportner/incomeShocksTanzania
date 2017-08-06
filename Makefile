@@ -85,9 +85,12 @@ $(DAT)/household_wave%.dta: $(COD)/crHousehold_waves.do $(RAW)/HOUSEHOLD/WAVE%/S
 	
 # Clean directories for (most) generated files
 # This does not clean generated data files; mainly because I am a chicken
-.PHONY: cleanall cleanfig cleantex cleancode
-cleanall: cleanfig cleantex cleancode
+.PHONY: cleanall cleanfig cleantex cleancode cleantab
+cleanall: cleanfig cleantex cleancode cleantab
 	cd $(DAT); rm *.ster
+	cd $(TAB); rm *.tex
+
+cleantab:
 	cd $(TAB); rm *.tex
 	
 cleanfig:

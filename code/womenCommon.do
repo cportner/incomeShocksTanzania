@@ -74,21 +74,21 @@ gen ln_croplost_lagXln_assets_w1 = ln_croplostamount_pc_lag * log(assets_pc_wave
 ////////////////////////////////////////////////////
 
 loc strcut = `cutoff'*`divide'
-lab var croplostdummy "Crop loss - 1-7 months (`strcut' TZS or above)"
-lab var croplostdummy_lag "Crop loss - 7-14 months (`strcut' TZS or above)"
-lab var croplostdummyXassets_w1 "Crop loss - 1-7 months \X initial assets (`strdiv' TZS)"
-lab var croplostdummy_lagXassets_w1 "Crop loss - 7-14 months \X initial assets (`strdiv' TZS)"
+lab var croplostdummy "Crop loss --- 1-7 months (`strcut' TZS or above)"
+lab var croplostdummy_lag "Crop loss --- 7-14 months (`strcut' TZS or above)"
+lab var croplostdummyXassets_w1 "Crop loss --- 1-7 months \X initial assets (`strdiv' TZS)"
+lab var croplostdummy_lagXassets_w1 "Crop loss --- 7-14 months \X initial assets (`strdiv' TZS)"
 
 // Linear version
-lab var croplostamount_pc       "Crop loss - 1-7 months (`strdiv' TZS)"
-lab var croplostamount_pc_lag   "Crop loss - 7-14 months (`strdiv' TZS)"
-lab var croplostXassets_w1      "Crop loss - 1-7 months \X initial assets (`strdiv' TZS)"
-lab var croplost_lagXassets_w1  "Crop loss - 7-14 months \X initial assets (`strdiv' TZS)"
+lab var croplostamount_pc       "Crop loss --- 1-7 months (`strdiv' TZS)"
+lab var croplostamount_pc_lag   "Crop loss --- 7-14 months (`strdiv' TZS)"
+lab var croplostXassets_w1      "Crop loss --- 1-7 months \X initial assets (`strdiv' TZS)"
+lab var croplost_lagXassets_w1  "Crop loss --- 7-14 months \X initial assets (`strdiv' TZS)"
 
 // Log version
-lab var ln_croplostamount_pc "Log crop loss - 1-7 months"
-lab var ln_croplostamount_pc_lag "Log crop loss - 7-14 months"
-lab var ln_croplostXassets_w1      "Log crop loss - 1-7 months \X initial assets (`strdiv' TZS)"
-lab var ln_croplost_lagXassets_w1  "Log crop loss - 7-14 months \X initial assets (`strdiv' TZS)"
-lab var ln_croplostXln_assets_w1      "Log crop loss - 1-7 months \X log initial assets"
-lab var ln_croplost_lagXln_assets_w1  "Log crop loss - 7-14 months \X log initial assets"
+lab var ln_croplostamount_pc "Log crop loss --- 1-7 months"
+lab var ln_croplostamount_pc_lag "Log crop loss --- 7-14 months"
+lab var ln_croplostXassets_w1      "Log crop loss --- 1-7 months \X initial assets (`strdiv' TZS)"
+lab var ln_croplost_lagXassets_w1  "Log crop loss --- 7-14 months \X initial assets (`strdiv' TZS)"
+lab var ln_croplostXln_assets_w1      "Log crop loss --- 1-7 months \X log initial assets"
+lab var ln_croplost_lagXln_assets_w1  "Log crop loss --- 7-14 months \X log initial assets"

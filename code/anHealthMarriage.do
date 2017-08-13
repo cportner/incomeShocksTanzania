@@ -255,7 +255,7 @@ file write table "\end{tabular}" _n
 // Table notes
 file write table "\begin{tablenotes} \footnotesize" _n
 file write table "\item \hspace*{-0.5em} \textbf{Note.}" _n
-file write table "Each panel a separate regression."
+file write table "Each panel a separate regression." _n
 file write table "Robust standard errors clustered at household level in parentheses; " _n
 file write table "* significant at 10\%; ** significant at 5\%; *** significant at 1\%." _n
 file write table "\item[a] BMI was unavailable for some women in the original sample." _n
@@ -275,5 +275,4 @@ file write table "\end{tablenotes}" _n
 file write table "\end{threeparttable}" _n
 file write table "\end{center}" _n
 file write table "\end{table}" _n
-
 file close table

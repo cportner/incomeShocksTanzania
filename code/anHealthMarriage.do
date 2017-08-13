@@ -118,7 +118,7 @@ lab var ln_croplost_lagXln_assets_w1  "Log crop loss --- 7-14 months \X log init
 
 
 //////////////////////////////////
-// Results for marriage results //
+// Marriage results             //
 //////////////////////////////////
 
 // general marriage status
@@ -144,3 +144,40 @@ keep if inSample
 
 eststo divorce: xtreg dissolve croplostdummy pass3 pass4 if passage != 1 , fe cluster(id_hh)
 // xtreg dissolve croplostdummy croplostdummy_lag pass3 pass4 if passage != 1 , fe cluster(id_hh)
+
+
+// --------------------------------------------------------------------------
+// Absence of partner/husband and crop loss shocks
+// --------------------------------------------------------------------------
+
+
+// Back to our regular sample
+use `data'/base, clear
+
+// data manipulation
+do womenCommon 
+
+// Impact of crop loss amount on whether the spouse is currently living in the Household
+gen absent = spousehh == 2 if spousehh != .
+eststo absent: xtreg absent croplostdummy pass2 pass3 pass4, fe cluster(id_hh)
+
+
+// --------------------------------------------------------------------------
+// BMI and illness impact from crop loss shocks
+// --------------------------------------------------------------------------
+
+eststo bmi: xtreg BMI croplostdummy pregnant pass2 pass3 pass4 , fe cluster(id_hh)
+eststo ill: xtreg illdays_dummy croplostdummy  pass2 pass3 pass4 , fe cluster(id_hh)
+
+
+
+exit
+
+
+esttab absent divorce using `results'/main_marriage.tex, replace ///
+    indicate(Wave dummies = pass2 pass3 pass4) ///
+    drop(_cons) ///
+    stats(N N_g , fmt(0) label("Observations" "Number of women")) ///
+	 nogap nolines varwidth(55) label ///
+	 se(3) b(3) star(* 0.10 ** 0.05 *** 0.01) sfmt(0)
+

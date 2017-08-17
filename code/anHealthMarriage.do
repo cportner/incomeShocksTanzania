@@ -206,6 +206,7 @@ esttab bmi ill  using `tables'/main_health_marriage.tex, append ///
         pregnant "Pregnant" ///
     )
 file open table using `tables'/main_health_marriage.tex, write append
+file write table "\addlinespace " _n
 file write table "Wave dummies                                           &    \mco{Yes}        &    \mco{Yes}        \\" _n
 file write table "Woman fixed effects                                    &    \mco{Yes}        &    \mco{Yes}        \\" _n
 file write table "Observations" _col(56)
@@ -234,6 +235,7 @@ esttab absent divorce using `tables'/main_health_marriage.tex, append ///
     se(3) b(3) star(* 0.10 ** 0.05 *** 0.01) ///
     drop(_cons  *pass*) 
 file open table using `tables'/main_health_marriage.tex, write append
+file write table "\addlinespace " _n
 file write table "Wave dummies                                           &    \mco{Yes}        &    \mco{Yes}        \\" _n
 file write table "Woman fixed effects                                    &    \mco{Yes}        &    \mco{Yes}        \\" _n
 file write table "Observations" _col(56)

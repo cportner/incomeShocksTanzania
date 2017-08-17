@@ -23,7 +23,8 @@ MAP  = ./staticPDF
 # need to add analysis dependencies to end of next line
 $(TEX)/$(TEXFILE).pdf: $(TEX)/$(TEXFILE).tex $(TEX)/$(TEXFILE).bib \
  $(MAP)/kagera.pdf $(TAB)/desstat1.tex $(TAB)/desstat2.tex \
- $(TAB)/main_pregnant_birth.tex $(TAB)/main_contraceptives.tex
+ $(TAB)/main_pregnant_birth.tex $(TAB)/main_contraceptives.tex \
+ $(TAB)/main_health_marriage.tex $(TAB)/main_effectiveness.tex
 	cd $(TEX); xelatex $(TEXFILE)
 	cd $(TEX); bibtex $(TEXFILE)
 	cd $(TEX); xelatex $(TEXFILE)
@@ -49,7 +50,15 @@ response: $(RES)/$(RESFILE).pdf
 # Analysis files	
 $(TAB)/main_pregnant_birth.tex $(TAB)/main_contraceptives.tex: $(COD)/anMain.do \
  $(COD)/womenCommon.do $(DAT)/base.dta 
-	cd $(COD); stata-se -b -q anMain.do    
+	cd $(COD); stata-se -b -q anMain.do 
+	   
+$(TAB)/main_health_marriage.tex: $(COD)/anHealthMarriage.do \
+ $(COD)/womenCommon.do $(DAT)/base.dta 
+	cd $(COD); stata-se -b -q anHealthMarriage.do 
+
+$(TAB)/main_effectiveness.tex: $(COD)/anContraceptiveEffectiveness.do \
+ $(COD)/womenCommon.do $(DAT)/base.dta 
+	cd $(COD); stata-se -b -q anContraceptiveEffectiveness.do 
 	
 # Descriptive statistics
 $(TAB)/desstat1.tex $(TAB)/desstat2.tex: $(COD)/anDescStat.do $(DAT)/base.dta \

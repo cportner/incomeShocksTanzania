@@ -90,9 +90,9 @@ file write stats "\end{table}" _n
 
 file close stats
 
-//////////////////////////////////////
-// Descriptive statistics for women //
-//////////////////////////////////////
+/////////////////////////////////////////
+// Descriptive statistics across waves //
+/////////////////////////////////////////
 
 
 // LaTeX intro part for table
@@ -101,7 +101,7 @@ file write stats "\begin{table}" _n
 file write stats "\centering" _n
 file write stats "\footnotesize" _n
 file write stats "\begin{threeparttable}" _n
-file write stats "\caption{Descriptive statistics for Crop loss and Outcomes}" _n
+file write stats "\caption{Descriptive statistics for Crop loss and Outcomes Across Waves}" _n
 file write stats "\label{tab:desc_stat_croploss}" _n
 file write stats "\begin{tabular}{l  D{.}{.}{2,3} D{.}{.}{2,3} D{.}{.}{2,3} D{.}{.}{2,3} D{.}{.}{2,3}} \toprule" _n
 file write stats "                                  & \multicolumn{4}{c}{Wave} & \mco{Average} \\ \cmidrule(lr){2-5}" _n

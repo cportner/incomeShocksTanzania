@@ -24,7 +24,8 @@ MAP  = ./staticPDF
 $(TEX)/$(TEXFILE).pdf: $(TEX)/$(TEXFILE).tex $(TEX)/$(TEXFILE).bib \
  $(MAP)/kagera.pdf $(TAB)/desstat1.tex $(TAB)/desstat2.tex \
  $(TAB)/main_pregnant_birth.tex $(TAB)/main_contraceptives.tex \
- $(TAB)/main_health_marriage.tex $(TAB)/main_effectiveness.tex
+ $(TAB)/main_health_marriage.tex $(TAB)/main_effectiveness.tex \
+ $(TAB)/appendix_desstat1.tex $(TAB)/appendix_desstat2.tex
 	cd $(TEX); xelatex $(TEXFILE)
 	cd $(TEX); bibtex $(TEXFILE)
 	cd $(TEX); xelatex $(TEXFILE)
@@ -64,6 +65,10 @@ $(TAB)/main_effectiveness.tex: $(COD)/anContraceptiveEffectiveness.do \
 $(TAB)/desstat1.tex $(TAB)/desstat2.tex: $(COD)/anDescStat.do $(DAT)/base.dta \
  $(COD)/womenCommon.do
 	cd $(COD); stata-se -b -q anDescStat.do    
+
+$(TAB)/appendix_desstat1.tex $(TAB)/appendix_desstat2.tex: $(COD)/anAppendixAttrition.do $(DAT)/base.dta
+	cd $(COD); stata-se -b -q anAppendixAttrition.do    
+
 
 # Create base data set(s)
 # Need "end" file as outcome, here the base data sets for each survey

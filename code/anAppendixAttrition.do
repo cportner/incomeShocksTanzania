@@ -183,7 +183,7 @@ lab var ln_croplost_lagXln_assets_w1  "Log crop loss --- 7-14 months \X log init
 // LaTeX intro part for table
 file open stats using `tables'/appendix_desstat1.tex, write replace
 
-file write stats "\begin{table}" _n
+file write stats "\begin{table}[htbp]" _n
 file write stats "\centering" _n
 file write stats "\footnotesize" _n
 file write stats "\begin{threeparttable}" _n
@@ -263,7 +263,7 @@ file close stats
 
 // LaTeX intro part for table
 file open stats using `tables'/appendix_desstat2.tex, write replace
-file write stats "\begin{table}" _n
+file write stats "\begin{table}[htbp]" _n
 file write stats "\centering" _n
 file write stats "\footnotesize" _n
 file write stats "\begin{threeparttable}" _n

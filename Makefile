@@ -26,7 +26,8 @@ $(TEX)/$(TEXFILE).pdf: $(TEX)/$(TEXFILE).tex $(TEX)/$(TEXFILE).bib \
  $(TAB)/main_health_marriage.tex $(TAB)/main_effectiveness.tex \
  $(TAB)/appendix_desstat1.tex $(TAB)/appendix_desstat2.tex \
  $(TAB)/appendix_pregnant_birth.tex $(TAB)/appendix_contraceptives.tex \
- $(TAB)/appendix_cluster_pregnant_birth.tex $(TAB)/appendix_cluster_contraceptives.tex
+ $(TAB)/appendix_cluster_pregnant_birth.tex $(TAB)/appendix_cluster_contraceptives.tex \
+ $(TAB)/appendix_logit.tex
 	cd $(TEX); xelatex $(TEXFILE)
 	cd $(TEX); bibtex $(TEXFILE)
 	cd $(TEX); xelatex $(TEXFILE)
@@ -65,6 +66,11 @@ $(TAB)/main_effectiveness.tex: $(COD)/anContraceptiveEffectiveness.do \
 $(TAB)/appendix_cluster_pregnant_birth.tex $(TAB)/appendix_cluster_contraceptives.tex : $(COD)/anCommunityCluster.do \
  $(COD)/womenCommon.do $(DAT)/base.dta 
 	cd $(COD); stata-se -b -q anCommunityCluster.do 
+
+$(TAB)/appendix_logit.tex: $(COD)/anLogit.do \
+ $(COD)/womenCommon.do $(DAT)/base.dta 
+	cd $(COD); stata-se -b -q anLogit.do 
+
 	
 # Descriptive statistics
 $(TAB)/desstat1.tex $(TAB)/desstat2.tex: $(COD)/anDescStat.do $(DAT)/base.dta \

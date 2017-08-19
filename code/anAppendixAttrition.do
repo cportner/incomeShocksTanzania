@@ -188,7 +188,7 @@ file write stats "\centering" _n
 file write stats "\footnotesize" _n
 file write stats "\begin{threeparttable}" _n
 file write stats "\caption{Wave 1 Descriptive Statistics for Women Not in Main Sample}" _n
-file write stats "\label{tab:desc_stat_women}" _n
+file write stats "\label{tab:attrition_desc_stat_women}" _n
 file write stats "\begin{tabular}{l  D{.}{.}{2,3} D{.}{.}{2,3} } \toprule" _n
 file write stats "                                                    	 &   \mco{Mean}        &  \mco{St Dev}    \\ \midrule" _n
 file close stats
@@ -268,7 +268,7 @@ file write stats "\centering" _n
 file write stats "\footnotesize" _n
 file write stats "\begin{threeparttable}" _n
 file write stats "\caption{Descriptive statistics for Crop loss and Outcomes Across Waves for Women Not in Main Sample}" _n
-file write stats "\label{tab:desc_stat_croploss}" _n
+file write stats "\label{tab:attrition_desc_stat_croploss}" _n
 file write stats "\begin{tabular}{l  D{.}{.}{2,3} D{.}{.}{2,3} D{.}{.}{2,3} D{.}{.}{2,3} D{.}{.}{2,3}} \toprule" _n
 file write stats "                                  & \multicolumn{4}{c}{Wave} & \mco{Average} \\ \cmidrule(lr){2-5}" _n
 file write stats "                                  &\multicolumn{1}{c}{1} &\multicolumn{1}{c}{2}   &\multicolumn{1}{c}{3} &\multicolumn{1}{c}{4} &   \\ \midrule" _n

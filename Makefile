@@ -20,12 +20,12 @@ MAP  = ./staticPDF
 
 ### LaTeX part
 
-# need to add analysis dependencies to end of next line
 $(TEX)/$(TEXFILE).pdf: $(TEX)/$(TEXFILE).tex $(TEX)/$(TEXFILE).bib \
  $(MAP)/kagera.pdf $(TAB)/desstat1.tex $(TAB)/desstat2.tex \
  $(TAB)/main_pregnant_birth.tex $(TAB)/main_contraceptives.tex \
  $(TAB)/main_health_marriage.tex $(TAB)/main_effectiveness.tex \
- $(TAB)/appendix_desstat1.tex $(TAB)/appendix_desstat2.tex
+ $(TAB)/appendix_desstat1.tex $(TAB)/appendix_desstat2.tex \
+ $(TAB)/appendix_pregnant_birth.tex $(TAB)/appendix_contraceptives.tex
 	cd $(TEX); xelatex $(TEXFILE)
 	cd $(TEX); bibtex $(TEXFILE)
 	cd $(TEX); xelatex $(TEXFILE)
@@ -49,7 +49,7 @@ response: $(RES)/$(RESFILE).pdf
 ### Stata part         			                                ###
 
 # Analysis files	
-$(TAB)/main_pregnant_birth.tex $(TAB)/main_contraceptives.tex: $(COD)/anMain.do \
+$(TAB)/main_pregnant_birth.tex $(TAB)/main_contraceptives.tex $(TAB)/appendix_pregnant_birth.tex $(TAB)/appendix_contraceptives.tex : $(COD)/anMain.do \
  $(COD)/womenCommon.do $(DAT)/base.dta 
 	cd $(COD); stata-se -b -q anMain.do 
 	   

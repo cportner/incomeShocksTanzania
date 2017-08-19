@@ -279,45 +279,230 @@ file write table "\end{center}" _n
 file write table "\end{table}" _n
 file close table
 
-exit
 
 
-// Full OLS tables 
+/////////////////////////////////////////////////
+// Full OLS and community fixed effects tables //
+/////////////////////////////////////////////////
 
-esttab lpm_pr_0 lpm_pr_1 lpm_br_0 lpm_br_1  using `tables'/ols_full_fertility_w1.tex, replace ///
-    indicate("Wave dummies = pass2 pass3 pass4" "Community dummies = *cluster*") ///
-    s(fixed N N_g, fmt(0) label("Woman fixed effects" "Observations" "Number of women"))  ///
-	nogap nolines varwidth(55) label ///
-	nobaselevels ///
-    varlabels( ///
-        _Ieduc017==1  "1 - 6 years of education" ///
-        _Ieduc017_7  "7 plus years of education" ///
-        _Iagegroup_16 "Age 18-22" ///
-        _Iagegroup_23 "Age 23-27" ///
-        _Iagegroup_28 "Age 28-32" ///
-        _Iagegroup_33 "Age 33-37" ///
-        _Iagegroup_38 "Age 38-45" ///
-        _cons         "Constant"  ///
-    ) ///  
+// Pregnancy and birth table
+
+file open table using `tables'/appendix_pregnant_birth.tex, write replace
+
+file write table "\begin{table}[htbp]" _n
+file write table "\begin{center}" _n
+file write table "\begin{small}" _n
+file write table "\begin{threeparttable}" _n
+file write table "\caption{Full OLS and Community Fixed Effects Results for Fertility Outcomes}" _n
+file write table "\label{tab:ols_fertility}" _n
+file write table "\begin{tabular}{@{} l D{.}{.}{2.6} D{.}{.}{2.6}  D{.}{.}{2.6} D{.}{.}{2.6} @{}}" _n
+file write table "\toprule" _n
+file write table "                             &\multicolumn{2}{c}{Currently pregnant}&\multicolumn{2}{c}{Birth since last survey}\\ \cmidrule(lr){2-3} \cmidrule(lr){4-5}" _n
+file write table "                             &                     & \mco{Community}     &                     & \mco{Community}      \\ " _n
+file write table "                             & \mco{OLS}           & \mco{Fixed Effects} & \mco{OLS}           & \mco{Fixed Effects}  \\ " _n
+file write table "\midrule" _n
+file close table
+
+esttab lpm_pr_0 lpm_pr_1 lpm_br_0 lpm_br_1  using `tables'/appendix_pregnant_birth.tex, append ///
+    fragment ///
+	nogap nolines varwidth(55)  label ///
+    collabels(none) mlabels(none) eqlabels(none) ///
+    nomtitles nonumber nodepvars noobs ///
+    se(3) b(3) star(* 0.10 ** 0.05 *** 0.01) ///
+    drop( *pass* *clust*) ///
     order(croplostdummy croplostdummy_lag) ///
-    se(3) b(3) star(* 0.10 ** 0.05 *** 0.01) 
-
-esttab lpm_ca_0 lpm_ca_1 lpm_ct_0 lpm_ct_1 lpm_cm_0 lpm_cm_1 using `tables'/ols_full_contraceptives_w1.tex, replace ///
-    indicate("Wave dummies = pass2 pass3 pass4" "Community dummies = *cluster*") ///
-    s(fixed N N_g, fmt(0) label("Woman fixed effects" "Observations" "Number of women"))  ///
-	nogap nolines varwidth(55) label ///
-	nobaselevels ///
+    nobaselevels ///
     varlabels( ///
-        _Ieduc017==1  "1 - 6 years of education" ///
-        _Ieduc017_7  "7 plus years of education" ///
-        _Iagegroup_16 "Age 18-22" ///
-        _Iagegroup_23 "Age 23-27" ///
-        _Iagegroup_28 "Age 28-32" ///
-        _Iagegroup_33 "Age 33-37" ///
-        _Iagegroup_38 "Age 38-45" ///
+        1.educ017     "1 - 6 years of education" ///
+        7.educ017     "7 plus years of education" ///
+        23.agegroup   "Age 23-27" ///
+        28.agegroup   "Age 28-32" ///
+        33.agegroup   "Age 33-37" ///
+        38.agegroup   "Age 38-45" ///
         _cons         "Constant"  ///
-    ) ///  
-    order(croplostdummy croplostdummy_lag) ///
-    se(3) b(3) star(* 0.10 ** 0.05 *** 0.01) 
+    ) 
+    
+file open table using `tables'/appendix_pregnant_birth.tex, write append
+file write table "\addlinespace " _n
+// Dummy / fixed effects indicators
+file write table "Wave dummies                 &    \mco{Yes}        &    \mco{Yes}        &    \mco{Yes}        &    \mco{Yes}        \\" _n
+file write table "Community fixed effects      &    \mco{No}         &    \mco{Yes}        &    \mco{No}         &    \mco{Yes}        \\" _n
+// Observations / number of women
+file write table "Observations" _col(30)
+foreach res in lpm_pr_0 lpm_pr_1 lpm_br_0 lpm_br_1  {
+    est restore `res'
+    file write table "&    \mco{`e(N)'}        "
+}
+file write table "\\ " _n
+file write table "Number of women" _col(30)
+foreach res in lpm_pr_0 lpm_pr_1 lpm_br_0 lpm_br_1 {
+    est restore `res'
+    if "`e(depvar)'" == "pregnant" {
+        loc numWomen = `e(N)' /  4
+    }
+    else {
+        loc numWomen = `e(N)' / 3 
+    }
+    file write table "&    \mco{`numWomen'}        "
+}
+file write table "\\ " _n
+file write table "\bottomrule" _n
+file write table "\end{tabular}" _n
+file write table "\begin{tablenotes} \footnotesize" _n
+file write table "\item \hspace*{-0.5em} \textbf{Note.}" _n
+file write table "All models are linear probability models." _n
+file write table "Robust standard errors clustered at household level in parentheses; " _n
+file write table "* significant at 10\%; ** significant at 5\%; *** significant at 1\%." _n
+file write table "Crop loss is a dummy for a per capita crop loss of 200 TZS or above." _n
+file write table "\end{tablenotes}" _n
+file write table "\end{threeparttable}" _n
+file write table "\end{small}" _n
+file write table "\end{center}" _n
+file write table "\end{table}" _n
+file close table
+    
 
+// Contraceptive use table
+
+file open table using `tables'/appendix_contraceptives.tex, write replace
+
+file write table "\begin{table}[htbp]" _n
+file write table "\begin{center}" _n
+file write table "\begin{footnotesize}" _n
+file write table "\begin{threeparttable}" _n
+file write table "\caption{Full OLS and Community Fixed Effects Results for Contraceptive Use}" _n
+file write table "\label{tab:ols_contraceptive}" _n
+file write table "\begin{tabular}{@{} l D{.}{.}{2.6} D{.}{.}{2.6}  D{.}{.}{2.6} D{.}{.}{2.6} D{.}{.}{2.6} D{.}{.}{2.6} D{.}{.}{2.6}  @{}}" _n
+file write table "\toprule" _n
+file write table "                                                       &                    \mct{Any}              &  \mct{Traditional}                        & \mct{Modern}        \\  \cmidrule(lr){2-3} \cmidrule(lr){4-5} \cmidrule(lr){6-7}" _n
+file write table "                                                       &                     & \mco{Community}     &                     & \mco{Community}     &                     & \mco{Community}      \\ " _n
+file write table "                                                       & \mco{OLS}           & \mco{Fixed Effects} & \mco{OLS}           & \mco{Fixed Effects} & \mco{OLS}           & \mco{Fixed Effects}  \\     " _n                                                   
+file write table "\midrule" _n
+// Crop loss over two lines
+file write table "Crop loss --- 1-7 months" _col(30)
+foreach res in lpm_ca_0 lpm_ca_1 lpm_ct_0 lpm_ct_1 lpm_cm_0 lpm_cm_1  {
+    est restore `res'
+    qui `e(cmd)' // Stata does not provide access to r(table) unless results displayed again
+    matrix rtable = r(table)
+    file write table "&      " %6.3f (_b[croplostdummy])
+    // significance stars
+    matrix P = rtable["pvalue","croplostdummy"]
+    loc p = P[1,1] // This is just stupid, but Stata does not allow extraction to local using column/row names
+    if `p' < 0.01 {
+        file write table "^{***}   "
+    }
+    else if `p' < 0.05 & `p' >= 0.01 {
+        file write table "^{**}    "
+    }
+    else if `p' < 0.10 & `p' >= 0.05 {
+        file write table "^{*}     "
+    }
+    else {
+        file write table "         "
+    }
+}
+file write table " \\ " _n
+file write table "\hs (200 TZS or above)" _col(30)
+foreach res in lpm_ca_0 lpm_ca_1 lpm_ct_0 lpm_ct_1 lpm_cm_0 lpm_cm_1 {
+    est restore `res'
+    qui `e(cmd)' 
+    matrix rtable = r(table)
+    file write table "&      (" %5.3f (_se[croplostdummy]) ")        "
+}
+file write table " \\ " _n
+// Wave 1 assets over two lines
+file write table "Assets per capita in wave 1" _col(30)
+foreach res in lpm_ca_0 lpm_ca_1 lpm_ct_0 lpm_ct_1 lpm_cm_0 lpm_cm_1  {
+    est restore `res'
+    qui `e(cmd)' // Stata does not provide access to r(table) unless results displayed again
+    matrix rtable = r(table)
+    file write table "&      " %6.3f (_b[assets_pc_wave1])
+    // significance stars
+    matrix P = rtable["pvalue","croplostdummy"]
+    loc p = P[1,1] // This is just stupid, but Stata does not allow extraction to local using column/row names
+    if `p' < 0.01 {
+        file write table "^{***}   "
+    }
+    else if `p' < 0.05 & `p' >= 0.01 {
+        file write table "^{**}    "
+    }
+    else if `p' < 0.10 & `p' >= 0.05 {
+        file write table "^{*}     "
+    }
+    else {
+        file write table "         "
+    }
+}
+file write table " \\ " _n
+file write table "\hs (10,000 TZS)" _col(30)
+foreach res in lpm_ca_0 lpm_ca_1 lpm_ct_0 lpm_ct_1 lpm_cm_0 lpm_cm_1 {
+    est restore `res'
+    qui `e(cmd)' 
+    matrix rtable = r(table)
+    file write table "&      (" %5.3f (_se[assets_pc_wave1]) ")        "
+}
+file write table " \\ " _n
+file close table
+
+esttab lpm_ca_0 lpm_ca_1 lpm_ct_0 lpm_ct_1 lpm_cm_0 lpm_cm_1 using `tables'/appendix_contraceptives.tex, append ///
+    fragment ///
+	nogap nolines varwidth(55)  label ///
+    collabels(none) mlabels(none) eqlabels(none) ///
+    nomtitles nonumber nodepvars noobs ///
+    se(3) b(3) star(* 0.10 ** 0.05 *** 0.01) ///
+    drop(*croplost* *asset* *pass* *clust*) ///
+    nobaselevels ///
+    varlabels( ///
+        1.educ017     "1 - 6 years of education" ///
+        7.educ017     "7 plus years of education" ///
+        23.agegroup   "Age 23-27" ///
+        28.agegroup   "Age 28-32" ///
+        33.agegroup   "Age 33-37" ///
+        38.agegroup   "Age 38-45" ///
+        _cons         "Constant"  ///
+    ) 
+
+file open table using `tables'/appendix_contraceptives.tex, write append
+file write table "\addlinespace" _n
+file close table
+
+esttab lpm_ca_0 lpm_ca_1 lpm_ct_0 lpm_ct_1 lpm_cm_0 lpm_cm_1 using `tables'/appendix_contraceptives.tex, append ///
+    indicate("Wave dummies = pass2 pass3 pass4" "Community dummies = *cluster*", labels("\mco{Yes}" "\mco{No}")) ///
+    fragment ///
+	nogap nolines varwidth(55) label ///
+    collabels(none) mlabels(none) eqlabels(none) ///
+    nomtitles nonumber nodepvars noobs ///
+    se(3) b(3) star(* 0.10 ** 0.05 *** 0.01) ///
+    drop(_cons assets_pc_wave1 *educ017* *agegroup* croplost*)
+
+// Observations / number of women
+file open table using `tables'/appendix_contraceptives.tex, write append
+file write table "Observations" _col(56)
+foreach res in lpm_ca_0 lpm_ca_1 lpm_ct_0 lpm_ct_1 lpm_cm_0 lpm_cm_1  {
+    est restore `res'
+    file write table "&    \mco{`e(N)'}        "
+}
+file write table "\\ " _n
+file write table "Number of women" _col(56)
+foreach res in lpm_ca_0 lpm_ca_1 lpm_ct_0 lpm_ct_1 lpm_cm_0 lpm_cm_1 {
+    est restore `res'
+    loc numWomen = `e(N)' /  4
+    file write table "&    \mco{`numWomen'}        "
+}
+file write table "\\ " _n
+file write table "\bottomrule" _n
+file write table "\end{tabular}" _n
+file write table "\begin{tablenotes} \tiny" _n
+file write table "\item \hspace*{-0.5em} \textbf{Note.}" _n
+file write table "All models are linear probability models." _n
+file write table "Robust standard errors clustered at household level in parentheses; " _n
+file write table "* significant at 10\%; ** significant at 5\%; *** significant at 1\%." _n
+file write table "Crop loss is a dummy for a per capita crop loss of 200 TZS or above." _n
+file write table "\end{tablenotes}" _n
+file write table "\end{threeparttable}" _n
+file write table "\end{footnotesize}" _n
+file write table "\end{center}" _n
+file write table "\end{table}" _n
+
+file close table
 

@@ -143,6 +143,7 @@ foreach res in lpm_br_0 lpm_br_1  d_br_1  {
     file write table "&      (" %5.3f (_se[croplostdummy_lag]) ")        "
 }
 file write table "\\ " _n
+file write table "\addlinespace" _n
 // Dummy / fixed effects indicators
 file write table "Wave dummies                 &    \mco{Yes}        &    \mco{Yes}        &    \mco{Yes}        &    \mco{Yes}        &    \mco{Yes}        &    \mco{Yes}        \\" _n
 file write table "Community fixed effects      &    \mco{No}         &    \mco{Yes}        &    \mco{No}         &    \mco{No}         &    \mco{Yes}        &    \mco{No}         \\" _n

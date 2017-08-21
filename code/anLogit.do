@@ -53,7 +53,7 @@ file write table "\begin{tabular}{@{} l D{.}{.}{2.6} D{.}{.}{2.6}  D{.}{.}{2.6} 
 file write table "\toprule" _n
 file write table "                                                       & \mco{}              &\mco{}               &\multicolumn{3}{c}{Contraceptive Use}\\ \cmidrule(lr){4-6}" _n
 file write table "                                                       & \mco{Pregnant}      &\mco{Birth}          &\mco{Any}            &\mco{Traditional}    & \mco{Modern}        \\ \midrule" _n
-file write table " & \multicolumn{5}{l}{Without interaction with assets} \\" _n
+file write table " & \multicolumn{5}{c}{Without interaction with assets} \\" _n
 file close table
 
 esttab logit_pr_1 logit_br_1 logit_ca_1 logit_ct_1 logit_cm_1 using `tables'/appendix_logit.tex, append ///
@@ -70,7 +70,7 @@ esttab logit_pr_1 logit_br_1 logit_ca_1 logit_ct_1 logit_cm_1 using `tables'/app
  
 file open table using `tables'/appendix_logit.tex, write append
 file write table "\addlinespace" _n 
-file write table " & \multicolumn{5}{l}{With interaction with assets} \\" _n
+file write table " & \multicolumn{5}{c}{With interaction with assets} \\" _n
 file close table
 
 esttab logit_int_pr logit_int_br logit_int_ca logit_int_ct logit_int_cm using `tables'/appendix_logit.tex, append ///
@@ -125,6 +125,7 @@ file write table "\bottomrule" _n
 file write table "\end{tabular}" _n
 file write table "\begin{tablenotes} \footnotesize" _n
 file write table "\item \hspace*{-0.5em} \textbf{Note.}" _n
+file write table "All models are conditional logit models." _n
 file write table "Robust standard errors clustered at household level in parentheses; " _n
 file write table "* significant at 10\%; ** significant at 5\%; *** significant at 1\%." _n
 file write table "Crop loss is a dummy for a per capita crop loss of 200 TZS or above." _n

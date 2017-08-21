@@ -79,7 +79,7 @@ esttab lnfe_pr lnfe_br lnfe_c_a lnfe_c_tr lnfe_c_mo using `tables'/appendix_log_
  
 file open table using `tables'/appendix_log_croploss.tex, write append
 file write table "\addlinespace" _n 
-file write table " & \multicolumn{5}{l}{With interaction with assets} \\" _n
+file write table " & \multicolumn{5}{c}{With interaction with assets} \\" _n
 file close table
 
 esttab lnfe_int_pr lnfe_int_br lnfe_int_c_a lnfe_int_c_tr lnfe_int_c_mo using `tables'/appendix_log_croploss.tex, append ///
@@ -96,7 +96,7 @@ esttab lnfe_int_pr lnfe_int_br lnfe_int_c_a lnfe_int_c_tr lnfe_int_c_mo using `t
 
 file open table using `tables'/appendix_log_croploss.tex, write append
 file write table "\addlinespace" _n 
-file write table " & \multicolumn{5}{l}{With interaction with log assets} \\" _n
+file write table " & \multicolumn{5}{c}{With interaction with log assets} \\" _n
 file close table
 
 esttab lnlnfe_int_pr lnlnfe_int_br lnlnfe_int_c_a lnlnfe_int_c_tr lnlnfe_int_c_mo using `tables'/appendix_log_croploss.tex, append ///
@@ -149,11 +149,12 @@ file write table "\bottomrule" _n
 file write table "\end{tabular}" _n
 file write table "\begin{tablenotes} \footnotesize" _n
 file write table "\item \hspace*{-0.5em} \textbf{Note.}" _n
+file write table "All models are linear probability models." _n
 file write table "Robust standard errors clustered at household level in parentheses; " _n
 file write table "* significant at 10\%; ** significant at 5\%; *** significant at 1\%." _n
 file write table "Crop loss is log per capita crop loss plus 1." _n
-file write table "Assets are assets per capita in round 1 of the survey and are measured in 10,000 TZS." _n
-file write table "Log of assets are taken off assets per capita in TZS." _n
+file write table "Initial assets are assets per capita in round 1 of the survey and are measured in 10,000 TZS," _n
+file write table "except that log of assets are taken off assets per capita in TZS." _n
 file write table "\end{tablenotes}" _n
 file write table "\end{threeparttable}" _n
 file write table "\end{small}" _n

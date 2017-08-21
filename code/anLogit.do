@@ -83,8 +83,8 @@ esttab logit_int_pr logit_int_br logit_int_ca logit_int_ct logit_int_cm using `t
     varlabels( ///
         croplostdummy     "Crop loss --- 1-7 months" ///
         croplostdummy_lag "Crop loss --- 7-14 months" ///
-        croplostdummyXassets_w1     "Crop loss --- 1-7 months \X initial assets" ///
-        croplostdummy_lagXassets_w1 "Crop loss --- 7-14 months \X initial assets" ///
+        croplostdummyXassets_w1     "Crop loss \X initial assets" ///
+        croplostdummy_lagXassets_w1 "Crop loss \X initial assets" ///
     )    
 
 file open table using `tables'/appendix_logit.tex, write append

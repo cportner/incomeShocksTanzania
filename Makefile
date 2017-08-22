@@ -30,7 +30,8 @@ $(TEX)/$(TEXFILE).pdf: $(TEX)/$(TEXFILE).tex $(TEX)/$(TEXFILE).bib \
  $(TAB)/appendix_logit.tex \
  $(TAB)/appendix_log_croploss.tex \
  $(TAB)/appendix_cont_croploss.tex \
- $(TAB)/appendix_age_groups.tex
+ $(TAB)/appendix_age_groups.tex \
+ $(TAB)/appendix_exclude_abstinence.tex
 	cd $(TEX); xelatex $(TEXFILE)
 	cd $(TEX); bibtex $(TEXFILE)
 	cd $(TEX); xelatex $(TEXFILE)
@@ -85,6 +86,10 @@ $(TAB)/appendix_cont_croploss.tex: $(COD)/anContinuousLoss.do \
 $(TAB)/appendix_age_groups.tex: $(COD)/anAgeGroups.do \
  $(COD)/womenCommon.do $(DAT)/base.dta 
 	cd $(COD); stata-se -b -q anAgeGroups.do 
+
+$(TAB)/appendix_exclude_abstinence.tex: $(COD)/anExcludeAbstinence.do \
+ $(COD)/womenCommon.do $(DAT)/base.dta 
+	cd $(COD); stata-se -b -q anExcludeAbstinence.do 
 
 	
 # Descriptive statistics

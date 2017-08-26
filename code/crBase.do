@@ -346,6 +346,51 @@ gen heightm=height/100 //Creating height in meters
 gen BMI=weight/heightm^2
 
 
+// Time use variables
+gen empl1wk = empl1mo + empl1tu + empl1we + empl1th + empl1fr + empl1sa + empl1su 
+gen empl2wk = empl2mo + empl2tu + empl2we + empl2th + empl2fr + empl2sa + empl2su 
+gen farmedhrs = farmedmo + farmedtu + farmedwe + farmedth + farmedfr + farmedsa + farmedsu
+gen facmtyhrs = facmtymo + facmtytu + facmtywe + facmtyth + facmtyfr + facmtysa + facmtysu
+gen prochrs = prhrsmo + prhrstu + prhrswe + prhrsth + prhrsfr + prhrssa + prhrssu
+gen herdhrs = herdhrmo + herdhrtu + herdhrwe + herdhrth + herdhrfr + herdhrsa + herdhrsu
+gen heprodhrs = heprodmo + heprodtu + heprodwe + heprodth + heprodfr + heprodsa + heprodsu
+gen selfemphrs = se1hrsmo + se1hrstu + se1hrswe + se1hrsth + se1hrsfr + se1hrssa + se1hrssu 
+gen selfemp2hrs= se2hrsmo + se2hrstu + se2hrswe + se2hrsth + se2hrsfr + se2hrssa + se2hrssu 
+gen selfemp3hrs= se3hrsmo + se3hrstu + se3hrswe + se3hrsth + se3hrsfr + se3hrssa + se3hrssu
+
+gen homehrs = homehrmo + homehrtu + homehrwe + homehrth + homehrfr + homehrsa + homehrsu
+gen firehrs = firehrmo + firehrtu + firehrwe + firehrth + firehrfr + firehrsa + firehrsu
+gen waterhrs= watermo + watertu + waterwe + waterth + waterfr + watersa + watersu
+gen carehrs = carehrmo + carehrtu + carehrwe + carehrth + carehrfr + carehrsa + carehrsu
+gen morehrs = morehrmo + morehrtu + morehrwe + morehrth + morehrfr + morehrsa + morehrsu
+gen helphrs = helphrmo + helphrtu + helphrwe + helphrth + helphrfr + helphrsa + helphrsu
+gen mornhrs = mornhrmo + mornhrtu + mornhrwe + mornhrth + mornhrfr + mornhrsa + mornhrsu
+
+replace emplmnt1=0 if missing(  emplmnt1)
+replace empl1wk=0 if missing( empl1wk)
+replace emplmnt2=0 if missing( emplmnt2)
+replace empl2wk=0 if missing( empl2wk)
+replace farmedhrs=0 if missing(  farmedhrs)
+replace facmtyhrs=0 if missing( facmtyhrs)
+replace prochrs=0 if missing(  prochrs)
+replace herdhrs=0 if missing( herdhrs)
+replace heprodhrs=0 if missing( heprodhrs)
+replace selfemphrs=0 if missing( selfemphrs)
+replace selfemp2hrs=0 if missing( selfemp2hrs)
+replace selfemp3hrs=0 if missing( selfemp3hrs)
+
+replace homehrs=0 if missing( homehrs)
+replace firehrs=0 if missing( firehrs)
+replace waterhrs=0 if missing( waterhrs)
+replace carehrs=0 if missing( carehrs)
+replace morehrs=0 if missing( morehrs)
+replace helphrs=0 if missing( helphrs)
+replace mornhrs=0 if missing( mornhrs)
+
+gen hours= homehrs + firehrs + waterhrs +  carehrs +  morehrs + empl1wk + empl2wk +farmedhrs +facmtyhrs +prochrs +herdhrs +heprodhrs +selfemphrs +selfemp2hrs +selfemp3hrs
+gen agri_hours= empl1wk + empl2wk +farmedhrs +facmtyhrs +prochrs +heprodhrs +selfemphrs +selfemp2hrs + herdhrs + morehrs 
+
+
 ////////////////////////////////////////
 // Variable and value labels          //
 ////////////////////////////////////////

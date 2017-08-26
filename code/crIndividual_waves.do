@@ -36,6 +36,27 @@ foreach wave of numlist 1/4 {
     gen    illdays_dummy = illdays > 1 // Creating illness dummy variable
     lab var illdays_dummy "Dummy for ill more than 1 day"
 
+    * Merging time use data from section 7
+    merge 1:1 cluster hh id passage using "`rawDir'/HOUSEHOLD/WAVE`wave'/S7A__IND.DTA", keepusing(empld7 ag7 se7)
+    drop if _merge==2
+    drop _merge
+    
+    merge 1:1 cluster hh id passage using "`rawDir'/HOUSEHOLD/WAVE`wave'/S7B__IND.DTA", keepusing(emplmnt1 empl1mo empl1tu empl1we empl1th empl1fr empl1sa empl1su  empltime emwhyoff emplmnt2 empl2mo empl2tu empl2we empl2th empl2fr empl2sa empl2su )
+    drop if _merge==2
+    drop _merge
+
+    merge 1:1 cluster hh id passage using "`rawDir'/HOUSEHOLD/WAVE`wave'/S7C__IND.DTA", keepusing(farmed7 farmedmo farmedtu farmedwe farmedth farmedfr farmedsa farmedsu facmty facmtymo facmtytu facmtywe facmtyth facmtyfr facmtysa facmtysu prhrsmo prhrstu prhrswe prhrsth prhrsfr prhrssa prhrssu herdhrmo herdhrtu herdhrwe herdhrth herdhrfr herdhrsa herdhrsu heprodmo heprodtu heprodwe heprodth heprodfr heprodsa heprodsu)
+    drop if _merge==2
+    drop _merge
+
+    merge 1:1 cluster hh id passage using "`rawDir'/HOUSEHOLD/WAVE`wave'/S7D__IND.DTA", keepusing(se1hrsmo se1hrstu se1hrswe se1hrsth se1hrsfr se1hrssa se1hrssu se2hrsmo se2hrstu se2hrswe se2hrsth se2hrsfr se2hrssa se2hrssu se3hrsmo se3hrstu se3hrswe se3hrsth se3hrsfr se3hrssa se3hrssu)
+    drop if _merge==2
+    drop _merge
+
+    merge 1:1 cluster hh id passage using "`rawDir'/HOUSEHOLD/WAVE`wave'/S7E__IND.DTA"
+    drop if _merge==2
+    drop _merge
+
 
     *Merging fertility and contraceptive data by individual
     merge 1:1 cluster hh id passage using ///

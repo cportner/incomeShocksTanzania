@@ -35,7 +35,8 @@ $(TEX)/$(TEXFILE).pdf: $(TEX)/$(TEXFILE).tex $(TEX)/$(TEXFILE).bib \
  $(TAB)/appendix_exclude_abstinence.tex \
  $(TAB)/appendix_asset_interaction.tex \
  $(TAB)/appendix_education.tex \
- $(TAB)/appendix_village.tex
+ $(TAB)/appendix_village.tex \
+ $(TAB)/appendix_reverse.tex 
 	cd $(TEX); xelatex $(TEXFILE)
 	cd $(TEX); bibtex $(TEXFILE)
 	cd $(TEX); xelatex $(TEXFILE)
@@ -110,6 +111,10 @@ $(TAB)/appendix_education.tex: $(COD)/anEducation.do \
 $(TAB)/appendix_village.tex: $(COD)/anVillage.do \
  $(COD)/womenCommon.do $(DAT)/base.dta 
 	cd $(COD); stata-se -b -q anVillage.do
+
+$(TAB)/appendix_reverse.tex: $(COD)/anReverse.do \
+ $(COD)/womenCommon.do $(DAT)/base.dta 
+	cd $(COD); stata-se -b -q anReverse.do
 
 	
 # Descriptive statistics

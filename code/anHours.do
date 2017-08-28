@@ -60,6 +60,8 @@ esttab  using `tables'/appendix_hours.tex, append ///
     se(3) b(3) star(* 0.10 ** 0.05 *** 0.01) ///
     drop( _cons *pass* ) ///
     varlabels( ///
+        croplostdummy             "Crop loss --- 1-7 months" ///
+        croplostdummyXassets_w1   "Crop loss \X initial assets" ///
         ln_croplostXassets_w1     "Log crop loss \X initial assets" ///
         ln_croplostXln_assets_w1  "Log crop loss \X log initial assets" ///
     )
@@ -97,7 +99,6 @@ file write table "\bottomrule" _n
 file write table "\end{tabular}" _n
 file write table "\begin{tablenotes} \footnotesize" _n
 file write table "\item \hspace*{-0.5em} \textbf{Note.}" _n
-file write table "All models are linear probability models." _n
 file write table "Robust standard errors clustered at household level in parentheses; " _n
 file write table "* significant at 10\%; ** significant at 5\%; *** significant at 1\%." _n
 file write table "Crop loss is a dummy for a per capita crop loss of 200 TZS or above." _n

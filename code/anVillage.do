@@ -108,12 +108,14 @@ file close table
 // Womens' education
 esttab vil_* using `tables'/appendix_village.tex, append ///
     fragment ///
-	nogap nolines varwidth(55)  ///
+	nogap nolines varwidth(55) label ///
     collabels(none) mlabels(none) eqlabels(none) ///
     nomtitles nonumber nodepvars noobs ///
     se(3) b(3) star(* 0.10 ** 0.05 *** 0.01) ///
     drop( _cons *pass* ) ///
     varlabels( ///
+        croplostdummy     "Crop loss --- 1-7 months" ///
+        croplostdummy_lag "Crop loss --- 7-14 months" ///
     )    
 
 file open table using `tables'/appendix_village.tex, write append
@@ -154,6 +156,8 @@ file write table "\item \hspace*{-0.5em} \textbf{Note.}" _n
 file write table "All models are linear probability models." _n
 file write table "Robust standard errors clustered at household level in parentheses; " _n
 file write table "* significant at 10\%; ** significant at 5\%; *** significant at 1\%." _n
+file write table "Fraction with crop loss is the ratio of households, excluding the household" _n
+file write table "itself, that have experienced a per capita crop loss of 200 TZS or above." _n
 file write table "Crop loss is a dummy for a per capita crop loss of 200 TZS or above." _n
 file write table "\end{tablenotes}" _n
 file write table "\end{threeparttable}" _n

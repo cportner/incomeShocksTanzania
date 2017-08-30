@@ -21,7 +21,8 @@ MAP  = ./staticPDF
 ### LaTeX part
 
 $(TEX)/$(TEXFILE).pdf: $(TEX)/$(TEXFILE).tex $(TEX)/$(TEXFILE).bib \
- $(MAP)/kagera.pdf $(TAB)/desstat1.tex $(TAB)/desstat2.tex \
+ $(MAP)/kagera.pdf \
+ $(TAB)/desstat1.tex $(TAB)/desstat2.tex \
  $(TAB)/main_pregnant_birth.tex $(TAB)/main_contraceptives.tex \
  $(TAB)/main_health_marriage.tex $(TAB)/main_effectiveness.tex \
  $(TAB)/appendix_desstat1.tex $(TAB)/appendix_desstat2.tex \

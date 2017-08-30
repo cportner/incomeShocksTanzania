@@ -58,7 +58,7 @@ foreach wave of numlist 1/4 {
         label var `v' "`l`v''"
     }
     merge 1:1 cluster hh passage using "`dataDir'/household_wave`wave'.dta"
-    recode croparea cropsold crlstamt croplost (. = 0)
+    recode crlstamt croplost (. = 0)
     drop _merge
     save "`dataDir'/household_wave`wave'.dta", replace
 

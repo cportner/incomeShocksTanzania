@@ -274,6 +274,7 @@ bysort id_person (wave): gen noncon = (wave - wave[_n-1] > 1 & wave - wave[_n-1]
 bysort id_person: egen nonconsecutive = max(noncon)
 drop noncon
 
+replace pregnant = 2 if (everpreg == 2 & pregnant == .)
 replace birthtot = 0 if (everpreg == 2 | everbrth == 2) & birthtot == .
 // New births between surveys - first survey equal to missing
 gen birth = birthtot if person_wave != 1 & !nonconsecutive
@@ -333,6 +334,8 @@ by id_person (wave): gen landarea_wave1  = farmarea[1]
 
 
 // Crop loss variables
+// recode croparea cropsold crlstamt croplost (. = 0) if farmarea == 0
+// recode croparea cropsold crlstamt croplost (. = 0) 
 
 // Crop lost per capita in `strdiv' TZS
 gen croplostamount_pc     = (crlstamt / hhmem) / `divide'
@@ -390,6 +393,8 @@ replace mornhrs=0 if missing( mornhrs)
 gen hours= homehrs + firehrs + waterhrs +  carehrs +  morehrs + empl1wk + empl2wk +farmedhrs +facmtyhrs +prochrs +herdhrs +heprodhrs +selfemphrs +selfemp2hrs +selfemp3hrs
 gen agri_hours= empl1wk + empl2wk +farmedhrs +facmtyhrs +prochrs +heprodhrs +selfemphrs +selfemp2hrs + herdhrs + morehrs 
 
+drop empl1* empl2* farmed* facmty* prochrs* prhrs* herd* heprod* selfemp* ///
+    homehr* fire* water* care* morehr* helphr* mornhr*
 
 ////////////////////////////////////////
 // Variable and value labels          //

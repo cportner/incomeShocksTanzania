@@ -549,12 +549,12 @@ The main downside is that fixed effects tend to exacerbate measurement errors.
 We begin by estimating OLS and community and individual level fixed effects 
 versions of the following equation:
 \begin{align}
-Y_{i,t} &=  \beta_1 S_{i,t}  +\boldsymbol{D_{i}}'\boldsymbol{\alpha} 
+Y_{i,t} &=  \beta_1 S_{i,t}  + \alpha_{t} 
 + \mu_i + \varepsilon_{i,t},   \label{eq:fixed_effects1} 
 \end{align}
 where $Y_{i,t}$ is the outcome of interest,  
 $S_{i,t}$ is whether the household experienced a shock in the relevant period,
-$\boldsymbol{D_{i}}$ is a vector of survey wave dummies, 
+$\alpha_{t}$ is a vector of survey wave dummies, 
 and $\mu_i$ is time-invariant individual specific characteristics.
 With the outcomes of interest all dichotomous, the estimated equations 
 are linear probability models. 
@@ -576,7 +576,7 @@ characteristics, we also estimate individual level fixed effects versions
 of the following equation:
 \begin{align}
 Y_{i,t} &=  \beta_1 S_{i,t}  +  \beta_2 S_{i,t} \times X_{i,1} +
-\boldsymbol{D_{i}}'\boldsymbol{\alpha} + \mu_i + \varepsilon_{i,t},   
+\alpha_{t} + \mu_i + \varepsilon_{i,t},   
 \label{eq:fixed_effects2} 
 \end{align}
 where $X_{i,1}$ are either assets holdings at the time of the first

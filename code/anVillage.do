@@ -11,63 +11,8 @@ loc tables    "../tables"
 
 use `data'/base
 
-//////////////////////////////
-// Village level crop loss  //
-//////////////////////////////
-
-// // This includes the household in the mean
-// preserve 
-// tempfile village
-// 
-// // Create dummy crop loss (from womenCommon.do)
-// loc divide = 10000
-// loc strdiv "10,000"
-// loc cutoff = 200/`divide' // Remember to change this if we re-do units in crBase.do
-// gen croplostdummy = croplostamount_pc >= `cutoff' if croplostamount_pc != .
-// 
-// collapse (mean) croplostdummy , by(cluster hh passage) // only one obs per household needed
-// collapse (mean) croplostdummy , by(cluster passage)
-// rename croplostdummy village_croplost
-// bysort cluster (passage): gen village_croplost_lag = village_croplost[_n-1]
-// keep cluster passage village_croplost village_croplost_lag
-// save `village'
-// 
-// restore
-// merge m:1 cluster passage using `village'
-// drop _merge
-
-// Excluding the household from the ratio of households that have lost crops
-preserve 
-tempfile village
-tempvar totalcroploss numHouseholds
-// Create dummy crop loss (from womenCommon.do)
-loc divide = 10000
-loc strdiv "10,000"
-loc cutoff = 200/`divide' // Remember to change this if we re-do units in crBase.do
-gen croplostdummy = croplostamount_pc >= `cutoff' if croplostamount_pc != .
-bysort id_hh passage: keep if _n == 1  // only one obs per household needed
-drop if croplostdummy == .
-
-egen `totalcroploss' = total(croplostdummy), by(cluster passage)
-replace `totalcroploss' = `totalcroploss' - croplostdummy
-bysort cluster passage: gen `numHouseholds' = _N
-gen village_croplost = `totalcroploss' / (`numHouseholds' - 1)
-
-bysort id_hh (passage): gen village_croplost_lag = village_croplost[_n-1]
-keep id_hh passage village_croplost village_croplost_lag
-save `village'
-
-restore
-merge m:1 id_hh passage using `village'
-
-sort id_person // needed for "womenCommon" to work
-
 // regular data manipulation
 include womenCommon 
-
-label variable village_croplost     "Fraction with crop loss in village"
-label variable village_croplost_lag "Lagged fraction with crop loss in village"
-
 
 
 ////////////////////////////////////////////////////////////////////////

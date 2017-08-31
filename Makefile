@@ -60,6 +60,42 @@ response: $(RES)/$(RESFILE).pdf
 
 ### Stata part         			                                ###
 
+# Create base data set(s)
+# Need "end" file as outcome, here the base data sets for each survey
+# "%" is a pattern substitution; it looks at the target file and then uses the same
+# pattern in dependencies. This works because another file depends on a list of all
+# the household data files.
+
+$(DAT)/base.dta: $(COD)/crBase.do $(DAT)/household_wave1.dta $(DAT)/household_wave2.dta \
+ $(DAT)/household_wave3.dta $(DAT)/household_wave4.dta \
+ $(DAT)/individual_wave1.dta $(DAT)/individual_wave2.dta \
+ $(DAT)/individual_wave3.dta $(DAT)/individual_wave4.dta \
+ $(RAW)/OtherKageraData/inc___hh.dta
+	cd $(COD); stata-se -b -q crBase.do    
+
+$(DAT)/individual_wave%.dta: $(COD)/crIndividual_waves.do $(RAW)/HOUSEHOLD/WAVE%/S11A_OTH.DTA \
+ $(RAW)/HOUSEHOLD/WAVE%/S1___IND.DTA $(RAW)/HOUSEHOLD/WAVE%/S5___IND.DTA \
+ $(RAW)/HOUSEHOLD/WAVE%/S6___IND.DTA $(RAW)/HOUSEHOLD/WAVE%/S9___IND.DTA \
+ $(RAW)/HOUSEHOLD/WAVE%/S10__IND.DTA 
+	cd $(COD); stata-se -b -q crIndividual_waves.do    
+
+$(DAT)/household_wave%.dta: $(COD)/crHousehold_waves.do $(RAW)/HOUSEHOLD/WAVE%/S11A_OTH.DTA \
+ $(RAW)/HOUSEHOLD/WAVE%/S11B_OTH.DTA $(RAW)/HOUSEHOLD/WAVE%/S11G_DUR.DTA \
+ $(RAW)/HOUSEHOLD/WAVE%/S12A_OTH.DTA $(RAW)/HOUSEHOLD/WAVE%/S14D_DUR.DTA \
+ $(RAW)/HOUSEHOLD/WAVE%/S15A_DUR.DTA $(RAW)/HOUSEHOLD/WAVE%/S16A_DUR.DTA \
+ $(RAW)/HOUSEHOLD/WAVE%/S19C_IND.DTA $(RAW)/HOUSEHOLD/WAVE%/S1___IND.DTA 
+	cd $(COD); stata-se -b -q crHousehold_waves.do    
+
+# Descriptive statistics
+$(TAB)/desstat1.tex $(TAB)/desstat2.tex: $(COD)/anDescStat.do $(DAT)/base.dta \
+ $(COD)/womenCommon.do
+	cd $(COD); stata-se -b -q anDescStat.do    
+
+$(TAB)/appendix_desstat1.tex $(TAB)/appendix_desstat2.tex: $(COD)/anAppendixAttrition.do $(DAT)/base.dta
+	cd $(COD); stata-se -b -q anAppendixAttrition.do    
+
+
+
 # Analysis files	
 $(TAB)/main_pregnant_birth.tex $(TAB)/main_contraceptives.tex $(TAB)/appendix_pregnant_birth.tex $(TAB)/appendix_contraceptives.tex : $(COD)/anMain.do \
  $(COD)/womenCommon.do $(DAT)/base.dta 
@@ -117,43 +153,7 @@ $(TAB)/appendix_reverse.tex: $(COD)/anReverse.do \
  $(COD)/womenCommon.do $(DAT)/base.dta 
 	cd $(COD); stata-se -b -q anReverse.do
 
-	
-# Descriptive statistics
-$(TAB)/desstat1.tex $(TAB)/desstat2.tex: $(COD)/anDescStat.do $(DAT)/base.dta \
- $(COD)/womenCommon.do
-	cd $(COD); stata-se -b -q anDescStat.do    
-
-$(TAB)/appendix_desstat1.tex $(TAB)/appendix_desstat2.tex: $(COD)/anAppendixAttrition.do $(DAT)/base.dta
-	cd $(COD); stata-se -b -q anAppendixAttrition.do    
-
-
-# Create base data set(s)
-# Need "end" file as outcome, here the base data sets for each survey
-# "%" is a pattern substitution; it looks at the target file and then uses the same
-# pattern in dependencies. This works because another file depends on a list of all
-# the household data files.
-
-$(DAT)/base.dta: $(COD)/crBase.do $(DAT)/household_wave1.dta $(DAT)/household_wave2.dta \
- $(DAT)/household_wave3.dta $(DAT)/household_wave4.dta \
- $(DAT)/individual_wave1.dta $(DAT)/individual_wave2.dta \
- $(DAT)/individual_wave3.dta $(DAT)/individual_wave4.dta \
- $(RAW)/OtherKageraData/inc___hh.dta
-	cd $(COD); stata-se -b -q crBase.do    
-
-$(DAT)/individual_wave%.dta: $(COD)/crIndividual_waves.do $(RAW)/HOUSEHOLD/WAVE%/S11A_OTH.DTA \
- $(RAW)/HOUSEHOLD/WAVE%/S1___IND.DTA $(RAW)/HOUSEHOLD/WAVE%/S5___IND.DTA \
- $(RAW)/HOUSEHOLD/WAVE%/S6___IND.DTA $(RAW)/HOUSEHOLD/WAVE%/S9___IND.DTA \
- $(RAW)/HOUSEHOLD/WAVE%/S10__IND.DTA 
-	cd $(COD); stata-se -b -q crIndividual_waves.do    
-
-$(DAT)/household_wave%.dta: $(COD)/crHousehold_waves.do $(RAW)/HOUSEHOLD/WAVE%/S11A_OTH.DTA \
- $(RAW)/HOUSEHOLD/WAVE%/S11B_OTH.DTA $(RAW)/HOUSEHOLD/WAVE%/S11G_DUR.DTA \
- $(RAW)/HOUSEHOLD/WAVE%/S12A_OTH.DTA $(RAW)/HOUSEHOLD/WAVE%/S14D_DUR.DTA \
- $(RAW)/HOUSEHOLD/WAVE%/S15A_DUR.DTA $(RAW)/HOUSEHOLD/WAVE%/S16A_DUR.DTA \
- $(RAW)/HOUSEHOLD/WAVE%/S19C_IND.DTA $(RAW)/HOUSEHOLD/WAVE%/S1___IND.DTA 
-	cd $(COD); stata-se -b -q crHousehold_waves.do    
-
-	
+		
 # Clean directories for (most) generated files
 # This does not clean generated data files; mainly because I am a chicken
 .PHONY: cleanall cleanfig cleantex cleancode cleantab

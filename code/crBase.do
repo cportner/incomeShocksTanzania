@@ -371,9 +371,50 @@ gen ln_croplost_lagXassets_w1 = ln_croplostamount_pc_lag * assets_pc_wave1
 gen ln_croplostXln_assets_w1 = ln_croplostamount_pc * log(assets_pc_wave1*`assetDivide'+1)
 gen ln_croplost_lagXln_assets_w1 = ln_croplostamount_pc_lag * log(assets_pc_wave1*`assetDivide'+1)
 
+//////////////////////////////
+// Village level crop loss  //
+//////////////////////////////
 
+// // This includes the household in the mean
+// preserve 
+// tempfile village
+// 
+// // Create dummy crop loss
+// collapse (mean) croplostdummy , by(cluster hh passage) // only one obs per household needed
+// collapse (mean) croplostdummy , by(cluster passage)
+// rename croplostdummy village_croplost
+// bysort cluster (passage): gen village_croplost_lag = village_croplost[_n-1]
+// keep cluster passage village_croplost village_croplost_lag
+// save `village'
+// 
+// restore
+// merge m:1 cluster passage using `village'
+// drop _merge
 
-// Other health and demographic variables
+// Excluding the household from the ratio of households that have lost crops
+preserve 
+tempfile village
+tempvar totalcroploss numHouseholds
+// Create dummy crop loss 
+bysort id_hh passage: keep if _n == 1  // only one obs per household needed
+drop if croplostdummy == .
+
+egen `totalcroploss' = total(croplostdummy), by(cluster passage)
+replace `totalcroploss' = `totalcroploss' - croplostdummy
+bysort cluster passage: gen `numHouseholds' = _N
+gen village_croplost = `totalcroploss' / (`numHouseholds' - 1)
+
+bysort id_hh (passage): gen village_croplost_lag = village_croplost[_n-1]
+keep id_hh passage village_croplost village_croplost_lag
+save `village'
+
+restore
+merge m:1 id_hh passage using `village'
+
+////////////////////////////////////////////
+// Other health and demographic variables //
+////////////////////////////////////////////
+
 gen female = sex == 2
 gen heightm=height/100 //Creating height in meters
 gen BMI=weight/heightm^2
@@ -424,7 +465,7 @@ gen hours= homehrs + firehrs + waterhrs +  carehrs +  morehrs + empl1wk + empl2w
 gen agri_hours= empl1wk + empl2wk +farmedhrs +facmtyhrs +prochrs +heprodhrs +selfemphrs +selfemp2hrs + herdhrs + morehrs 
 
 drop empl1* empl2* farmed* facmty* prochrs* prhrs* herd* heprod* selfemp* ///
-    homehr* fire* water* care* morehr* helphr* mornhr*
+    homehr* fire* water* care* morehr* helphr* mornhr* se?hrs*
 
 ////////////////////////////////////////
 // Variable and value labels          //
@@ -494,6 +535,11 @@ lab var ln_croplost_lagXassets_w1  "Log crop loss --- 7-14 months \X initial ass
 lab var ln_croplostXln_assets_w1      "Log crop loss --- 1-7 months \X log initial assets"
 lab var ln_croplost_lagXln_assets_w1  "Log crop loss --- 7-14 months \X log initial assets"
 
+// Crop loss - village
+label variable village_croplost     "Fraction with crop loss in village"
+label variable village_croplost_lag "Lagged fraction with crop loss in village"
+
+
 // Individual
 lab var female        "Female"
 lab var heightm       "Height in metres"
@@ -512,7 +558,7 @@ lab val contra_any contra_trad contra_modern any_sterilization ///
 // not just the wave
 
 gen high_asset = assets_pc > 7000000 / `assetDivide'
-by id_person (wave): egen too_high = max(high_asset)
+bysort id_person (wave): egen too_high = max(high_asset)
 drop if too_high
 drop high_asset too_high
 

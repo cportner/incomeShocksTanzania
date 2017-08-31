@@ -157,7 +157,7 @@ loc mean_dissolve = `r(mean)'
 use `data'/base, clear
 
 // data manipulation
-do womenCommon 
+include womenCommon 
 
 // Impact of crop loss amount on whether the spouse is currently living in the Household
 gen absent = spousehh == 2 if spousehh != .

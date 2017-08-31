@@ -12,7 +12,7 @@ loc tables    "../tables"
 use `data'/base
 
 // data manipulation
-do womenCommon 
+include womenCommon 
 
 
 //////////////////////////////////////////////////////////////////
@@ -191,7 +191,7 @@ file write table "\item \hspace*{-0.5em} \textbf{Note.}" _n
 file write table "All models are linear probability models." _n
 file write table "Robust standard errors clustered at household level in parentheses; " _n
 file write table "* significant at 10\%; ** significant at 5\%; *** significant at 1\%." _n
-file write table "Crop loss is a dummy for a per capita crop loss of 200 TZS or above." _n
+file write table "Crop loss is a dummy for a per capita crop loss of `labCroploss'." _n
 file write table "Women for whom we do not have information on the education of their " _n
 file write table "husband/partner are dropped for the lower panel." _n
 file write table "\end{tablenotes}" _n

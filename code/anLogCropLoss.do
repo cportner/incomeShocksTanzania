@@ -12,7 +12,7 @@ loc tables    "../tables"
 use `data'/base
 
 // data manipulation
-do womenCommon 
+include womenCommon 
 
 //////////////////////////////
 // Results for Main results //
@@ -153,7 +153,7 @@ file write table "All models are linear probability models." _n
 file write table "Robust standard errors clustered at household level in parentheses; " _n
 file write table "* significant at 10\%; ** significant at 5\%; *** significant at 1\%." _n
 file write table "Crop loss is log per capita crop loss plus 1." _n
-file write table "Initial assets are assets per capita in round 1 of the survey and are measured in 10,000 TZS," _n
+file write table "Initial assets are assets per capita in round 1 of the survey and are measured in `labAsset'," _n
 file write table "except that log of assets are taken off assets per capita in TZS." _n
 file write table "\end{tablenotes}" _n
 file write table "\end{threeparttable}" _n

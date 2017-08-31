@@ -12,7 +12,7 @@ loc tables    "../tables"
 use `data'/base
 
 // data manipulation
-do womenCommon 
+include womenCommon 
 
 bysort id_person (passage): gen pregnant_lag = pregnant[_n-1]
 
@@ -89,7 +89,7 @@ file write table "\label{tab:reverse}" _n
 file write table "\begin{tabular}{@{} l D{.}{.}{2.6}  D{.}{.}{2.6} D{.}{.}{2.6} D{.}{.}{2.6} @{}}" _n
 file write table "\toprule" _n
 file write table "                                                       &\multicolumn{2}{c}{Crop loss - Dummy }& \multicolumn{2}{c}{} \\" _n
-file write table "                                                       &\multicolumn{2}{c}{200 TZS or above}       & \multicolumn{2}{c}{Log crop loss} \\ \midrule" _n
+file write table "                                                       &\multicolumn{2}{c}{`labCroploss'}       & \multicolumn{2}{c}{Log crop loss} \\ \midrule" _n
 file close table
 
 // Births
@@ -249,9 +249,9 @@ file write table "Two left columns are linear probability models and two right c
 file write table "are linear models. " _n
 file write table "Robust standard errors clustered at household level in parentheses; " _n
 file write table "* significant at 10\%; ** significant at 5\%; *** significant at 1\%." _n
-file write table "Crop loss is a dummy for a per capita crop loss of 200 TZS or above." _n
+file write table "Crop loss is a dummy for a per capita crop loss of `labCroploss'." _n
 file write table "Log crop loss is log per capita crop loss plus 1." _n
-file write table "Initial assets are assets per capita in round 1 of the survey and are measured in 10,000 TZS." _n
+file write table "Initial assets are assets per capita in round 1 of the survey and are measured in `labAsset'." _n
 file write table "\end{tablenotes}" _n
 file write table "\end{threeparttable}" _n
 file write table "\end{small}" _n

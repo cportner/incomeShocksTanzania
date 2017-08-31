@@ -44,3 +44,21 @@ xtset id_person
 
 tab cluster, gen(area)
 
+
+///////////////////////////////////////
+// Variable label extract for tables //
+///////////////////////////////////////
+
+// need this for the three main numbers: crop loss cut-off, assets, and continuous crop loss
+
+loc varLabel : var label croplostdummy
+if regexm("`varLabel'", ".*\((.*)\)") loc labCroploss = regexs(1)
+
+loc varLabel : var label assets_pc_wave1
+if regexm("`varLabel'", ".*\((.*)\)") loc labAsset = regexs(1)
+
+loc varLabel : var label croplostamount_pc
+if regexm("`varLabel'", ".*\((.*)\)") loc labAmount = regexs(1)
+
+
+

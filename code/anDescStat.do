@@ -11,7 +11,7 @@ loc tables "../tables"
 use `data'/base
 
 // data manipulation
-do womenCommon 
+include womenCommon 
 
 //////////////////////////////////////
 // Descriptive statistics for women //
@@ -65,12 +65,13 @@ file open  stats using `tables'/desstat1.tex, write append
 file write stats "\addlinespace" _n
 file close stats
 
+local assetLabel : var label assets_pc_wave1 // can add footnote to end this way
 xi , noomit: estpost  sum assets_pc_wave1  if wave == 1 
 ereturn list
 esttab using `tables'/desstat1.tex , ///
     main(mean %9.3fc) aux(sd %9.3fc) ///
     varlabels( ///
-        assets_pc_wave1 "Assets per capita in wave 1 (10,000 TZS)\tnote{a}" ///
+        assets_pc_wave1 "`assetLabel'\tnote{a}" ///
     ) ///  
     fragment nomtitles nonumber noobs append nolines ///
     nogap varwidth(55) label wide noparentheses
@@ -117,8 +118,9 @@ estpost tabstat croplostdummy  , ///
 matrix A = e(mean)
 matrix B = e(sd)
 
+local croplossLabel : var label croplostdummy
 file open  stats using `tables'/desstat2.tex, write append
-file write stats "Dummy crop loss (1-7 months) $\geq$ TZS 200 " 
+file write stats "`croplossLabel'" 
 file write stats _col(56)
 foreach x of numlist 1/5 {
     file write stats "&   " %7.2f (A[1,`x'])  "  "

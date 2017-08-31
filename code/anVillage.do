@@ -63,7 +63,7 @@ merge m:1 id_hh passage using `village'
 sort id_person // needed for "womenCommon" to work
 
 // regular data manipulation
-do womenCommon 
+include womenCommon 
 
 label variable village_croplost     "Fraction with crop loss in village"
 label variable village_croplost_lag "Lagged fraction with crop loss in village"
@@ -157,8 +157,8 @@ file write table "All models are linear probability models." _n
 file write table "Robust standard errors clustered at household level in parentheses; " _n
 file write table "* significant at 10\%; ** significant at 5\%; *** significant at 1\%." _n
 file write table "Fraction with crop loss is the ratio of households, excluding the household" _n
-file write table "itself, that have experienced a per capita crop loss of 200 TZS or above." _n
-file write table "Crop loss is a dummy for a per capita crop loss of 200 TZS or above." _n
+file write table "itself, that have experienced a per capita crop loss of `labCroploss'." _n
+file write table "Crop loss is a dummy for a per capita crop loss of `labCroploss'." _n
 file write table "\end{tablenotes}" _n
 file write table "\end{threeparttable}" _n
 file write table "\end{small}" _n

@@ -12,7 +12,7 @@ loc tables    "../tables"
 use `data'/base
 
 // data manipulation
-do womenCommon 
+include womenCommon 
 
 //////////////////////////////
 // Results for Main results //
@@ -101,7 +101,7 @@ foreach res in lpm_pr_0  lpm_pr_1 d_pr_1  {
     }
 }
 file write table "&                     &                     &                     \\ " _n
-file write table "\hs (200 TZS or above)" _col(30)
+file write table "\hs (`labCroploss')" _col(30)
 foreach res in lpm_pr_0  lpm_pr_1 d_pr_1  {
     est restore `res'
     qui `e(cmd)' 
@@ -134,7 +134,7 @@ foreach res in lpm_br_0 lpm_br_1  d_br_1  {
     }
 }
 file write table "\\ " _n
-file write table "\hs (200 TZS or above)" _col(30)
+file write table "\hs (`labCroploss')" _col(30)
 file write table "&                     &                     &                     " 
 foreach res in lpm_br_0 lpm_br_1  d_br_1  {
     est restore `res'
@@ -174,7 +174,7 @@ file write table "\item \hspace*{-0.5em} \textbf{Note.}" _n
 file write table "All models are linear probability models." _n
 file write table "Robust standard errors clustered at community level in parentheses; " _n
 file write table "* significant at 10\%; ** significant at 5\%; *** significant at 1\%." _n
-file write table "Crop loss is a dummy for a per capita crop loss of 200 TZS or above." _n
+file write table "Crop loss is a dummy for a per capita crop loss of `labCroploss'." _n
 file write table "% Assets are per capita and measured in 10,000 TZS." _n
 file write table "\end{tablenotes}" _n
 file write table "\end{threeparttable}" _n
@@ -272,7 +272,7 @@ file write table "\item \hspace*{-0.5em} \textbf{Note.}" _n
 file write table "All models are linear probability models." _n
 file write table "Robust standard errors clustered at community level in parentheses; " _n
 file write table "* significant at 10\%; ** significant at 5\%; *** significant at 1\%." _n
-file write table "Crop loss is a dummy for a per capita crop loss of 200 TZS or above." _n
+file write table "Crop loss is a dummy for a per capita crop loss of `labCroploss'." _n
 file write table "% Assets are per capita and measured in 10,000 TZS." _n
 file write table "\end{tablenotes}" _n
 file write table "\end{threeparttable}" _n

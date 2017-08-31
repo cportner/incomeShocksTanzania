@@ -13,7 +13,7 @@ loc tables    "../tables"
 use `data'/base
 
 // data manipulation
-do womenCommon 
+include womenCommon 
 
 // generate lagged contraceptive use
 bysort id_person (passage): gen lag_contra_any    = contra_any[_n-1]

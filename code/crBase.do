@@ -316,20 +316,20 @@ recode pregnant (2 = 0)
 
 // Assets variables
 
-loc divide = 10000 // how much shocks and assets are divided by
-loc strdiv "10,000" // for labels
+loc assetDivide = 1000000 // how much shocks and assets are divided by
+loc assetStrDiv "1,000,000" // for labels
 
 // creating asset variable
 recode shamvalu feqslamt lvsvalue bassvalu durvalue totsavng farmarea (. = 0)
 gen assets=shamvalu + feqslamt + lvsvalue + bassvalu + durvalue + totsavng   
 // Per capita asset measures in `strdiv' TZS
-gen assets_pc      = (assets/hhmem) / `divide' // per capita assets
+gen assets_pc      = (assets/hhmem) / `assetDivide' // per capita assets
 by id_person (wave): gen assets_pc_lag   = assets_pc[_n-1]
 by id_person (wave): gen assets_pc_lag2  = assets_pc[_n-2]
 // This is first wave observed; there can be differences across individuals if enter
 // at different times
 by id_person (wave): gen assets_pc_wave1 = assets_pc[1] 
-by id_person (wave): gen landvalue_pc_wave1 = (shamvalu[1] / hhmem[1]) / `divide' 
+by id_person (wave): gen landvalue_pc_wave1 = (shamvalu[1] / hhmem[1]) / `assetDivide' 
 by id_person (wave): gen landarea_wave1  = farmarea[1]
 
 
@@ -338,9 +338,39 @@ by id_person (wave): gen landarea_wave1  = farmarea[1]
 // recode croparea cropsold crlstamt croplost (. = 0) 
 
 // Crop lost per capita in `strdiv' TZS
+loc divide = 10000
+loc strdiv "10,000"
+loc cutoff = 200/`divide' 
+loc strcut = `cutoff'*`divide'
+
 gen croplostamount_pc     = (crlstamt / hhmem) / `divide'
 by id_person (wave): gen croplostamount_pc_lag  = croplostamount_pc[_n-1]
 by id_person (wave): gen croplostamount_pc_lag2 = croplostamount_pc[_n-2]
+
+// Create dummy crop loss
+gen croplostdummy = croplostamount_pc >= `cutoff' if croplostamount_pc != .
+gen croplostdummy_lag  = croplostamount_pc_lag >= `cutoff' if croplostamount_pc_lag != .
+gen croplostdummy_lag2 = croplostamount_pc_lag2 >= `cutoff' if croplostamount_pc_lag2 != .
+
+// Crop loss interactions
+gen croplostXassets_w1 = croplostamount_pc * assets_pc_wave1
+gen croplost_lagXassets_w1 = croplostamount_pc_lag * assets_pc_wave1
+gen croplostdummyXassets_w1 = croplostdummy * assets_pc_wave1
+gen croplostdummy_lagXassets_w1 = croplostdummy_lag * assets_pc_wave1
+tab agegroup, gen(agegp)
+foreach var of varlist agegp* {
+    gen croplostdummyX`var' = croplostdummy * `var'
+    gen croplostdummy_lagX`var' = croplostdummy_lag * `var'
+}
+
+// Log version
+gen ln_croplostamount_pc = log(croplostamount_pc+1)
+gen ln_croplostamount_pc_lag = log(croplostamount_pc_lag+1)
+gen ln_croplostXassets_w1 = ln_croplostamount_pc * assets_pc_wave1
+gen ln_croplost_lagXassets_w1 = ln_croplostamount_pc_lag * assets_pc_wave1
+gen ln_croplostXln_assets_w1 = ln_croplostamount_pc * log(assets_pc_wave1*`assetDivide'+1)
+gen ln_croplost_lagXln_assets_w1 = ln_croplostamount_pc_lag * log(assets_pc_wave1*`assetDivide'+1)
+
 
 
 // Other health and demographic variables
@@ -437,17 +467,34 @@ lab var numbirth_lag2 "Number of children ever born - 2 surveys ago"
 lab var nonconsecutive "Not surveyed only in consecutive waves"
 
 lab var assets              "Assets (TZS)"
-lab var assets_pc           "Assets per capita (`strdiv' TZS)"
-lab var assets_pc_lag       "Assets per capita prior survey (`strdiv' TZS)"
-lab var assets_pc_lag2      "Assets per capita two surveys ago (`strdiv' TZS)"
-lab var assets_pc_wave1     "Assets per capita in wave 1 (`strdiv' TZS)"
-lab var landvalue_pc_wave1  "Land value per capita in wave 1 (`strdiv' TZS)"
+lab var assets_pc           "Assets per capita (`assetStrDiv' TZS)"
+lab var assets_pc_lag       "Assets per capita prior survey (`assetStrDiv' TZS)"
+lab var assets_pc_lag2      "Assets per capita two surveys ago (`assetStrDiv' TZS)"
+lab var assets_pc_wave1     "Assets per capita in wave 1 (`assetStrDiv' TZS)"
+lab var landvalue_pc_wave1  "Land value per capita in wave 1 (`assetStrDiv' TZS)"
 lab var landarea_wave1      "Land area in wave 1"
 
-lab var croplostamount_pc      "Crop lost per capita - last 7 months (`strdiv' TZS)"
-lab var croplostamount_pc_lag  "Crop lost per capita - 7-14 months (`strdiv' TZS)"
-lab var croplostamount_pc_lag2 "Crop lost per capita - 14-21 months (`strdiv' TZS)"
+// Crop loss dummy
+lab var croplostdummy "Crop loss --- 1-7 months (`strcut' TZS or above)"
+lab var croplostdummy_lag "Crop loss --- 7-14 months (`strcut' TZS or above)"
+lab var croplostdummyXassets_w1 "Crop loss --- 1-7 months \X initial assets (`assetStrDiv' TZS)"
+lab var croplostdummy_lagXassets_w1 "Crop loss --- 7-14 months \X initial assets (`assetStrDiv' TZS)"
 
+// Crop loss - linear version
+lab var croplostamount_pc       "Crop loss --- 1-7 months (`strdiv' TZS)"
+lab var croplostamount_pc_lag   "Crop loss --- 7-14 months (`strdiv' TZS)"
+lab var croplostXassets_w1      "Crop loss --- 1-7 months \X initial assets (`assetStrDiv' TZS)"
+lab var croplost_lagXassets_w1  "Crop loss --- 7-14 months \X initial assets (`assetStrDiv' TZS)"
+
+// Crop loss - Log version
+lab var ln_croplostamount_pc "Log crop loss --- 1-7 months"
+lab var ln_croplostamount_pc_lag "Log crop loss --- 7-14 months"
+lab var ln_croplostXassets_w1      "Log crop loss --- 1-7 months \X initial assets (`assetStrDiv' TZS)"
+lab var ln_croplost_lagXassets_w1  "Log crop loss --- 7-14 months \X initial assets (`assetStrDiv' TZS)"
+lab var ln_croplostXln_assets_w1      "Log crop loss --- 1-7 months \X log initial assets"
+lab var ln_croplost_lagXln_assets_w1  "Log crop loss --- 7-14 months \X log initial assets"
+
+// Individual
 lab var female        "Female"
 lab var heightm       "Height in metres"
 lab var BMI           "BMI"
@@ -464,7 +511,7 @@ lab val contra_any contra_trad contra_modern any_sterilization ///
 // Should remove all relevant observation for individual/household
 // not just the wave
 
-gen high_asset = assets_pc > 7000000 / `divide'
+gen high_asset = assets_pc > 7000000 / `assetDivide'
 by id_person (wave): egen too_high = max(high_asset)
 drop if too_high
 drop high_asset too_high

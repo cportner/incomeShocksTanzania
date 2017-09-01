@@ -112,12 +112,7 @@ file write table "\\ " _n
 file write table "Number of women" _col(56)
 foreach res in logit_pr_1 logit_br_1 logit_ca_1 logit_ct_1 logit_cm_1 {
     est restore `res'
-    if "`e(depvar)'" == "pregnant" | "`e(depvar)'" == "contra_any" | "`e(depvar)'" == "contra_trad" | "`e(depvar)'" == "contra_modern" {
-        loc numWomen = `e(N)' /  4
-    }
-    else {
-        loc numWomen = `e(N)' / 3 
-    }
+    loc numWomen = `e(N_g)' 
     file write table "&    \mco{`numWomen'}        "
 }
 file write table "\\ " _n

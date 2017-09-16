@@ -346,11 +346,15 @@ loc strcut = `cutoff'*`divide'
 gen croplostamount_pc     = (crlstamt / hhmem) / `divide'
 by id_person (wave): gen croplostamount_pc_lag  = croplostamount_pc[_n-1]
 by id_person (wave): gen croplostamount_pc_lag2 = croplostamount_pc[_n-2]
+by id_person (wave): gen croplostamount_pc_lag3 = croplostamount_pc[_n-3]
+by id_person (wave): gen croplostamount_pc_lag4 = croplostamount_pc[_n-4]
 
 // Create dummy crop loss
 gen croplostdummy = croplostamount_pc >= `cutoff' if croplostamount_pc != .
 gen croplostdummy_lag  = croplostamount_pc_lag >= `cutoff' if croplostamount_pc_lag != .
 gen croplostdummy_lag2 = croplostamount_pc_lag2 >= `cutoff' if croplostamount_pc_lag2 != .
+gen croplostdummy_lag3 = croplostamount_pc_lag3 >= `cutoff' if croplostamount_pc_lag3 != .
+gen croplostdummy_lag4 = croplostamount_pc_lag4 >= `cutoff' if croplostamount_pc_lag4 != .
 
 // Crop loss interactions
 gen croplostXassets_w1 = croplostamount_pc * assets_pc_wave1

@@ -153,6 +153,11 @@ $(TAB)/appendix_reverse.tex: $(COD)/anReverse.do \
  $(COD)/womenCommon.do $(DAT)/base.dta 
 	cd $(COD); stata-se -b -q anReverse.do
 
+$(TAB)/appendix_postpone_birth.tex $(TAB)/appendix_postpone_contraceptives.tex: $(COD)/anPostpone.do \
+ $(COD)/womenCommon.do $(DAT)/base.dta 
+	cd $(COD); stata-se -b -q anPostpone.do
+	
+
 		
 # Clean directories for (most) generated files
 # This does not clean generated data files; mainly because I am a chicken

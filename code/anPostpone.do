@@ -44,64 +44,64 @@ include womenCommon
 // eststo lpm_br_1: reg birth croplostdummy_lag  pass3 pass4 `xvar', cluster(id_hh)
 // estadd local fixed "\mco{No}" , replace
 
-// Woman fixed effects base specification without wave 1 asset interaction
-eststo d_ca_0: xtreg contra_any croplostdummy  pass2 pass3 pass4 , fe cluster(id_hh)
-estadd local fixed "\mco{Yes}" , replace
-eststo d_ca_1: xtreg contra_any croplostdummy croplostdummy_lag   pass3 pass4 , fe cluster(id_hh)
-estadd local fixed "\mco{Yes}" , replace
-eststo d_ca_2: xtreg contra_any croplostdummy croplostdummy_lag croplostdummy_lag2 pass4 , fe cluster(id_hh)
-estadd local fixed "\mco{Yes}" , replace
-eststo d_ca_3: reg contra_any croplostdummy croplostdummy_lag croplostdummy_lag2 croplostdummy_lag3  , cluster(id_hh)
-estadd local fixed "\mco{Yes}" , replace
-
-eststo d_ct_0: xtreg contra_trad croplostdummy  pass2 pass3 pass4 , fe cluster(id_hh)
-estadd local fixed "\mco{Yes}" , replace
-eststo d_ct_1: xtreg contra_trad croplostdummy croplostdummy_lag  pass3 pass4 , fe cluster(id_hh)
-estadd local fixed "\mco{Yes}" , replace
-eststo d_ct_2: xtreg contra_trad croplostdummy croplostdummy_lag croplostdummy_lag2 pass4 , fe cluster(id_hh)
-estadd local fixed "\mco{Yes}" , replace
-eststo d_ct_3: reg contra_trad croplostdummy croplostdummy_lag croplostdummy_lag2 croplostdummy_lag3  , cluster(id_hh)
-estadd local fixed "\mco{Yes}" , replace
-
-eststo d_cm_0: xtreg contra_mode croplostdummy  pass2 pass3 pass4 , fe cluster(id_hh)
-estadd local fixed "\mco{Yes}" , replace
-eststo d_cm_1: xtreg contra_mode croplostdummy croplostdummy_lag pass3 pass4 , fe cluster(id_hh)
-estadd local fixed "\mco{Yes}" , replace
-eststo d_cm_2: xtreg contra_mode croplostdummy croplostdummy_lag croplostdummy_lag2 pass4 , fe cluster(id_hh)
-estadd local fixed "\mco{Yes}" , replace
-eststo d_cm_3: reg contra_mode croplostdummy croplostdummy_lag croplostdummy_lag2 croplostdummy_lag3  , cluster(id_hh)
-estadd local fixed "\mco{Yes}" , replace
-
-eststo lpm_pr_0: reg pregnant croplostdummy  pass2 pass3 pass4 `xvar', cluster(id_hh)
-estadd local fixed "\mco{No}" , replace
-eststo d_pr_0: xtreg pregnant croplostdummy  pass2 pass3 pass4 , fe cluster(id_hh)
-estadd local fixed "\mco{Yes}" , replace
-
-eststo lpm_pr_1: reg pregnant croplostdummy croplostdummy_lag pass3 pass4 `xvar', cluster(id_hh)
-estadd local fixed "\mco{No}" , replace
-eststo d_pr_1: xtreg pregnant croplostdummy croplostdummy_lag pass3 pass4 , fe cluster(id_hh)
-estadd local fixed "\mco{Yes}" , replace
-
-eststo lpm_pr_2: reg pregnant croplostdummy croplostdummy_lag croplostdummy_lag2 pass4 `xvar', cluster(id_hh)
-estadd local fixed "\mco{No}" , replace
-eststo d_pr_2: xtreg pregnant croplostdummy croplostdummy_lag croplostdummy_lag2 pass4 , fe cluster(id_hh)
-estadd local fixed "\mco{Yes}" , replace
-
-eststo d_pr_3: reg pregnant croplostdummy croplostdummy_lag croplostdummy_lag2 croplostdummy_lag3 `xvar', cluster(id_hh)
-estadd local fixed "\mco{Yes}" , replace
-
-eststo lpm_br_0: reg birth croplostdummy_lag  pass3 pass4 `xvar', cluster(id_hh)
-estadd local fixed "\mco{No}" , replace
-eststo d_br_0: xtreg birth  croplostdummy_lag  pass3 pass4 , fe cluster(id_hh)
-estadd local fixed "\mco{Yes}" , replace
-
-eststo lpm_br_1: reg birth croplostdummy_lag croplostdummy_lag2 pass4 `xvar', cluster(id_hh)
-estadd local fixed "\mco{No}" , replace
-eststo d_br_1: xtreg birth croplostdummy_lag croplostdummy_lag2 pass4 , fe cluster(id_hh)
-estadd local fixed "\mco{Yes}" , replace
-
-eststo d_br_2: reg birth  croplostdummy_lag croplostdummy_lag2 croplostdummy_lag3 `xvar', cluster(id_hh)
-estadd local fixed "\mco{Yes}" , replace
+// // Woman fixed effects base specification without wave 1 asset interaction
+// eststo d_ca_0: xtreg contra_any croplostdummy  pass2 pass3 pass4 , fe cluster(id_hh)
+// estadd local fixed "\mco{Yes}" , replace
+// eststo d_ca_1: xtreg contra_any croplostdummy croplostdummy_lag   pass3 pass4 , fe cluster(id_hh)
+// estadd local fixed "\mco{Yes}" , replace
+// eststo d_ca_2: xtreg contra_any croplostdummy croplostdummy_lag croplostdummy_lag2 pass4 , fe cluster(id_hh)
+// estadd local fixed "\mco{Yes}" , replace
+// eststo d_ca_3: reg contra_any croplostdummy croplostdummy_lag croplostdummy_lag2 croplostdummy_lag3  , cluster(id_hh)
+// estadd local fixed "\mco{Yes}" , replace
+// 
+// eststo d_ct_0: xtreg contra_trad croplostdummy  pass2 pass3 pass4 , fe cluster(id_hh)
+// estadd local fixed "\mco{Yes}" , replace
+// eststo d_ct_1: xtreg contra_trad croplostdummy croplostdummy_lag  pass3 pass4 , fe cluster(id_hh)
+// estadd local fixed "\mco{Yes}" , replace
+// eststo d_ct_2: xtreg contra_trad croplostdummy croplostdummy_lag croplostdummy_lag2 pass4 , fe cluster(id_hh)
+// estadd local fixed "\mco{Yes}" , replace
+// eststo d_ct_3: reg contra_trad croplostdummy croplostdummy_lag croplostdummy_lag2 croplostdummy_lag3  , cluster(id_hh)
+// estadd local fixed "\mco{Yes}" , replace
+// 
+// eststo d_cm_0: xtreg contra_mode croplostdummy  pass2 pass3 pass4 , fe cluster(id_hh)
+// estadd local fixed "\mco{Yes}" , replace
+// eststo d_cm_1: xtreg contra_mode croplostdummy croplostdummy_lag pass3 pass4 , fe cluster(id_hh)
+// estadd local fixed "\mco{Yes}" , replace
+// eststo d_cm_2: xtreg contra_mode croplostdummy croplostdummy_lag croplostdummy_lag2 pass4 , fe cluster(id_hh)
+// estadd local fixed "\mco{Yes}" , replace
+// eststo d_cm_3: reg contra_mode croplostdummy croplostdummy_lag croplostdummy_lag2 croplostdummy_lag3  , cluster(id_hh)
+// estadd local fixed "\mco{Yes}" , replace
+// 
+// eststo lpm_pr_0: reg pregnant croplostdummy  pass2 pass3 pass4 `xvar', cluster(id_hh)
+// estadd local fixed "\mco{No}" , replace
+// eststo d_pr_0: xtreg pregnant croplostdummy  pass2 pass3 pass4 , fe cluster(id_hh)
+// estadd local fixed "\mco{Yes}" , replace
+// 
+// eststo lpm_pr_1: reg pregnant croplostdummy croplostdummy_lag pass3 pass4 `xvar', cluster(id_hh)
+// estadd local fixed "\mco{No}" , replace
+// eststo d_pr_1: xtreg pregnant croplostdummy croplostdummy_lag pass3 pass4 , fe cluster(id_hh)
+// estadd local fixed "\mco{Yes}" , replace
+// 
+// eststo lpm_pr_2: reg pregnant croplostdummy croplostdummy_lag croplostdummy_lag2 pass4 `xvar', cluster(id_hh)
+// estadd local fixed "\mco{No}" , replace
+// eststo d_pr_2: xtreg pregnant croplostdummy croplostdummy_lag croplostdummy_lag2 pass4 , fe cluster(id_hh)
+// estadd local fixed "\mco{Yes}" , replace
+// 
+// eststo d_pr_3: reg pregnant croplostdummy croplostdummy_lag croplostdummy_lag2 croplostdummy_lag3 `xvar', cluster(id_hh)
+// estadd local fixed "\mco{Yes}" , replace
+// 
+// eststo lpm_br_0: reg birth croplostdummy_lag  pass3 pass4 `xvar', cluster(id_hh)
+// estadd local fixed "\mco{No}" , replace
+// eststo d_br_0: xtreg birth  croplostdummy_lag  pass3 pass4 , fe cluster(id_hh)
+// estadd local fixed "\mco{Yes}" , replace
+// 
+// eststo lpm_br_1: reg birth croplostdummy_lag croplostdummy_lag2 pass4 `xvar', cluster(id_hh)
+// estadd local fixed "\mco{No}" , replace
+// eststo d_br_1: xtreg birth croplostdummy_lag croplostdummy_lag2 pass4 , fe cluster(id_hh)
+// estadd local fixed "\mco{Yes}" , replace
+// 
+// eststo d_br_2: reg birth  croplostdummy_lag croplostdummy_lag2 croplostdummy_lag3 `xvar', cluster(id_hh)
+// estadd local fixed "\mco{Yes}" , replace
 
 // Interaction version
 
@@ -112,6 +112,8 @@ estadd local fixed "\mco{Yes}" , replace
 eststo d_ca_2: xtreg contra_any croplostdummy##croplostdummy_lag   pass3 pass4 , fe cluster(id_hh)
 estadd local fixed "\mco{Yes}" , replace
 
+xtreg contra_any i.croplostdummy  pass3 pass4 if wave != 1, fe cluster(id_hh)
+xtreg contra_any i.croplostdummy_lag   pass3 pass4 , fe cluster(id_hh)
 
 eststo d_ct_0: xtreg contra_trad i.croplostdummy  pass2 pass3 pass4 , fe cluster(id_hh)
 estadd local fixed "\mco{Yes}" , replace
@@ -136,6 +138,8 @@ estadd local fixed "\mco{Yes}" , replace
 eststo d_pr_2: xtreg pregnant croplostdummy##croplostdummy_lag pass3 pass4 , fe cluster(id_hh)
 estadd local fixed "\mco{Yes}" , replace
 
+xtreg pregnant i.croplostdummy  pass3 pass4 if wave != 1 , fe cluster(id_hh)
+xtreg pregnant i.croplostdummy_lag pass3 pass4 , fe cluster(id_hh)
 
 eststo d_br_0: xtreg birth  i.croplostdummy_lag  pass3 pass4 , fe cluster(id_hh)
 estadd local fixed "\mco{Yes}" , replace
@@ -143,6 +147,10 @@ eststo d_br_1: xtreg birth i.croplostdummy_lag i.croplostdummy_lag2  pass4 , fe 
 estadd local fixed "\mco{Yes}" , replace
 eststo d_br_2: xtreg birth croplostdummy_lag##croplostdummy_lag2  pass4 , fe cluster(id_hh)
 estadd local fixed "\mco{Yes}" , replace
+
+xtreg birth  i.croplostdummy_lag  pass4 if wave != 1 & wave != 2 , fe cluster(id_hh)
+xtreg birth  i.croplostdummy_lag2  pass4 , fe cluster(id_hh)
+
 
 
 /////////////////////////////////////////////////

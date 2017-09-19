@@ -41,3 +41,6 @@ SCHOOL
 |-pass3
 |-pass4
 OtherKageraData
+
+The main difference from the downloaded data is that "raindata.dta" are placed
+in the directory "OtherKageraData"

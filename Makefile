@@ -68,7 +68,10 @@ response: $(RES)/$(RESFILE).pdf
 # pattern in dependencies. This works because another file depends on a list of all
 # the household data files.
 
-$(DAT)/base.dta: $(COD)/crBase.do $(DAT)/household_wave1.dta $(DAT)/household_wave2.dta \
+$(DAT)/base.dta: $(COD)/crBase.do \
+ $(DAT)/rainfall_wave1.dta $(DAT)/rainfall_wave2.dta \
+ $(DAT)/rainfall_wave3.dta $(DAT)/rainfall_wave4.dta \
+ $(DAT)/household_wave1.dta $(DAT)/household_wave2.dta \
  $(DAT)/household_wave3.dta $(DAT)/household_wave4.dta \
  $(DAT)/individual_wave1.dta $(DAT)/individual_wave2.dta \
  $(DAT)/individual_wave3.dta $(DAT)/individual_wave4.dta \
@@ -86,7 +89,12 @@ $(DAT)/household_wave%.dta: $(COD)/crHousehold_waves.do $(RAW)/HOUSEHOLD/WAVE%/S
  $(RAW)/HOUSEHOLD/WAVE%/S12A_OTH.DTA $(RAW)/HOUSEHOLD/WAVE%/S14D_DUR.DTA \
  $(RAW)/HOUSEHOLD/WAVE%/S15A_DUR.DTA $(RAW)/HOUSEHOLD/WAVE%/S16A_DUR.DTA \
  $(RAW)/HOUSEHOLD/WAVE%/S19C_IND.DTA $(RAW)/HOUSEHOLD/WAVE%/S1___IND.DTA 
-	cd $(COD); stata-se -b -q crHousehold_waves.do    
+	cd $(COD); stata-se -b -q crHousehold_waves.do  
+	
+$(DAT)/rainfall_wave%.dta: $(COD)/crRainfall_waves.do $(RAW)/ENUMERATION/ENUM_VLG.DTA \
+ $(RAW)/OtherKageraData/raindata.dta \
+ $(RAW)/HOUSEHOLD/WAVE%/S_____HH.DTA
+	cd $(COD); stata-se -b -q crRainfall_waves.do  
 
 # Descriptive statistics
 $(TAB)/desstat1.tex $(TAB)/desstat2.tex: $(COD)/anDescStat.do $(DAT)/base.dta \

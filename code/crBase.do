@@ -2,7 +2,7 @@
 // crBase.do
 
 vers 13.1
-clear
+clear all
 
 //  short file paths - assuming work directory is "code"
 loc rawDir    "../rawData"
@@ -31,6 +31,21 @@ preserve
     save "`tempHH'"
 restore
 merge m:1 cluster hh passage using "`tempHH'"
+drop _merge
+
+
+// Merge in rainfall data
+preserve
+    tempfile tempRain
+    use `dataDir'/rainfall_wave1, clear
+    foreach wave of numlist 2/4 {
+        append using `dataDir'/rainfall_wave`wave'
+    }
+    sort cluster hh passage 
+    save "`tempRain'"
+restore
+merge m:1 cluster hh passage using "`tempRain'"
+drop if _merge == 2
 drop _merge
 
 
@@ -414,6 +429,7 @@ save `village'
 
 restore
 merge m:1 id_hh passage using `village'
+drop _merge 
 
 ////////////////////////////////////////////
 // Other health and demographic variables //

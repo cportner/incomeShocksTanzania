@@ -44,3 +44,9 @@ OtherKageraData
 
 The main difference from the downloaded data is that "raindata.dta" are placed
 in the directory "OtherKageraData"
+
+Note that all files for wave 3 comes in lowercase. These need to be converted 
+into UPPERCASE for the makefile to work properly. If you are on a Linux based
+system use this to convert:
+
+    for f in *; do mv "$f" "$f.tmp"; mv "$f.tmp" "`echo $f | tr "[:lower:]" "[:upper:]"`"; done

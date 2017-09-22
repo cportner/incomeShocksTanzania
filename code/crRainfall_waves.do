@@ -36,9 +36,12 @@ rename muleba   rainfall3
 rename karagwe  rainfall1
 rename ngara    rainfall5
 rename biharamu rainfall4
-drop year month
-reshape long rainfall , i(date) j(district)
-reshape wide rainfall , i(district) j(date)
+// drop year month
+gen yearMonth = ym(year, month)
+// replace date = date - 14
+drop date year month
+reshape long rainfall , i(yearMonth) j(district)
+reshape wide rainfall , i(district) j(yearMonth)
 expand 2 if district == 2, generate(`newDistrict')
 replace district = 6 if `newDistrict'
 sort district

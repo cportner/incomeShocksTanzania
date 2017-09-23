@@ -21,9 +21,9 @@ include womenCommon
 // All contraceptives with the exception of abstinence
 // If you use other contraceptives than abstinence then you are still
 // considered to be using contraceptives
-gen excludeAbs = (method1 >= 2 & method1 <= 13) | (method2 >= 2 & method2 <= 13)
-gen tradExcludeAbs = (method1 == 2 | method1 == 3) | (method2 == 2 | method2 == 3)
-gen abstinence = method1 == 1 | method2 == 2
+gen tradExcludeAbs  = (method1 == 2 | method1 == 3) | (method2 == 2 | method2 == 3)
+gen abstinence_only = (method1 == 1 & method2 == .) | (method2 == 1 & method1 == .)
+gen excludeAbs      = contra_any - abstinence_only
 
 eststo exclude1: xtreg excludeAbs croplostdummy  pass2 pass3 pass4 , fe cluster(id_hh)
 estadd local fixed "\mco{Yes}" , replace
@@ -50,10 +50,11 @@ file write table "\begin{small}" _n
 file write table "\begin{threeparttable}" _n
 file write table "\caption{Crop loss and Abstinence as Contraceptives}" _n
 file write table "\label{tab:excludeAbs}" _n
-file write table "\begin{tabular}{@{} l D{.}{.}{2.6} D{.}{.}{2.6}  D{.}{.}{2.6} D{.}{.}{2.6} D{.}{.}{2.6} D{.}{.}{2.6}   @{}}" _n
+file write table "\begin{tabular}{@{} l D{.}{.}{2.5} D{.}{.}{2.5}  D{.}{.}{2.5} D{.}{.}{2.5} D{.}{.}{2.5} D{.}{.}{2.5}   @{}}" _n
 file write table "\toprule" _n
 file write table "                                                       & \multicolumn{4}{c}{Contraceptive Use}\\ \cmidrule(lr){2-5}" _n
-file write table "                                                       & \mct{Any, except abstinence}              & \mct{Rhythm and withdrawal}               & \mct{Only abstinence}                     \\ \midrule" _n
+file write table "                                                       & \mct{Any, except }                 & \mct{Rhythm and}               & \mct{Abstinence}                     \\ " _n
+file write table "                                                       & \mct{abstinence only}              & \mct{withdrawal\tnote{a}}      & \mct{only}                           \\ \midrule" _n
 file close table
 
 esttab exclude*  using `tables'/appendix_exclude_abstinence.tex, append ///
@@ -106,6 +107,7 @@ file write table "Robust standard errors clustered at household level in parenth
 file write table "* significant at 10\%; ** significant at 5\%; *** significant at 1\%." _n
 file write table "Crop loss is a dummy for a per capita crop loss of `labCroploss'." _n
 file write table "Initial assets are assets per capita in round 1 of the survey and are measured in `labAsset'." _n
+file write table "\item[a] Some women who used rhythm or withdrawal also used abstinence or modern contraceptives." _n
 file write table "\end{tablenotes}" _n
 file write table "\end{threeparttable}" _n
 file write table "\end{small}" _n

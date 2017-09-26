@@ -21,9 +21,10 @@ include womenCommon
 // All contraceptives with the exception of abstinence
 // If you use other contraceptives than abstinence then you are still
 // considered to be using contraceptives
-gen tradExcludeAbs  = (method1 == 2 | method1 == 3) | (method2 == 2 | method2 == 3)
+// gen tradExcludeAbs  = (method1 == 2 | method1 == 3) | (method2 == 2 | method2 == 3)
 gen abstinence_only = (method1 == 1 & method2 == .) | (method2 == 1 & method1 == .)
 gen excludeAbs      = contra_any - abstinence_only
+gen tradExcludeAbs  = contra_trad - abstinence_only
 
 eststo exclude1: xtreg excludeAbs croplostdummy  pass2 pass3 pass4 , fe cluster(id_hh)
 estadd local fixed "\mco{Yes}" , replace

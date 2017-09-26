@@ -24,7 +24,8 @@ $(TEX)/$(TEXFILE).pdf: $(TEX)/$(TEXFILE).tex $(TEX)/$(TEXFILE).bib \
  $(MAP)/kagera.pdf \
  $(TAB)/desstat1.tex $(TAB)/desstat2.tex \
  $(TAB)/main_pregnant_birth.tex $(TAB)/main_contraceptives.tex \
- $(TAB)/main_health_marriage.tex $(TAB)/main_effectiveness.tex \
+ $(TAB)/main_health_marriage.tex \
+ $(TAB)/main_effectiveness.tex $(TAB)/appendix_abstinence.tex \
  $(TAB)/appendix_desstat1.tex $(TAB)/appendix_desstat2.tex \
  $(TAB)/appendix_pregnant_birth.tex $(TAB)/appendix_contraceptives.tex \
  $(TAB)/appendix_cluster_pregnant_birth.tex $(TAB)/appendix_cluster_contraceptives.tex \
@@ -115,7 +116,7 @@ $(TAB)/main_health_marriage.tex: $(COD)/anHealthMarriage.do \
  $(COD)/womenCommon.do $(DAT)/base.dta 
 	cd $(COD); stata-se -b -q anHealthMarriage.do 
 
-$(TAB)/main_effectiveness.tex: $(COD)/anContraceptiveEffectiveness.do \
+$(TAB)/main_effectiveness.tex $(TAB)/appendix_abstinence.tex: $(COD)/anContraceptiveEffectiveness.do \
  $(COD)/womenCommon.do $(DAT)/base.dta 
 	cd $(COD); stata-se -b -q anContraceptiveEffectiveness.do 
 	

@@ -25,11 +25,14 @@ dis "`labAmount'"
 // need to remove TZS and comma to use the number
 if regexm("`labAmount'", "([0-9]+),([0-9]+).*") loc divider = regexs(1) + regexs(2)
 
-loc cutoffs "0 100 200 300 400 1000 2000 5000 10000"
+loc cutoffs "0 100 200 300 1000 2000 5000 "
 
 foreach cut of numlist `cutoffs' {
     gen newcut_`cut' = croplostamount_pc > (`cut'/`divider')
     bysort id_person (passage) : gen newcut_lag_`cut' = newcut_`cut'[_n-1]
+    
+//     drop if croplostamount_pc > 0 & !newcut_`cut'
+    
     eststo cut`cut'_c_a : xtreg contra_any newcut_`cut'  pass2 pass3 pass4 , fe cluster(id_hh)
     estadd local fixed "\mco{Yes}" , replace
     eststo cut`cut'_c_tr: xtreg contra_trad newcut_`cut'  pass2 pass3 pass4 , fe cluster(id_hh)
@@ -68,7 +71,7 @@ foreach cut of numlist `cutoffs' {
     file open table using `tables'/appendix_cut_offs.tex, write append
     file write table " & \multicolumn{5}{c}{Cut-off: "
     file write table %7.0fc (`cut')
-    file write table " TZS; `mean_`cut''\% of observations affected} \\" _n
+    file write table " TZS; `mean_`cut''\% of observations have crop loss} \\" _n
     file close table
     
     esttab cut`cut'_pr cut`cut'_br cut`cut'_c_a cut`cut'_c_tr cut`cut'_c_mo using `tables'/appendix_cut_offs.tex, append ///

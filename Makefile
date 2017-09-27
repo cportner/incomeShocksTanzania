@@ -40,7 +40,8 @@ $(TEX)/$(TEXFILE).pdf: $(TEX)/$(TEXFILE).tex $(TEX)/$(TEXFILE).bib \
  $(TAB)/appendix_village.tex \
  $(TAB)/appendix_reverse.tex \
  $(TAB)/appendix_postpone_birth.tex $(TAB)/appendix_postpone_contraceptives.tex \
- $(TAB)/appendix_timetrend.tex 
+ $(TAB)/appendix_timetrend.tex \
+ $(TAB)/appendix_cut_offs.tex
 	cd $(TEX); xelatex $(TEXFILE)
 	cd $(TEX); bibtex $(TEXFILE)
 	cd $(TEX); xelatex $(TEXFILE)
@@ -171,6 +172,10 @@ $(TAB)/appendix_postpone_birth.tex $(TAB)/appendix_postpone_contraceptives.tex: 
 $(TAB)/appendix_timetrend.tex: $(COD)/anTimeTrend.do \
  $(COD)/womenCommon.do $(DAT)/base.dta 
 	cd $(COD); stata-se -b -q anTimeTrend.do
+
+$(TAB)/appendix_cut_offs.tex: $(COD)/anCut_offs.do \
+ $(COD)/womenCommon.do $(DAT)/base.dta 
+	cd $(COD); stata-se -b -q anCut_offs.do
 
 		
 # Clean directories for (most) generated files

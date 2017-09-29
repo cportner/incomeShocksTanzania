@@ -180,20 +180,21 @@ $(TAB)/appendix_cut_offs.tex: $(COD)/anCut_offs.do \
 		
 # Clean directories for (most) generated files
 # This does not clean generated data files; mainly because I am a chicken
+# The "-" in front prevents Make from stopping with an error if a file type does not exist
 .PHONY: cleanall cleanfig cleantex cleancode cleantab
 cleanall: cleanfig cleantex cleancode cleantab
-	cd $(DAT); rm *.ster
-	cd $(TAB); rm *.tex
+	-cd $(DAT); rm *.ster
+	-cd $(TAB); rm *.tex
 
 cleantab:
-	cd $(TAB); rm *.tex
+	-cd $(TAB); rm *.tex
 	
 cleanfig:
-	cd $(FIG); rm *.eps
+	-cd $(FIG); rm *.eps
 	
 cleantex:
-	cd $(TEX); rm *.aux; rm *.bbl; rm *.blg; rm *.log; rm *.out; rm *.pdf; rm *.gz
+	-cd $(TEX); rm *.aux; rm *.bbl; rm *.blg; rm *.log; rm *.out; rm *.pdf; rm *.gz
 	
 cleancode:	
-	cd $(COD); rm *.log
+	-cd $(COD); rm *.log
 	

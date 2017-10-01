@@ -125,58 +125,14 @@ $(TAB)/appendix_cluster_pregnant_birth.tex $(TAB)/appendix_cluster_contraceptive
  $(COD)/womenCommon.do $(DAT)/base.dta 
 	cd $(COD); stata-se -b -q anCommunityCluster.do 
 
-$(TAB)/appendix_logit.tex: $(COD)/anLogit.do \
+$(TAB)/appendix_%.tex: $(COD)/an_%.do \
  $(COD)/womenCommon.do $(DAT)/base.dta 
-	cd $(COD); stata-se -b -q anLogit.do 
-
-$(TAB)/appendix_log_croploss.tex: $(COD)/anLogCropLoss.do \
- $(COD)/womenCommon.do $(DAT)/base.dta 
-	cd $(COD); stata-se -b -q anLogCropLoss.do 
-
-$(TAB)/appendix_cont_croploss.tex: $(COD)/anContinuousLoss.do \
- $(COD)/womenCommon.do $(DAT)/base.dta 
-	cd $(COD); stata-se -b -q anContinuousLoss.do 
-
-$(TAB)/appendix_age_groups.tex: $(COD)/anAgeGroups.do \
- $(COD)/womenCommon.do $(DAT)/base.dta 
-	cd $(COD); stata-se -b -q anAgeGroups.do 
-
-$(TAB)/appendix_hours.tex: $(COD)/anHours.do \
- $(COD)/womenCommon.do $(DAT)/base.dta 
-	cd $(COD); stata-se -b -q anHours.do
-
-$(TAB)/appendix_exclude_abstinence.tex: $(COD)/anExcludeAbstinence.do \
- $(COD)/womenCommon.do $(DAT)/base.dta 
-	cd $(COD); stata-se -b -q anExcludeAbstinence.do 
-
-$(TAB)/appendix_asset_interaction.tex: $(COD)/anAppendixAssets.do \
- $(COD)/womenCommon.do $(DAT)/base.dta 
-	cd $(COD); stata-se -b -q anAppendixAssets.do
-
-$(TAB)/appendix_education.tex: $(COD)/anEducation.do \
- $(COD)/womenCommon.do $(DAT)/base.dta 
-	cd $(COD); stata-se -b -q anEducation.do
-
-$(TAB)/appendix_village.tex: $(COD)/anVillage.do \
- $(COD)/womenCommon.do $(DAT)/base.dta 
-	cd $(COD); stata-se -b -q anVillage.do
-
-$(TAB)/appendix_reverse.tex: $(COD)/anReverse.do \
- $(COD)/womenCommon.do $(DAT)/base.dta 
-	cd $(COD); stata-se -b -q anReverse.do
+	cd $(COD); stata-se -b -q $(<F)
 
 $(TAB)/appendix_postpone_birth.tex $(TAB)/appendix_postpone_contraceptives.tex: $(COD)/anPostpone.do \
  $(COD)/womenCommon.do $(DAT)/base.dta 
 	cd $(COD); stata-se -b -q anPostpone.do
 	
-$(TAB)/appendix_timetrend.tex: $(COD)/anTimeTrend.do \
- $(COD)/womenCommon.do $(DAT)/base.dta 
-	cd $(COD); stata-se -b -q anTimeTrend.do
-
-$(TAB)/appendix_cut_offs.tex: $(COD)/anCut_offs.do \
- $(COD)/womenCommon.do $(DAT)/base.dta 
-	cd $(COD); stata-se -b -q anCut_offs.do
-
 		
 # Clean directories for (most) generated files
 # This does not clean generated data files; mainly because I am a chicken

@@ -41,7 +41,8 @@ $(TEX)/$(TEXFILE).pdf: $(TEX)/$(TEXFILE).tex $(TEX)/$(TEXFILE).bib \
  $(TAB)/appendix_reverse.tex \
  $(TAB)/appendix_postpone_birth.tex $(TAB)/appendix_postpone_contraceptives.tex \
  $(TAB)/appendix_timetrend.tex \
- $(TAB)/appendix_cut_offs.tex
+ $(TAB)/appendix_cut_offs.tex \
+ $(TAB)/appendix_rainfall.tex 
 	cd $(TEX); xelatex $(TEXFILE)
 	cd $(TEX); bibtex $(TEXFILE)
 	cd $(TEX); xelatex $(TEXFILE)
@@ -125,14 +126,14 @@ $(TAB)/appendix_cluster_pregnant_birth.tex $(TAB)/appendix_cluster_contraceptive
  $(COD)/womenCommon.do $(DAT)/base.dta 
 	cd $(COD); stata-se -b -q anCommunityCluster.do 
 
-$(TAB)/appendix_%.tex: $(COD)/an_%.do \
- $(COD)/womenCommon.do $(DAT)/base.dta 
-	cd $(COD); stata-se -b -q $(<F)
-
 $(TAB)/appendix_postpone_birth.tex $(TAB)/appendix_postpone_contraceptives.tex: $(COD)/anPostpone.do \
  $(COD)/womenCommon.do $(DAT)/base.dta 
 	cd $(COD); stata-se -b -q anPostpone.do
 	
+$(TAB)/appendix_%.tex: $(COD)/an_%.do \
+ $(COD)/womenCommon.do $(DAT)/base.dta 
+	cd $(COD); stata-se -b -q $(<F)
+
 		
 # Clean directories for (most) generated files
 # This does not clean generated data files; mainly because I am a chicken

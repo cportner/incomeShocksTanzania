@@ -337,21 +337,6 @@ assigned, so this language is not appropriate.
 [Matches with ADF's question on rainfall and with R2's first question 
 on what drives crop losses]
 
-Shamma: look for data on rainfall and papers that have used rainfall
-for Kagera data
-
-- problem is that we do not know when the crop loss occurred within
-the survey period (which is 12 months for the first round and therefore
-very long).
-
-- there is no 30 year average to compare the observed district level
-rainfall data to.
-
-Crop loss question:
-
-QB9: ``Have you lost any part of the harvested crop to insects,
-rodents, fire, rotting, etc.?
-
 
 \item In the regression specifications, the authors express the survey
 wave fixed effects as $D_{i}'\alpha$, where $D_{i}$ is a vector of survey
@@ -366,10 +351,11 @@ results are explained by other household-level idiosyncratic variation.
 
 [RESPONSE:] [Rainfall data analysis]
 
-- no live stock shock question
+- live stock shock question
 - household member death
 - price indices
 - illness of mother and other household members
+- rainfall does not do anything
 
 
 \item The authors report some nonsensical coefficients and standard
@@ -481,7 +467,7 @@ authors improve on a promising manuscript.
 
 COMMENTS
 
-\begin{description}
+\begin{enumerate}
 
 \item Omitted variables
 
@@ -503,9 +489,102 @@ potential mechanisms behind the crop loss. Is it weather?
 
 [see response to R1's q5 on causal (or something like that)]
 
-Weather is likely an important factor, but unfortunately rainfall data
-are only available at district level (there are five districts in the
-data) and even that has missing information.
+[we need to tone down the causality part; explain the growing season and
+the crop loss question]
+
+The question ask (Question 11.B.9): ``Have you lost any part of the 
+harvested crop to insects, rodents, fire, rotting, etc.?''
+It is correct that the crop loss is subjectively measured and for
+most of the suggested reasons it is not possible to verify what
+role they played in the crop loss.
+
+As you suggest, weather is a potential factor.
+Unfortunately the only available weather data consist of monthly rainfall 
+at district level (there are five districts in the data) with missing 
+information for some months.
+Furthermore, there is no 30 year average to compare the observed 
+district level rainfall data to.
+This means that it is not possible to reliably separate out positive 
+(above mean) and negative (below mean) rainfall shocks.
+Although community or women fixed effects will partly ameliorate the
+problem of missing average data, we cannot rule out the possibility
+that all observed periods deviated substantially from the average in 
+the same direction in which case we will fail to capture that the observed
+rainfalls were all ``shocks''.
+
+A number of different specifications of rainfall's association with 
+crop loss is possible.
+Kagera has two growing seasons, February through May and
+October through December \citet[p 6]{Tanzania2007}.
+We tried two different strategies: 
+one where rainfall is measured as the average monthly rainfall 
+over a set period prior to the survey month; 
+and one based on average rainfall for growing season(s) preceding 
+the survey month 
+(that is, not including the current growing season if the survey
+took place during a growing season).
+Despite that rainfall is measured at district level either strategy
+lead to variation across communities because of differences in 
+when each community was surveyed.
+
+The first strategy did not provide any clear results for a variety
+of period lengths and we therefore focus on the growing season approach.
+Table TK shows individual level fixed effects estimates of the 
+effects of average monthly rainfall in centimeters on the likelihood
+of experiencing a crop loss over the last using prior growing season 
+in one specification and one specification with prior growing for
+waves 2 through 4 and the last two prior growing seasons for wave 1.
+Higher rainfall is associated with a lower likelihood of a crop loss. 
+A one standard deviation change in rainfall is associated with an
+approximately 6 percentage point change in the probability of 
+experiencing a crop loss.
+We also tried adding square terms, but the estimated coefficients
+were small and far from statistically significant.
+The same is the case for using crop loss per capita as the dependent
+variable. 
+
+It is worthwhile noting the relatively small difference in the 
+estimated effect of rainfall between the two models, 
+although the coefficient on rainfall in Model I is just outside
+the standard levels of statistically significance.
+This suggests that the high level of crop loss observed in
+wave 1 (see discussion below as well) is not mainly due to 
+rainfall shocks that occurred longer occur than for the other waves.
+
+In both models we include a dummy for missing information on rainfall 
+for any month in the period / district combination.
+If the raindata has one or more missing values for the months
+covered in the growing season there is a large and statistically 
+significant increase in the probability of reporting a crop loss
+(dropping observations with missing information does little
+to change the coefficients on rainfall, but do make them
+statistically insignificant).
+It is, however, very difficult to establish why this is because
+no additional information in provided with the data.
+Furthermore, the missing information problem only affects
+observations in waves 2 and 3.
+
+We also tried including rainfall---as defined above---as 
+additional variables in the main regressions.
+Consistent with the small effects of rainfall on crop loss
+there are no apparent effects of the rainfall measures on the
+outcomes and little to no change in the coefficients for crop
+loss on our five main outcomes.
+
+We realize that this answer does fully explain where the
+crop losses come from but unfortunately there is not much
+more relevant information that we can find beside the
+rainfall data.
+[Expand discussion of these issues in paper]
+
+
+% - problem is that we do not know when the crop loss occurred within
+% the survey period (which is 12 months for the first round and therefore
+% very long).
+
+
+
+
 
 \item Trend
 
@@ -568,7 +647,7 @@ mentioned anywhere.
 [RESPONSE:]
 
 
-\end{description}
+\end{enumerate}
 
 
 \newpage

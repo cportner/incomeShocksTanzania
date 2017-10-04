@@ -85,6 +85,7 @@ foreach wave of numlist 1/4 {
     *Constructing aggregate livestock file
     clear
     use "`rawDir'/HOUSEHOLD/WAVE`wave'/S12A_OTH.DTA" 
+    gen livestocklost_amount = lvstlost * lvsslamt
     // retain variable labels
     foreach v of var  lvsslamt lvssdamt lvsbyamt lvstlost {
         local l`v' : variable label `v'
@@ -92,7 +93,8 @@ foreach wave of numlist 1/4 {
             local l`v' "`v'"
         }
     }
-    collapse (sum) lvsslamt lvssdamt lvsbyamt lvstlost, by(cluster hh passage)  //Aggregating livestock owned, lost, sold and bought by the HH
+    //Aggregating livestock owned, lost, sold and bought by the HH
+    collapse (sum) lvsslamt lvssdamt lvsbyamt lvstlost livestocklost_amount, by(cluster hh passage)  
     foreach v of var  lvsslamt lvssdamt lvsbyamt lvstlost {
         label var `v' "`l`v''"
     }

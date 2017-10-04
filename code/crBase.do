@@ -487,6 +487,15 @@ gen agri_hours= empl1wk + empl2wk +farmedhrs +facmtyhrs +prochrs +heprodhrs +sel
 drop empl1* empl2* farmed* facmty* prochrs* prhrs* herd* heprod* selfemp* ///
     homehr* fire* water* care* morehr* helphr* mornhr* se?hrs*
 
+
+////////////////////////////////////////////
+// Price indices                          //
+////////////////////////////////////////////  
+
+sort cluster passage 
+merge m:1 cluster passage using "`rawDir'/OtherKageraData/prindex.dta"
+drop _merge    
+
 ////////////////////////////////////////
 // Variable and value labels          //
 ////////////////////////////////////////

@@ -42,7 +42,8 @@ $(TEX)/$(TEXFILE).pdf: $(TEX)/$(TEXFILE).tex $(TEX)/$(TEXFILE).bib \
  $(TAB)/appendix_postpone_birth.tex $(TAB)/appendix_postpone_contraceptives.tex \
  $(TAB)/appendix_timetrend.tex \
  $(TAB)/appendix_cut_offs.tex \
- $(TAB)/appendix_rainfall.tex 
+ $(TAB)/appendix_rainfall.tex \
+ $(TAB)/appendix_timevarying.tex 
 	cd $(TEX); xelatex $(TEXFILE)
 	cd $(TEX); bibtex $(TEXFILE)
 	cd $(TEX); xelatex $(TEXFILE)

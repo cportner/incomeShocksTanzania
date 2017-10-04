@@ -212,7 +212,7 @@ file write table "\begin{center}" _n
 file write table "\begin{small}" _n
 file write table "\begin{threeparttable}" _n
 file write table "\caption{Rainfall and Crop Loss}" _n
-file write table "\label{tab:hours}" _n
+file write table "\label{tab:rainfall}" _n
 file write table "\begin{tabular}{@{} l D{.}{.}{2.6} D{.}{.}{2.6}  @{}}" _n
 file write table "\toprule" _n
 file write table "                                                       &\multicolumn{2}{c}{Crop Loss} \\ \midrule " _n

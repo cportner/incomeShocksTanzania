@@ -62,7 +62,7 @@ file write table "\begin{table}[htbp]" _n
 file write table "\begin{center}" _n
 file write table "\begin{small}" _n
 file write table "\begin{threeparttable}" _n
-file write table "\caption{The Effects of Log Crop Loss}" _n
+file write table "\caption{The Effects of Other Time Varying Variables}" _n
 file write table "\label{tab:timevarying}" _n
 file write table "\begin{tabular}{@{} l D{.}{.}{2.6} D{.}{.}{2.6}  D{.}{.}{2.6} D{.}{.}{2.6} D{.}{.}{2.6}  @{}}" _n
 file write table "\toprule" _n
@@ -78,10 +78,10 @@ esttab `models' using `tables'/appendix_timevarying.tex, append ///
     se(3) b(3) star(* 0.10 ** 0.05 *** 0.01) ///
     drop( _cons *pass* ) ///
     varlabels( ///
-        priceact                "Price index\tnote{a}" ///
-        priceact_lag            "Price index prior survey" ///
-        livestocklost_dummy     "Livestock lost --- 1-7 months (200 TZS or above)\tnote{b}" ///
+        livestocklost_dummy     "Livestock lost --- 1-7 months (200 TZS or above)\tnote{a}" ///
         livestocklost_dummy_lag "Livestock lost --- 7-14 months (200 TZS or above)" ///
+        priceact                "Price index\tnote{b}" ///
+        priceact_lag            "Price index prior survey" ///
     )
  
 file open table using `tables'/appendix_timevarying.tex, write append
@@ -120,10 +120,10 @@ file write table "\item \hspace*{-0.5em} \textbf{Note.}" _n
 file write table "All models are linear probability models." _n
 file write table "Robust standard errors clustered at household level in parentheses; " _n
 file write table "* significant at 10\%; ** significant at 5\%; *** significant at 1\%." _n
-file write table "\item[a] Price index as provide in the Kagera data. For a description" _n
-file write table "of how it is calculated see \citet[Appendix II]{Development-Research-Group2004}." _n
-file write table "\item[b] Based on question 12.A.13: How many [animal name] raised by your household" _n
+file write table "\item[a] Based on question 12.A.13: How many [animal name] raised by your household" _n
 file write table "were lost or stolen, given a gifts, or died during the past 12 months." _n
+file write table "\item[b] Price index as provide in the Kagera data. For a description" _n
+file write table "of how it is calculated see \citet[Appendix II]{Development-Research-Group2004}." _n
 file write table "\end{tablenotes}" _n
 file write table "\end{threeparttable}" _n
 file write table "\end{small}" _n

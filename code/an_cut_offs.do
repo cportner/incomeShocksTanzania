@@ -59,7 +59,7 @@ file write table "\begin{center}" _n
 file write table "\begin{small}" _n
 file write table "\begin{threeparttable}" _n
 file write table "\caption{The Effects of Log Crop Loss}" _n
-file write table "\label{tab:ln_croploss}" _n
+file write table "\label{tab:cut_offs}" _n
 file write table "\begin{tabular}{@{} l D{.}{.}{2.6} D{.}{.}{2.6}  D{.}{.}{2.6} D{.}{.}{2.6} D{.}{.}{2.6}  @{}}" _n
 file write table "\toprule" _n
 file write table "                                                       & \mco{}              &\mco{}               &\multicolumn{3}{c}{Contraceptive Use}\\ \cmidrule(lr){4-6}" _n

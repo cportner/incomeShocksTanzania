@@ -31,6 +31,9 @@
 \usetikzlibrary{decorations}
 \usepackage{xfrac}
 
+% Checking for unused references/labels - comment out before final run
+\usepackage{refcheck}
+
 % \bibpunct{(}{)}{;}{a}{}{,}
 \newcommand{\mco}[1]{\multicolumn{1}{c}{#1}}
 \newcommand{\mct}[1]{\multicolumn{2}{c}{#1}}
@@ -384,7 +387,7 @@ significant as expected.
 % because of the small magnitude (equal to  of savings). 
 % and unlikely to affect fertility decisions of households. 
 Furthermore, our results are also qualitatively similar if we use a log of the amount of 
-crop lost or a linear specification of crop loss instead of the dummy variable.
+crop lost or a linear specification of crop loss instead of the dummy variable.%
 \footnote{
 Results using these alternative specifications of crop loss are available in the Appendix.
 }
@@ -1260,7 +1263,7 @@ In turn, this could lead to better mother and child health outcomes.
 \input{../tables/appendix_rainfall.tex}
 
 % Time-varying variables
-\input{../table/appendix_timevarying.tex}
+\input{../tables/appendix_timevarying.tex}
 
 
 \end{document}

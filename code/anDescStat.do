@@ -36,7 +36,7 @@ xi , noomit: estpost  sum i.agegroup if wave == 1
 esttab using `tables'/desstat1.tex , ///
     main(mean %9.3fc) aux(sd %9.3fc) ///
     varlabels( ///
-        _Iagegroup_12 "Age 18-22" ///
+        _Iagegroup_12 "Age 17-22" ///
         _Iagegroup_23 "Age 23-27" ///
         _Iagegroup_28 "Age 28-32" ///
         _Iagegroup_33 "Age 33-37" ///
@@ -181,5 +181,17 @@ file write stats "\end{tablenotes}" _n
 file write stats "\end{threeparttable}" _n
 file write stats "\end{table}" _n
 file close stats
+
+
+
+////////////////////////////////////////////////////
+// Additional descriptive statistics for assets   //
+////////////////////////////////////////////////////
+
+// convert back for readability
+replace assets_pc_wave1 = assets_pc_wave1 * 1000000
+
+sum assets_pc_wave1 , detail
+
 
     

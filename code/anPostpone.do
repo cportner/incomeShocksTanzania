@@ -122,6 +122,8 @@ estadd local fixed "\mco{Yes}" , replace
 eststo d_ct_2: xtreg contra_trad croplostdummy##croplostdummy_lag  pass3 pass4 , fe cluster(id_hh)
 estadd local fixed "\mco{Yes}" , replace
 
+xtreg contra_trad i.croplostdummy  pass3 pass4 if wave != 1, fe cluster(id_hh)
+xtreg contra_trad i.croplostdummy_lag   pass3 pass4 , fe cluster(id_hh)
 
 eststo d_cm_0: xtreg contra_mode i.croplostdummy  pass2 pass3 pass4 , fe cluster(id_hh)
 estadd local fixed "\mco{Yes}" , replace
@@ -129,6 +131,9 @@ eststo d_cm_1: xtreg contra_mode i.croplostdummy i.croplostdummy_lag pass3 pass4
 estadd local fixed "\mco{Yes}" , replace
 eststo d_cm_2: xtreg contra_mode croplostdummy##croplostdummy_lag pass3 pass4 , fe cluster(id_hh)
 estadd local fixed "\mco{Yes}" , replace
+
+xtreg contra_modern i.croplostdummy  pass3 pass4 if wave != 1, fe cluster(id_hh)
+xtreg contra_modern i.croplostdummy_lag   pass3 pass4 , fe cluster(id_hh)
 
 
 eststo d_pr_0: xtreg pregnant i.croplostdummy  pass2 pass3 pass4 , fe cluster(id_hh)
@@ -163,6 +168,7 @@ xtreg birth  i.croplostdummy_lag2  pass4 , fe cluster(id_hh)
 file open table using `tables'/appendix_postpone_birth.tex, write replace
 file write table "\begin{table}[htbp]" _n
 file write table "\begin{center}" _n
+file write table "\begin{small}" _n
 file write table "\begin{threeparttable}" _n
 file write table "\caption{Effects of Lagged Crop Loss on Pregnancy and Birth}" _n
 file write table "\label{tab:postpone_birth}" _n
@@ -263,6 +269,7 @@ file write table "\item[b] Dummies for waves 3 and 4." _n
 file write table "\item[c] Dummy for wave 4." _n
 file write table "\end{tablenotes}" _n
 file write table "\end{threeparttable}" _n
+file write table "\end{small}" _n
 file write table "\end{center}" _n
 file write table "\end{table}" _n
 file close table
@@ -274,6 +281,7 @@ file close table
 file open table using `tables'/appendix_postpone_contraceptives.tex, write replace
 file write table "\begin{table}[htbp]" _n
 file write table "\begin{center}" _n
+file write table "\begin{small}" _n
 file write table "\begin{threeparttable}" _n
 file write table "\caption{Effects of Lagged Crop Loss on Contraceptive Use Overall and By Type}" _n
 file write table "\label{tab:postpone_contraceptive}" _n
@@ -368,6 +376,7 @@ file write table "\item[a] Dummies for waves 2, 3, and 4." _n
 file write table "\item[b] Dummies for waves 3 and 4." _n
 file write table "\end{tablenotes}" _n
 file write table "\end{threeparttable}" _n
+file write table "\end{small}" _n
 file write table "\end{center}" _n
 file write table "\end{table}" _n
 file close table

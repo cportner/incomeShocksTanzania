@@ -42,7 +42,7 @@ estadd local fixed "\mco{Yes}" , replace
 file open table using `tables'/appendix_age_groups.tex, write replace
 file write table "\begin{table}[htbp]" _n
 file write table "\begin{center}" _n
-file write table "\begin{small}" _n
+file write table "\begin{footnotesize}" _n
 file write table "\begin{threeparttable}" _n
 file write table "\caption{The Effects of Crop Loss by Age}" _n
 file write table "\label{tab:agegroups}" _n
@@ -109,7 +109,7 @@ foreach res in d_age_pr d_age_br d_age_ca d_age_ct d_age_cm {
 file write table "\\ " _n
 file write table "\bottomrule" _n
 file write table "\end{tabular}" _n
-file write table "\begin{tablenotes} \footnotesize" _n
+file write table "\begin{tablenotes} \scriptsize" _n
 file write table "\item \hspace*{-0.5em} \textbf{Note.}" _n
 file write table "All models are linear probability models." _n
 file write table "Robust standard errors clustered at household level in parentheses; " _n
@@ -118,7 +118,7 @@ file write table "Crop loss is a dummy for a per capita crop loss of `labCroplos
 file write table "Age groups is based on age at the first round of the survey as described in the text." _n
 file write table "\end{tablenotes}" _n
 file write table "\end{threeparttable}" _n
-file write table "\end{small}" _n
+file write table "\end{footnotesize}" _n
 file write table "\end{center}" _n
 file write table "\end{table}" _n
 file close table

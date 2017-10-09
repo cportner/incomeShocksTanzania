@@ -74,22 +74,22 @@ esttab cfe_pr cfe_br cfe_c_a cfe_c_tr cfe_c_mo using `tables'/appendix_cont_crop
     se(3) b(3) star(* 0.10 ** 0.05 *** 0.01) ///
     drop( _cons *pass* ) 
  
-file open table using `tables'/appendix_cont_croploss.tex, write append
-file write table "\addlinespace" _n 
-file write table " & \multicolumn{5}{c}{With interaction with assets} \\" _n
-file close table
-
-esttab cfe_int_pr cfe_int_br cfe_int_c_a cfe_int_c_tr cfe_int_c_mo using `tables'/appendix_cont_croploss.tex, append ///
-    fragment ///
-	nogap nolines varwidth(55) label ///
-    collabels(none) mlabels(none) eqlabels(none) ///
-    nomtitles nonumber nodepvars noobs ///
-    se(3) b(3) star(* 0.10 ** 0.05 *** 0.01) ///
-    drop( _cons *pass* ) ///
-    varlabels( ///
-        croplostXassets_w1     "Crop loss \X initial assets" ///
-        croplost_lagXassets_w1 "Crop loss \X initial assets" ///
-    )    
+// file open table using `tables'/appendix_cont_croploss.tex, write append
+// file write table "\addlinespace" _n 
+// file write table " & \multicolumn{5}{c}{With interaction with assets} \\" _n
+// file close table
+// 
+// esttab cfe_int_pr cfe_int_br cfe_int_c_a cfe_int_c_tr cfe_int_c_mo using `tables'/appendix_cont_croploss.tex, append ///
+//     fragment ///
+// 	nogap nolines varwidth(55) label ///
+//     collabels(none) mlabels(none) eqlabels(none) ///
+//     nomtitles nonumber nodepvars noobs ///
+//     se(3) b(3) star(* 0.10 ** 0.05 *** 0.01) ///
+//     drop( _cons *pass* ) ///
+//     varlabels( ///
+//         croplostXassets_w1     "Crop loss \X initial assets" ///
+//         croplost_lagXassets_w1 "Crop loss \X initial assets" ///
+//     )    
 
 
 file open table using `tables'/appendix_cont_croploss.tex, write append
@@ -129,7 +129,7 @@ file write table "All models are linear probability models." _n
 file write table "Robust standard errors clustered at household level in parentheses; " _n
 file write table "* significant at 10\%; ** significant at 5\%; *** significant at 1\%." _n
 file write table "Crop loss is a per capita crop loss and measured in `labAmount'." _n
-file write table "Initial assets are assets per capita in round 1 of the survey and are measured in `labAsset'." _n
+// file write table "Initial assets are assets per capita in round 1 of the survey and are measured in `labAsset'." _n
 file write table "\end{tablenotes}" _n
 file write table "\end{threeparttable}" _n
 file write table "\end{small}" _n

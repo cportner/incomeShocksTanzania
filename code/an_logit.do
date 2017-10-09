@@ -38,6 +38,19 @@ eststo logit_int_pr: xtlogit pregnant croplostdummy croplostdummyXassets_w1 pass
 eststo logit_int_br: xtlogit birth croplostdummy_lag croplostdummy_lagXassets_w1  pass3 pass4 , fe 
 
 
+// // base specification using log of crop loss
+// eststo lnfe_c_a:  xtlogit contra_any ln_croplostamount_pc  pass2 pass3 pass4 , fe 
+// estadd local fixed "\mco{Yes}" , replace
+// eststo lnfe_c_tr: xtlogit contra_trad ln_croplostamount_pc  pass2 pass3 pass4 , fe 
+// estadd local fixed "\mco{Yes}" , replace
+// eststo lnfe_c_mo: xtlogit contra_mode ln_croplostamount_pc  pass2 pass3 pass4 , fe 
+// estadd local fixed "\mco{Yes}" , replace
+// eststo lnfe_pr:   xtlogit pregnant ln_croplostamount_pc  pass2 pass3 pass4 , fe 
+// estadd local fixed "\mco{Yes}" , replace
+// eststo lnfe_br:   xtlogit birth ln_croplostamount_pc_lag  pass3 pass4 , fe 
+// estadd local fixed "\mco{Yes}" , replace
+
+
 /////////////////////////////////////////////////
 // Tables                                      //
 /////////////////////////////////////////////////
@@ -68,24 +81,24 @@ esttab logit_pr_1 logit_br_1 logit_ca_1 logit_ct_1 logit_cm_1 using `tables'/app
         croplostdummy_lag "Crop loss --- 7-14 months" ///
     )
  
-file open table using `tables'/appendix_logit.tex, write append
-file write table "\addlinespace" _n 
-file write table " & \multicolumn{5}{c}{With interaction with assets} \\" _n
-file close table
-
-esttab logit_int_pr logit_int_br logit_int_ca logit_int_ct logit_int_cm using `tables'/appendix_logit.tex, append ///
-    fragment ///
-	nogap nolines varwidth(55) label ///
-    collabels(none) mlabels(none) eqlabels(none) ///
-    nomtitles nonumber nodepvars noobs ///
-    se(3) b(3) star(* 0.10 ** 0.05 *** 0.01) ///
-    drop( *pass* ) ///
-    varlabels( ///
-        croplostdummy     "Crop loss --- 1-7 months" ///
-        croplostdummy_lag "Crop loss --- 7-14 months" ///
-        croplostdummyXassets_w1     "Crop loss \X initial assets" ///
-        croplostdummy_lagXassets_w1 "Crop loss \X initial assets" ///
-    )    
+// file open table using `tables'/appendix_logit.tex, write append
+// file write table "\addlinespace" _n 
+// file write table " & \multicolumn{5}{c}{With interaction with assets} \\" _n
+// file close table
+// 
+// esttab logit_int_pr logit_int_br logit_int_ca logit_int_ct logit_int_cm using `tables'/appendix_logit.tex, append ///
+//     fragment ///
+// 	nogap nolines varwidth(55) label ///
+//     collabels(none) mlabels(none) eqlabels(none) ///
+//     nomtitles nonumber nodepvars noobs ///
+//     se(3) b(3) star(* 0.10 ** 0.05 *** 0.01) ///
+//     drop( *pass* ) ///
+//     varlabels( ///
+//         croplostdummy     "Crop loss --- 1-7 months" ///
+//         croplostdummy_lag "Crop loss --- 7-14 months" ///
+//         croplostdummyXassets_w1     "Crop loss \X initial assets" ///
+//         croplostdummy_lagXassets_w1 "Crop loss \X initial assets" ///
+//     )    
 
 file open table using `tables'/appendix_logit.tex, write append
 file write table "\addlinespace" _n 
@@ -124,7 +137,7 @@ file write table "All models are conditional logit models." _n
 file write table "Robust standard errors clustered at household level in parentheses; " _n
 file write table "* significant at 10\%; ** significant at 5\%; *** significant at 1\%." _n
 file write table "Crop loss is a dummy for a per capita crop loss of `labCroploss'." _n
-file write table "Initial assets are assets per capita in round 1 of the survey and are measured in `labAsset'." _n
+// file write table "Initial assets are assets per capita in round 1 of the survey and are measured in `labAsset'." _n
 file write table "\end{tablenotes}" _n
 file write table "\end{threeparttable}" _n
 file write table "\end{small}" _n

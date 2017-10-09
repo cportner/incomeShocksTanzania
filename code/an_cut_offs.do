@@ -56,9 +56,9 @@ foreach cut of numlist `cutoffs' {
 file open table using `tables'/appendix_cut_offs.tex, write replace
 file write table "\begin{table}[htbp]" _n
 file write table "\begin{center}" _n
-file write table "\begin{small}" _n
+file write table "\begin{footnotesize}" _n
 file write table "\begin{threeparttable}" _n
-file write table "\caption{The Effects of Log Crop Loss}" _n
+file write table "\caption{The Effects of Crop Loss at Different Cut-offs}" _n
 file write table "\label{tab:cut_offs}" _n
 file write table "\begin{tabular}{@{} l D{.}{.}{2.6} D{.}{.}{2.6}  D{.}{.}{2.6} D{.}{.}{2.6} D{.}{.}{2.6}  @{}}" _n
 file write table "\toprule" _n
@@ -121,7 +121,7 @@ foreach res in cut`cut'_pr cut`cut'_br cut`cut'_c_a cut`cut'_c_tr cut`cut'_c_mo 
 file write table "\\ " _n
 file write table "\bottomrule" _n
 file write table "\end{tabular}" _n
-file write table "\begin{tablenotes} \footnotesize" _n
+file write table "\begin{tablenotes} \scriptsize" _n
 file write table "\item \hspace*{-0.5em} \textbf{Note.}" _n
 file write table "All models are linear probability models." _n
 file write table "Robust standard errors clustered at household level in parentheses; " _n
@@ -131,7 +131,7 @@ file write table "* significant at 10\%; ** significant at 5\%; *** significant 
 // file write table "except that log of assets are taken off assets per capita in TZS." _n
 file write table "\end{tablenotes}" _n
 file write table "\end{threeparttable}" _n
-file write table "\end{small}" _n
+file write table "\end{footnotesize}" _n
 file write table "\end{center}" _n
 file write table "\end{table}" _n
 file close table

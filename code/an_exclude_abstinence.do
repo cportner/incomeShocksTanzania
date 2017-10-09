@@ -44,6 +44,8 @@ estadd local fixed "\mco{Yes}" , replace
 // Tables                                      //
 /////////////////////////////////////////////////
 
+loc models "exclude1 exclude3 exclude5"
+
 file open table using `tables'/appendix_exclude_abstinence.tex, write replace
 file write table "\begin{table}[htbp]" _n
 file write table "\begin{center}" _n
@@ -51,14 +53,14 @@ file write table "\begin{small}" _n
 file write table "\begin{threeparttable}" _n
 file write table "\caption{Crop loss and Abstinence as Contraceptives}" _n
 file write table "\label{tab:excludeAbs}" _n
-file write table "\begin{tabular}{@{} l D{.}{.}{2.5} D{.}{.}{2.5}  D{.}{.}{2.5} D{.}{.}{2.5} D{.}{.}{2.5} D{.}{.}{2.5}   @{}}" _n
+file write table "\begin{tabular}{@{} l D{.}{.}{2.5} D{.}{.}{2.5}  D{.}{.}{2.5}    @{}}" _n
 file write table "\toprule" _n
-file write table "                                                       & \multicolumn{4}{c}{Contraceptive Use}\\ \cmidrule(lr){2-5}" _n
-file write table "                                                       & \mct{Any, except }                 & \mct{Rhythm and}               & \mct{Abstinence}                     \\ " _n
-file write table "                                                       & \mct{abstinence only}              & \mct{withdrawal\tnote{a}}      & \mct{only}                           \\ \midrule" _n
+file write table "                                                       & \multicolumn{2}{c}{Contraceptive Use}\\ \cmidrule(lr){2-3}" _n
+file write table "                                                       & \mco{Any, except }                 & \mco{Rhythm and}               & \mco{Abstinence}                     \\ " _n
+file write table "                                                       & \mco{abstinence only}              & \mco{withdrawal\tnote{a}}      & \mco{only}                           \\ \midrule" _n
 file close table
 
-esttab exclude*  using `tables'/appendix_exclude_abstinence.tex, append ///
+esttab `models'  using `tables'/appendix_exclude_abstinence.tex, append ///
     fragment ///
 	nogap nolines varwidth(55)  ///
     collabels(none) mlabels(none) eqlabels(none) ///
@@ -74,7 +76,7 @@ file open table using `tables'/appendix_exclude_abstinence.tex, write append
 file write table "\addlinespace" _n 
 file close table
 
-esttab exclude* using `tables'/appendix_exclude_abstinence.tex, append ///
+esttab `models' using `tables'/appendix_exclude_abstinence.tex, append ///
     indicate("Wave dummies = pass2 pass3 pass4" , labels("\mco{Yes}" "\mco{No}")) ///
     s(fixed, label("Woman fixed effects")) ///
     fragment ///
@@ -87,15 +89,15 @@ esttab exclude* using `tables'/appendix_exclude_abstinence.tex, append ///
 // Observations / number of women
 file open table using `tables'/appendix_exclude_abstinence.tex, write append
 file write table "Observations" _col(56)
-foreach res in exclude1 exclude2 exclude3 exclude4 exclude5 exclude6  {
+foreach res in `models'  {
     est restore `res'
     file write table "&    \mco{`e(N)'}        "
 }
 file write table "\\ " _n
 file write table "Number of women" _col(56)
-foreach res in exclude1 exclude2 exclude3 exclude4 exclude5 exclude6 {
+foreach res in `models' {
     est restore `res'
-    loc numWomen = `e(N)' /  4
+    loc numWomen = `e(N_g)'
     file write table "&    \mco{`numWomen'}        "
 }
 file write table "\\ " _n
@@ -107,7 +109,7 @@ file write table "All models are linear probability models." _n
 file write table "Robust standard errors clustered at household level in parentheses; " _n
 file write table "* significant at 10\%; ** significant at 5\%; *** significant at 1\%." _n
 file write table "Crop loss is a dummy for a per capita crop loss of `labCroploss'." _n
-file write table "Initial assets are assets per capita in round 1 of the survey and are measured in `labAsset'." _n
+// file write table "Initial assets are assets per capita in round 1 of the survey and are measured in `labAsset'." _n
 file write table "\item[a] Some women who used rhythm or withdrawal also used abstinence or modern contraceptives." _n
 file write table "\end{tablenotes}" _n
 file write table "\end{threeparttable}" _n

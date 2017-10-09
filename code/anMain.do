@@ -57,6 +57,40 @@ eststo d_br_1: xtreg birth croplostdummy_lag  pass3 pass4 , fe cluster(id_hh)
 estadd local fixed "\mco{Yes}" , replace
 
 
+// Testing coefficients across models - need to use OLS for this and then suest
+// see http://www.stata.com/statalist/archive/2011-01/msg00507.html
+// and http://www.stata.com/statalist/archive/2006-06/msg00837.html
+// dof correction has no impact, probably because suest takes account of the clustering
+xtreg birth croplostdummy_lag  pass3 pass4 , fe cluster(id_hh)
+// xtreg birth croplostdummy_lag  pass3 pass4 , fe
+// loc dof = `e(df_r)'
+by id_person: center birth croplostdummy_lag  pass3 pass4 if e(sample)
+// reg c_birth c_croplostdummy_lag  c_pass3 c_pass4, dof(`dof')  nocons 
+reg c_birth c_croplostdummy_lag  c_pass3 c_pass4,   nocons 
+est store fe_birth
+
+xtreg pregnant croplostdummy  pass2 pass3 pass4 , fe cluster(id_hh)
+// xtreg pregnant croplostdummy  pass2 pass3 pass4 , fe 
+// loc dof = `e(df_r)'
+by id_person: center pregnant croplostdummy  pass2 pass3 pass4 if e(sample) , prefix(d_)
+// reg d_pregnant d_croplostdummy  d_pass2 d_pass3 d_pass4, dof(`dof') nocons 
+reg d_pregnant d_croplostdummy  d_pass2 d_pass3 d_pass4,  nocons 
+est store fe_pregnant
+
+xtreg contra_any croplostdummy  pass2 pass3 pass4 , fe cluster(id_hh)
+// xtreg contra_any croplostdummy  pass2 pass3 pass4 , fe 
+// loc dof = `e(df_r)'
+by id_person: center contra_any croplostdummy  pass2 pass3 pass4 if e(sample) , prefix(e_)
+// reg e_contra_any e_croplostdummy  e_pass2 e_pass3 e_pass4 , dof(`dof')  nocons 
+reg e_contra_any e_croplostdummy  e_pass2 e_pass3 e_pass4 ,  nocons 
+est store fe_contra
+
+suest fe_birth fe_pregnant fe_contra , cluster(id_hh)
+
+test [fe_birth_mean]c_croplostdummy_lag = [fe_pregnant_mean]d_croplostdummy
+test [fe_birth_mean]c_croplostdummy_lag = -[fe_contra_mean]e_croplostdummy
+test [fe_contra_mean]e_croplostdummy = -[fe_pregnant_mean]d_croplostdummy
+
 
 /////////////////////////////////////////////////
 // Tables                                      //
@@ -69,6 +103,7 @@ estadd local fixed "\mco{Yes}" , replace
 file open table using `tables'/main_pregnant_birth.tex, write replace
 file write table "\begin{table}[htbp]" _n
 file write table "\begin{center}" _n
+file write table "\begin{footnotesize}" _n
 file write table "\begin{threeparttable}" _n
 file write table "\caption{The Effects of Crop Loss on Pregnancy and Births}" _n
 file write table "\label{tab:birth}" _n
@@ -169,7 +204,7 @@ foreach res in lpm_pr_0 lpm_pr_1 d_pr_1 lpm_br_0 lpm_br_1  d_br_1  {
 file write table "\\ " _n
 file write table "\bottomrule" _n
 file write table "\end{tabular}" _n
-file write table "\begin{tablenotes} \footnotesize" _n
+file write table "\begin{tablenotes} \scriptsize" _n
 file write table "\item \hspace*{-0.5em} \textbf{Note.}" _n
 file write table "All models are linear probability models." _n
 file write table "Robust standard errors clustered at household level in parentheses; " _n
@@ -177,6 +212,7 @@ file write table "* significant at 10\%; ** significant at 5\%; *** significant 
 file write table "Crop loss is a dummy for a per capita crop loss of `labCroploss'." _n
 file write table "\end{tablenotes}" _n
 file write table "\end{threeparttable}" _n
+file write table "\end{footnotesize}" _n
 file write table "\end{center}" _n
 file write table "\end{table}" _n
 file close table
@@ -290,7 +326,7 @@ file open table using `tables'/appendix_pregnant_birth.tex, write replace
 
 file write table "\begin{table}[htbp]" _n
 file write table "\begin{center}" _n
-file write table "\begin{small}" _n
+file write table "\begin{footnotesize}" _n
 file write table "\begin{threeparttable}" _n
 file write table "\caption{Full OLS and Community Fixed Effects Results for Fertility Outcomes}" _n
 file write table "\label{tab:ols_fertility}" _n
@@ -347,7 +383,7 @@ foreach res in lpm_pr_0 lpm_pr_1 lpm_br_0 lpm_br_1 {
 file write table "\\ " _n
 file write table "\bottomrule" _n
 file write table "\end{tabular}" _n
-file write table "\begin{tablenotes} \footnotesize" _n
+file write table "\begin{tablenotes} \scriptsize" _n
 file write table "\item \hspace*{-0.5em} \textbf{Note.}" _n
 file write table "All models are linear probability models." _n
 file write table "Robust standard errors clustered at household level in parentheses; " _n
@@ -355,7 +391,7 @@ file write table "* significant at 10\%; ** significant at 5\%; *** significant 
 file write table "Crop loss is a dummy for a per capita crop loss of `labCroploss'." _n
 file write table "\end{tablenotes}" _n
 file write table "\end{threeparttable}" _n
-file write table "\end{small}" _n
+file write table "\end{footnotesize}" _n
 file write table "\end{center}" _n
 file write table "\end{table}" _n
 file close table

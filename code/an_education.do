@@ -70,7 +70,7 @@ estadd local fixed "\mco{Yes}" , replace
 file open table using `tables'/appendix_education.tex, write replace
 file write table "\begin{table}[htbp]" _n
 file write table "\begin{center}" _n
-file write table "\begin{small}" _n
+file write table "\begin{footnotesize}" _n
 file write table "\begin{threeparttable}" _n
 file write table "\caption{The Effects of Crop Loss on Contraceptives Use by Education Level}" _n
 file write table "\label{tab:education}" _n
@@ -186,7 +186,7 @@ file write table "\\ " _n
 
 file write table "\bottomrule" _n
 file write table "\end{tabular}" _n
-file write table "\begin{tablenotes} \footnotesize" _n
+file write table "\begin{tablenotes} \scriptsize" _n
 file write table "\item \hspace*{-0.5em} \textbf{Note.}" _n
 file write table "All models are linear probability models." _n
 file write table "Robust standard errors clustered at household level in parentheses; " _n
@@ -196,7 +196,7 @@ file write table "Women for whom we do not have information on the education of 
 file write table "husband/partner are dropped for the lower panel." _n
 file write table "\end{tablenotes}" _n
 file write table "\end{threeparttable}" _n
-file write table "\end{small}" _n
+file write table "\end{footnotesize}" _n
 file write table "\end{center}" _n
 file write table "\end{table}" _n
 file close table

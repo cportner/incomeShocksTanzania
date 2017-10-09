@@ -40,6 +40,8 @@ estadd local fixed "\mco{Yes}" , replace
 // Tables                                      //
 /////////////////////////////////////////////////
 
+loc models "reg1 reg3"
+
 file open table using `tables'/appendix_hours.tex, write replace
 file write table "\begin{table}[htbp]" _n
 file write table "\begin{center}" _n
@@ -52,7 +54,7 @@ file write table "\toprule" _n
 file write table "                                                       &\multicolumn{5}{c}{Hours worked by woman} \\ \midrule " _n
 file close table
 
-esttab  using `tables'/appendix_hours.tex, append ///
+esttab `models' using `tables'/appendix_hours.tex, append ///
     fragment ///
 	nogap nolines varwidth(55) label ///
     collabels(none) mlabels(none) eqlabels(none) ///
@@ -70,7 +72,7 @@ file open table using `tables'/appendix_hours.tex, write append
 file write table "\addlinespace" _n 
 file close table
 
-esttab reg* using `tables'/appendix_hours.tex, append ///
+esttab `models' using `tables'/appendix_hours.tex, append ///
     indicate("Wave dummies = pass2 pass3 pass4" , labels("\mco{Yes}" "\mco{No}")) ///
     s(fixed, label("Woman fixed effects")) ///
     fragment ///
@@ -83,13 +85,13 @@ esttab reg* using `tables'/appendix_hours.tex, append ///
 // Observations / number of women
 file open table using `tables'/appendix_hours.tex, write append
 file write table "Observations" _col(56)
-foreach res in reg1 reg2 reg3 reg4 reg5  {
+foreach res in `models'  {
     est restore `res'
     file write table "&    \mco{`e(N)'}        "
 }
 file write table "\\ " _n
 file write table "Number of women" _col(56)
-foreach res in reg1 reg2 reg3 reg4 reg5 {
+foreach res in `models' {
     est restore `res'
     loc numWomen = `e(N_g)'
     file write table "&    \mco{`numWomen'}        "

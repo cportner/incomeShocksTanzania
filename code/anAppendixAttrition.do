@@ -25,7 +25,7 @@ tempvar max_marstat min_age max_age firstWave notEligible maxNotEligible ///
     miss_birth miss_preg miss_cont miss_trad miss_mod miss_crop
 
 by id_person: egen `min_age' = min(ageyr)
-drop if `min_age' < 18
+drop if `min_age' < 17
 by id_person: egen `max_age' = max(ageyr)
 drop if `max_age' > 45
 

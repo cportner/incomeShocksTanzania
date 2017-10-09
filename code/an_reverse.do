@@ -86,19 +86,21 @@ file write table "\begin{small}" _n
 file write table "\begin{threeparttable}" _n
 file write table "\caption{The Association between Prior Fertility and Contraceptive Use and Current Crop Loss}" _n
 file write table "\label{tab:reverse}" _n
-file write table "\begin{tabular}{@{} l D{.}{.}{2.6}  D{.}{.}{2.6} D{.}{.}{2.6} D{.}{.}{2.6} @{}}" _n
+file write table "\begin{tabular}{@{} l D{.}{.}{2.6}  D{.}{.}{2.6}  @{}}" _n
 file write table "\toprule" _n
-file write table "                                                       &\multicolumn{2}{c}{Crop loss - Dummy }& \multicolumn{2}{c}{} \\" _n
-file write table "                                                       &\multicolumn{2}{c}{`labCroploss'}       & \multicolumn{2}{c}{Log crop loss} \\ \midrule" _n
+file write table "                                                       &\multicolumn{1}{c}{Crop loss - Dummy }& \multicolumn{1}{c}{} \\" _n
+file write table "                                                       &\multicolumn{1}{c}{`labCroploss'}       & \multicolumn{1}{c}{Log crop loss} \\ \midrule" _n
 file close table
 
 // Births
 
+loc models "birth1 birth3"
+
 file open table using `tables'/appendix_reverse.tex, write append
-file write table "                                                       & \multicolumn{4}{c}{Prior birth} \\" _n
+file write table "                                                       & \multicolumn{2}{c}{Prior birth} \\" _n
 file close table
 
-esttab birth*  using `tables'/appendix_reverse.tex, append ///
+esttab `models' using `tables'/appendix_reverse.tex, append ///
     fragment ///
 	nogap nolines varwidth(55) label ///
     collabels(none) mlabels(none) eqlabels(none) ///
@@ -112,7 +114,7 @@ file open table using `tables'/appendix_reverse.tex, write append
 file write table "\addlinespace" _n 
 file close table
 
-esttab birth* using `tables'/appendix_reverse.tex, append ///
+esttab `models' using `tables'/appendix_reverse.tex, append ///
     indicate("Wave dummies =  pass4" , labels("\mco{Yes}" "\mco{No}")) ///
     s(fixed, label("Woman fixed effects")) ///
     fragment ///
@@ -125,13 +127,13 @@ esttab birth* using `tables'/appendix_reverse.tex, append ///
 // Observations / number of women
 file open table using `tables'/appendix_reverse.tex, write append
 file write table "Observations" _col(56)
-foreach res in birth1 birth2 birth3 birth4  {
+foreach res in `models'  {
     est restore `res'
     file write table "&    \mco{`e(N)'}        "
 }
 file write table "\\ " _n
 file write table "Number of women" _col(56)
-foreach res in birth1 birth2 birth3 birth4 {
+foreach res in `models' {
     est restore `res'
     loc numWomen = `e(N_g)'
     file write table "&    \mco{`numWomen'}        "
@@ -142,12 +144,14 @@ file close table
 
 // Pregnancies
 
+loc models "preg1 preg3"
+
 file open table using `tables'/appendix_reverse.tex, write append
 file write table "\addlinespace" _n 
-file write table "                                                       & \multicolumn{4}{c}{Prior pregnancy} \\" _n
+file write table "                                                       & \multicolumn{2}{c}{Prior pregnancy} \\" _n
 file close table
 
-esttab preg*  using `tables'/appendix_reverse.tex, append ///
+esttab `models'  using `tables'/appendix_reverse.tex, append ///
     fragment ///
 	nogap nolines varwidth(55) label ///
     collabels(none) mlabels(none) eqlabels(none) ///
@@ -161,7 +165,7 @@ file open table using `tables'/appendix_reverse.tex, write append
 file write table "\addlinespace" _n 
 file close table
 
-esttab preg* using `tables'/appendix_reverse.tex, append ///
+esttab `models' using `tables'/appendix_reverse.tex, append ///
     indicate("Wave dummies = pass3 pass4" , labels("\mco{Yes}" "\mco{No}")) ///
     s(fixed, label("Woman fixed effects")) ///
     fragment ///
@@ -174,13 +178,13 @@ esttab preg* using `tables'/appendix_reverse.tex, append ///
 // Observations / number of women
 file open table using `tables'/appendix_reverse.tex, write append
 file write table "Observations" _col(56)
-foreach res in preg1 preg2 preg3 preg4  {
+foreach res in `models'  {
     est restore `res'
     file write table "&    \mco{`e(N)'}        "
 }
 file write table "\\ " _n
 file write table "Number of women" _col(56)
-foreach res in preg1 preg2 preg3 preg4 {
+foreach res in `models' {
     est restore `res'
     loc numWomen = `e(N_g)'
     file write table "&    \mco{`numWomen'}        "
@@ -191,12 +195,14 @@ file close table
 
 // Contraception
 
+loc models "contra1 contra3"
+
 file open table using `tables'/appendix_reverse.tex, write append
 file write table "\addlinespace" _n 
-file write table "                                                       & \multicolumn{4}{c}{Prior contraception use} \\" _n
+file write table "                                                       & \multicolumn{2}{c}{Prior contraception use} \\" _n
 file close table
 
-esttab contra*  using `tables'/appendix_reverse.tex, append ///
+esttab `models'  using `tables'/appendix_reverse.tex, append ///
     fragment ///
 	nogap nolines varwidth(55) label ///
     collabels(none) mlabels(none) eqlabels(none) ///
@@ -210,7 +216,7 @@ file open table using `tables'/appendix_reverse.tex, write append
 file write table "\addlinespace" _n 
 file close table
 
-esttab contra* using `tables'/appendix_reverse.tex, append ///
+esttab `models' using `tables'/appendix_reverse.tex, append ///
     indicate("Wave dummies = pass3 pass4" , labels("\mco{Yes}" "\mco{No}")) ///
     s(fixed, label("Woman fixed effects")) ///
     fragment ///
@@ -223,13 +229,13 @@ esttab contra* using `tables'/appendix_reverse.tex, append ///
 // Observations / number of women
 file open table using `tables'/appendix_reverse.tex, write append
 file write table "Observations" _col(56)
-foreach res in contra1 contra2 contra3 contra4  {
+foreach res in `models'  {
     est restore `res'
     file write table "&    \mco{`e(N)'}        "
 }
 file write table "\\ " _n
 file write table "Number of women" _col(56)
-foreach res in contra1 contra2 contra3 contra4 {
+foreach res in `models' {
     est restore `res'
     loc numWomen = `e(N_g)'
     file write table "&    \mco{`numWomen'}        "
@@ -251,7 +257,7 @@ file write table "Robust standard errors clustered at household level in parenth
 file write table "* significant at 10\%; ** significant at 5\%; *** significant at 1\%." _n
 file write table "Crop loss is a dummy for a per capita crop loss of `labCroploss'." _n
 file write table "Log crop loss is log per capita crop loss plus 1." _n
-file write table "Initial assets are assets per capita in round 1 of the survey and are measured in `labAsset'." _n
+// file write table "Initial assets are assets per capita in round 1 of the survey and are measured in `labAsset'." _n
 file write table "\end{tablenotes}" _n
 file write table "\end{threeparttable}" _n
 file write table "\end{small}" _n

@@ -60,7 +60,7 @@ loc models "d_pr_1 d_br_1 d_ca_1 d_ct_1 d_cm_1"
 file open table using `tables'/appendix_timevarying.tex, write replace
 file write table "\begin{table}[htbp]" _n
 file write table "\begin{center}" _n
-file write table "\begin{small}" _n
+file write table "\begin{footnotesize}" _n
 file write table "\begin{threeparttable}" _n
 file write table "\caption{The Effects of Other Time Varying Variables}" _n
 file write table "\label{tab:timevarying}" _n
@@ -115,7 +115,7 @@ foreach res in `models' {
 file write table "\\ " _n
 file write table "\bottomrule" _n
 file write table "\end{tabular}" _n
-file write table "\begin{tablenotes} \footnotesize" _n
+file write table "\begin{tablenotes} \tiny" _n
 file write table "\item \hspace*{-0.5em} \textbf{Note.}" _n
 file write table "All models are linear probability models." _n
 file write table "Robust standard errors clustered at household level in parentheses; " _n
@@ -126,7 +126,7 @@ file write table "\item[b] Price index as provide in the Kagera data. For a desc
 file write table "of how it is calculated see \citet[Appendix II]{Development-Research-Group2004}." _n
 file write table "\end{tablenotes}" _n
 file write table "\end{threeparttable}" _n
-file write table "\end{small}" _n
+file write table "\end{footnotesize}" _n
 file write table "\end{center}" _n
 file write table "\end{table}" _n
 file close table

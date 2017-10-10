@@ -12,7 +12,6 @@ You need the following directories for the code to run:
 - data: derived data files and results
 - figures: generated figures and other figures for paper
 - tables: generated tables
-- staticPDF: map of Kagera region
 
 In addition, the following directories has writing in them:
 

@@ -1,7 +1,6 @@
 # Income Shocks, Contraceptive Use, and Timing of Fertility
 
-**Purpose:** Revise paper for Journal of Development Economics based on comments
-from editor and referees. 
+**Purpose:** Forthcoming paper in Journal of Development Economics 
 
 ## Directory structure
 
